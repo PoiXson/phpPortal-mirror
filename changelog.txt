@@ -1,0 +1,6 @@
+phpPortal 0.1.x - Website Utilities Library
+
+
+2016-05-30 phpUtils 0.1.1
+==========================
+* Moving portal class files from pxn/phpUtils
