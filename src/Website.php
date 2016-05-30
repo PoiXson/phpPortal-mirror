@@ -95,6 +95,21 @@ abstract class Website {
 
 
 
+	public static function getDebugCookieName() {
+		$website_name = '';
+		$website = \pxn\phpUtils\portal\Website::peak();
+		if ($website != NULL) {
+			$website_name = $website->getName();
+		}
+		return \str_replace(
+			'%website%',
+			$website_name,
+			self::DEBUG_COOKIE
+		);
+	}
+
+
+
 	public function getRender() {
 		if ($this->render == NULL) {
 			$renderType = \pxn\phpUtils\Config::getRenderType();
