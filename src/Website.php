@@ -186,7 +186,7 @@ abstract class Website {
 		}
 		// internal page class
 		{
-			$clss = "\\pxn\\phpUtils\\portal\\pages\\page_{$pageName}";
+			$clss = "\\pxn\\phpPortal\\pages\\page_{$pageName}";
 			if (\class_exists($clss, TRUE)) {
 				$this->pageObj = new $clss();
 				return $this->pageObj;
