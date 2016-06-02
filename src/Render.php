@@ -46,12 +46,15 @@ abstract class Render {
 		$twigLoader = new \Twig_Loader_Filesystem(
 			$path
 		);
+		$options = [
+			'debug' => \pxn\phpUtils\debug(),
+		];
+		if (!\pxn\phpUtils\debug()) {
+			$options['cache'] = Paths::getTwigCachePath();
+		}
 		$twig = new \Twig_Environment(
 			$twigLoader,
-			[
-				'debug' => \pxn\phpUtils\debug(),
-				'cache' => Paths::getTwigCachePath()
-			]
+			$options
 		);
 		$this->twigs[$path] = $twig;
 		return $twig;
