@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "pxn/phputils",
-            "version": "0.1.20",
+            "version": "0.1.21",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/phpUtils.git",
-                "reference": "f30e40e85f6868506a387b5270e9f15cfff62a6a"
+                "reference": "1d90782d7839810a98485ac0a626364e18c54a70"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/phpUtils/zipball/f30e40e85f6868506a387b5270e9f15cfff62a6a",
-                "reference": "f30e40e85f6868506a387b5270e9f15cfff62a6a",
+                "url": "https://api.github.com/repos/PoiXson/phpUtils/zipball/1d90782d7839810a98485ac0a626364e18c54a70",
+                "reference": "1d90782d7839810a98485ac0a626364e18c54a70",
                 "shasum": ""
             },
             "require": {
@@ -31,8 +31,7 @@
                 "ext-pdo_mysql": "*",
                 "filp/whoops": "2.1.*",
                 "phpunit/phpunit": "5.*",
-                "symfony/console": "v3.0.*",
-                "twig/twig": "v1.24.*"
+                "symfony/console": "v3.0.*"
             },
             "type": "library",
             "autoload": {
@@ -53,13 +52,13 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Website Utilities Library",
+            "description": "PHP Utilities Library",
             "homepage": "http://poixson.com/",
             "keywords": [
                 "framework",
                 "utilities"
             ],
-            "time": "2016-05-26 06:30:35"
+            "time": "2016-05-30 13:54:17"
         }
     ],
     "packages-dev": [
