@@ -24,7 +24,6 @@ abstract class Website {
 	protected $hasRendered = FALSE;
 
 	protected $pageName     = NULL;
-	protected $pageDefault  = 'home';
 	protected $pageObj      = NULL;
 	protected $pageContents = NULL;
 	protected $args         = [];
@@ -157,7 +156,7 @@ abstract class Website {
 		if ($this->pageName != NULL) {
 			return San::AlphaNum($this->pageName);
 		}
-		return San::AlphaNum($this->pageDefault);
+		return San::AlphaNum($this->getDefaultPage());
 	}
 	public function getPageObj() {
 		if ($this->pageObj != NULL) {
@@ -217,8 +216,8 @@ abstract class Website {
 
 
 
-	public function setDefaultPage($pageName) {
-		$this->pageDefault = $pageName;
+	public function getDefaultPage() {
+		return 'home';
 	}
 	public function setPageName($pageName) {
 		$this->pageName = $pageName;
