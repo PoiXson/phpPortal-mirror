@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "pxn/phputils",
-            "version": "0.1.21",
+            "version": "0.1.22",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/phpUtils.git",
-                "reference": "1d90782d7839810a98485ac0a626364e18c54a70"
+                "reference": "eda084090932f88e460fa03a39cae2b5077de991"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/phpUtils/zipball/1d90782d7839810a98485ac0a626364e18c54a70",
-                "reference": "1d90782d7839810a98485ac0a626364e18c54a70",
+                "url": "https://api.github.com/repos/PoiXson/phpUtils/zipball/eda084090932f88e460fa03a39cae2b5077de991",
+                "reference": "eda084090932f88e460fa03a39cae2b5077de991",
                 "shasum": ""
             },
             "require": {
@@ -58,7 +58,7 @@
                 "framework",
                 "utilities"
             ],
-            "time": "2016-05-30 13:54:17"
+            "time": "2016-06-02 21:01:19"
         }
     ],
     "packages-dev": [
