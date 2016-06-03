@@ -58,10 +58,10 @@ class RenderMain extends Render {
 				'<link rel="icon" href="{$iconFile}" type="image/x-icon" />'.$CRLF
 			).
 
-			'<link rel="stylesheet" href="static/main.css" />'.$CRLF.
-			'<link rel="stylesheet" href="static/bootstrap/dist/css/bootstrap.min.css" />'.$CRLF.
-			'<script src="static/jquery/jquery.min.js"></script>'.$CRLF.
-			'<script src="static/bootstrap/dist/js/bootstrap.min.js"></script>'.$CRLF.
+			'<link rel="stylesheet" href="/static/main.css" />'.$CRLF.
+			'<link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css" />'.$CRLF.
+			'<script src="/static/jquery/jquery.min.js"></script>'.$CRLF.
+			'<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>'.$CRLF.
 
 			'<meta http-equiv="refresh" content="2" />'.$CRLF.
 
