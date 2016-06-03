@@ -9,12 +9,15 @@
 namespace pxn\phpPortal\pages;
 
 use pxn\phpUtils\pxdb\dbPool;
+use pxn\phpUtils\pxdb\dbConn;
+
 use pxn\phpUtils\Numbers;
 
 
 abstract class Blog extends \pxn\phpPortal\Page {
 
-	protected $dbName     = 'main';
+	protected static $dbName = 'main';
+
 	protected $dateFormat = \DATE_RFC2822;
 
 
@@ -46,7 +49,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		}
 		$entries = [];
 		$rowNum = 0;
-		while ($db->Next()) {
+		while ($db->hasNext()) {
 			$rowNum++;
 			$timestamp = $db->getInt('timestamp');
 			$timeNow = \time();
@@ -56,11 +59,12 @@ abstract class Blog extends \pxn\phpPortal\Page {
 				: '';
 			$entry = [
 				'rowNum'        => $rowNum,
+				'id'            => $db->getInt('entry_id'),
 				'title'         => $db->getString('title'),
 				'body'          => $db->getString('body'),
 				'dateFormatted' => \date($this->dateFormat, $timestamp),
 				'timeSinceText' => $timeSinceStr,
-				'commentCount'  => $db->getInt('comments')
+				'commentCount'  => $db->getInt('comment_count')
 			];
 			$entries[] = $entry;
 		}
@@ -68,17 +72,27 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		return $entries;
 	}
 	protected function doQuery() {
-		$db = dbPool::get($this->dbName);
+		$db = dbPool::get(self::$dbName, dbConn::ERROR_MODE_EXCEPTION);
 		if ($db == NULL) {
 			return NULL;
 		}
-		$sql = $this->getSql();
-		$db->Prepare($sql);
-		$db->Execute();
+		try {
+			$sql = $this->getSql();
+			$db->Prepare($sql);
+			$db->Execute();
+		} catch (\PDOException $e) {
+			fail("Query failed: {$sql}", $e);
+			exit(1);
+		}
 		return $db;
 	}
 	protected function getSql() {
-		return "SELECT `title`, `body`, UNIX_TIMESTAMP(`timestamp`) AS `timestamp`, `comments` ".
+		return "SELECT `entry_id`, `title`, `body`, `comment_count`, ".
+			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
+//			"( SELECT COUNT(*) FROM `__TABLE__comments` ".
+//				"WHERE `context` = 'blog' AND ".
+//				"`context_id` = `__TABLE__blog_entries`.`entry_id` ".
+//				") AS `comment_count` ".
 			"FROM `__TABLE__blog_entries` ".
 			"WHERE `timestamp` <= NOW() ".
 			"ORDER BY `timestamp` DESC, `entry_id` DESC ".
