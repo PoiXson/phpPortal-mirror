@@ -8,6 +8,8 @@
  */
 namespace pxn\phpPortal\pages;
 
+use pxn\phpPortal\Website;
+
 use pxn\phpUtils\pxdb\dbPool;
 use pxn\phpUtils\pxdb\dbConn;
 
@@ -24,7 +26,11 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 	public function getPageContents() {
 		$tpl = $this->getBlogTpl();
-		$entries = $this->getEntries();
+		$entryId = (int) Website::get()->getArg(1);
+		if ($entryId <= 0) {
+			$entryId = NULL;
+		}
+		$entries = $this->getEntries($entryId);
 		if ($entries == NULL) {
 			fail('Failed to get blog entries!');
 			exit(1);
@@ -42,8 +48,8 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 
 
-	protected function getEntries() {
-		$db = $this->doQuery();
+	protected function getEntries($entryId=NULL) {
+		$db = $this->doQuery($entryId);
 		if ($db == NULL) {
 			return NULL;
 		}
@@ -71,13 +77,13 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		$db->release();
 		return $entries;
 	}
-	protected function doQuery() {
+	protected function doQuery($entryId=NULL) {
 		$db = dbPool::get(self::$dbName, dbConn::ERROR_MODE_EXCEPTION);
 		if ($db == NULL) {
 			return NULL;
 		}
 		try {
-			$sql = $this->getSql();
+			$sql = $this->getSql($entryId);
 			$db->Prepare($sql);
 			$db->Execute();
 		} catch (\PDOException $e) {
@@ -86,7 +92,8 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		}
 		return $db;
 	}
-	protected function getSql() {
+	protected function getSql($entryId=NULL) {
+		$entryId = (int) $entryId;
 		return "SELECT `entry_id`, `title`, `body`, `comment_count`, ".
 			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
 //			"( SELECT COUNT(*) FROM `__TABLE__comments` ".
@@ -95,6 +102,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 //				") AS `comment_count` ".
 			"FROM `__TABLE__blog_entries` ".
 			"WHERE `timestamp` <= NOW() ".
+			( $entryId > 0 ? "AND `entry_id` = {$entryId} " : '' ).
 			"ORDER BY `timestamp` DESC, `entry_id` DESC ".
 			"LIMIT 5";
 	}
