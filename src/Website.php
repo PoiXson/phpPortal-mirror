@@ -231,6 +231,9 @@ abstract class Website {
 		}
 		return $default;
 	}
+	public function getArgs() {
+		return $this->args;
+	}
 
 
 
