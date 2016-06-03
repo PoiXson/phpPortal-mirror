@@ -101,4 +101,52 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 
 
+	public static function UpdateCommentCounts($entry_id=NULL) {
+		if ($entry_id !== NULL) {
+			$entry_id = (int) $entry_id;
+			if ($entry_id <= 0) {
+				$funcName = __function__;
+				fail("Invalid entry_id provided to {$funcName} function: {$entry_id}");
+				exit(1);
+			}
+		}
+		$dbQuery  = dbPool::get(self::$dbName, dbConn::ERROR_MODE_EXCEPTION);
+		$dbUpdate = dbPool::get(self::$dbName, dbConn::ERROR_MODE_EXCEPTION);
+		try {
+			$sql = "SELECT `entry_id` FROM `__TABLE__blog_entries`";
+			$dbQuery->Execute($sql);
+			$count = 0;
+			while ($dbQuery->hasNext()) {
+				$id = $dbQuery->getInt('entry_id');
+				if ($id <= 0) {
+					fail('Invalid entry_id value in blog_entries table!');
+					exit(1);
+				}
+				try {
+					$sql = "UPDATE `__TABLE__blog_entries` SET ".
+						"`comment_count` = ( ".
+							"SELECT COUNT(*) FROM `__TABLE__comments` ".
+							"WHERE `context` = 'blog' AND `context_id` = :id ".
+						") ".
+						"WHERE `entry_id` = :id LIMIT 1";
+					$dbUpdate->Prepare($sql);
+					$dbUpdate->setInt(':id', $id);
+					$dbUpdate->Execute();
+				} catch (\PDOException $e) {
+					fail("Query failed: {$sql}", $e);
+					exit(1);
+				}
+				$dbUpdate->clean();
+				$count++;
+			}
+		} catch (\PDOException $e) {
+			fail("Query failed: {$sql}", $e);
+			exit(1);
+		}
+		$dbUpdate->release();
+		$dbQuery->release();
+	}
+
+
+
 }
