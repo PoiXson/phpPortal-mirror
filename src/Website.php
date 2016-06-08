@@ -172,14 +172,8 @@ abstract class Website {
 		}
 		// website page class
 		{
-			$reflection = new \ReflectionClass(self::get());
-			$clss = $reflection->getName();
-			$array = \explode('\\', $clss);
-			\array_pop($array);
-			$array[] = 'pages';
-			$array[] = "page_{$pageName}";
-			$clss = implode($array, '\\');
-			$clss = Strings::ForceStartsWith($clss, '\\');
+			$namespace = self::getSiteNamespace();
+			$clss = "{$namespace}\\pages\\page_{$pageName}";
 			if (\class_exists($clss, TRUE)) {
 				$this->pageObj = new $clss();
 				return $this->pageObj;
@@ -214,6 +208,21 @@ abstract class Website {
 			$this->pageContents = $pageObj->getPageContents();
 		}
 		return $this->pageContents;
+	}
+
+
+
+	public static function getSiteNamespace() {
+		$reflect = new \ReflectionClass(self::get());
+		$namespace = $reflect->getName();
+		$pos = \strrpos($namespace, '\\');
+		if ($pos === FALSE || $pos < 3) {
+			fail("Invalid website class namespace: {$namespace}");
+			exit(1);
+		}
+		$namespace = \substr($namespace, 0, $pos);
+		$namespace = Strings::ForceStartsWith($namespace, '\\');
+		return $namespace;
 	}
 
 
