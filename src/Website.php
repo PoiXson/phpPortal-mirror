@@ -52,7 +52,9 @@ abstract class Website {
 			foreach ($array as $f) {
 				if ($f == '.' || $f == '..')
 					continue;
-				if (!Strings::StartsWith($f, '.htdb'))
+				if (!Strings::EndsWith($f, '.php'))
+					continue;
+				if (!Strings::StartsWith($f, '.htdb.'))
 					continue;
 				include(Strings::BuildPath($path, $f));
 			}
