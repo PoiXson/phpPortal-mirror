@@ -26,6 +26,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		$entries = $this->getQueriesClass()
 			->getEntries($entryId);
 		if ($entries == NULL) {
+		if ($entries === NULL) {
 			fail('Failed to get blog entries!');
 			exit(1);
 		}
