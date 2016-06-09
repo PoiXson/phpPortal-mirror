@@ -19,13 +19,14 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 
 	public function getPageContents() {
+//$pool = \pxn\phpUtils\pxdb\dbPool::getPool();
+//$pool->UpdateTables();
 //self::UpdateCommentCounts(); exit(1);
 		$tpl = $this->getBlogTpl();
 		$website = Website::get();
 		$entryId = (int) $website->getArg(1);
-		$entries = $this->getQueriesClass()
-			->getEntries($entryId);
-		if ($entries == NULL) {
+		$queries = $this->getQueriesClass();
+		$entries = $queries->getEntries($entryId);
 		if ($entries === NULL) {
 			fail('Failed to get blog entries!');
 			exit(1);
