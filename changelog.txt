@@ -1,6 +1,13 @@
 phpPortal 0.1.x - Website Utilities Library
 
 
+2016-06-08 phpUtils 0.1.3
+==========================
+* added Blog page classes (unfinished, but mostly working)
+* fixed disabling twig caching when in debug mode
+* added getArgs() and getSiteNamespace() functions to Website class
+
+
 2016-06-02 phpUtils 0.1.2
 ==========================
 * added Website, Render, and Page classes
