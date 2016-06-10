@@ -38,7 +38,7 @@ class Blog_Queries {
 	public function getPaginate($pageNum) {
 		$perPage   = Numbers::MinMax( (int) $this->perPage, 1, 1000);
 		$pageCount = $this->getPageCount();
-		if ($pageCount == NULL) {
+		if ($pageCount === NULL) {
 			return NULL;
 		}
 		if ($pageNum > $pageCount) {
@@ -54,7 +54,7 @@ class Blog_Queries {
 	}
 	public function getPageCount() {
 		$entryCount = $this->getEntryCount();
-		if ($entryCount == NULL) {
+		if ($entryCount === NULL) {
 			return NULL;
 		}
 		$perPage = Numbers::MinMax( (int) $this->perPage, 1, 1000);
@@ -72,9 +72,6 @@ class Blog_Queries {
 			},
 			'blog_entry_count'
 		);
-		if (empty($count)) {
-			return NULL;
-		}
 		return (int) $count;
 	}
 	protected function _getEntryCount() {
