@@ -14,6 +14,7 @@ use pxn\phpUtils\pxdb\dbPool;
 use pxn\phpUtils\pxdb\dbConn;
 
 use pxn\phpUtils\Numbers;
+use pxn\phpUtils\cache\cacher_filesystem;
 
 
 class Blog_Queries {
@@ -60,6 +61,25 @@ class Blog_Queries {
 		return $pageCount;
 	}
 	public function getEntryCount() {
+		// load cacher
+		$cacher = new cacher_filesystem(
+			60,
+			\pxn\phpUtils\Paths::getCacherPath()
+		);
+		// get cache entry
+		$count = $cacher->getEntry(
+			// new cache entry
+			function () {
+				return $this->_getEntryCount();
+			},
+			'blog_entry_count'
+		);
+		if (empty($count)) {
+			return NULL;
+		}
+		return (int) $count;
+	}
+	protected function _getEntryCount() {
 		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		if ($db == NULL) {
 			return NULL;
