@@ -56,6 +56,19 @@ abstract class Render {
 			$twigLoader,
 			$options
 		);
+		// global vars
+		$twig->addGlobal(
+			'page',
+			[
+				'name' => self::$website->getPageName()
+			]
+		);
+//		// load extensions
+//		{
+//			$extSocial = new Social();
+//			$twig->addExtension($extSocial);
+//		}
+		// ready to use
 		$this->twigs[$path] = $twig;
 		return $twig;
 	}
