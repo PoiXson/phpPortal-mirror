@@ -74,7 +74,7 @@ abstract class Website {
 		if ($this->pageName === NULL && isset($_SERVER['REQUEST_URI'])) {
 			$urlPath = Strings::Trim($_SERVER['REQUEST_URI'], ' ', '/');
 			if (!empty($urlPath)) {
-				$args = \explode('/', $urlPath, 2);
+				$args = \explode('/', $urlPath);
 				if (count($args) >= 1 && !empty($args[0])) {
 					$this->pageName = $args[0];
 					unset($args[0]);
