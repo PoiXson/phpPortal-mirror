@@ -14,6 +14,7 @@ use pxn\phpUtils\pxdb\dbPool;
 use pxn\phpUtils\pxdb\dbConn;
 
 use pxn\phpUtils\Numbers;
+use pxn\phpUtils\System;
 use pxn\phpUtils\cache\cacher_filesystem;
 
 
@@ -230,9 +231,13 @@ class Blog_Queries {
 				exit(1);
 			}
 		}
+		$isShell = System::isShell();
 		$dbQuery  = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		$dbUpdate = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		try {
+			if ($isShell) {
+				echo "\n == Updating comment counts for blog entries..\n";
+			}
 			$sql = "SELECT `entry_id` FROM `__TABLE__blog_entries`";
 			$dbQuery->Execute($sql);
 			$count = 0;
@@ -259,6 +264,9 @@ class Blog_Queries {
 				$dbUpdate->clean();
 				$count++;
 			}
+			if ($isShell) {
+				echo "\nUpdated comment counts for [ {$count} ] blog entries.\n";
+			}
 		} catch (\PDOException $e) {
 			fail("Query failed: {$sql}", $e);
 			exit(1);
@@ -283,8 +291,12 @@ class Blog_Queries {
 		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		$sql = '';
 		try {
+			if ($isShell) {
+				echo "\n == Exporting blog_entries table..\n";
+			}
 			$sql = $this->getExportSQL();
 			$db->Execute($sql);
+			$count = 0;
 			while ($db->hasNext()) {
 				$id = $db->getInt('entry_id');
 				$title = $db->getString('title');
@@ -296,6 +308,7 @@ class Blog_Queries {
 					fail("Failed to open file for writing: {$filePath}");
 					exit(1);
 				}
+				$count++;
 				\fwrite($file, "id:    {$id}\n");
 				\fwrite($file, "time:  {$timestamp}\n");
 				if (!empty($title)) {
@@ -303,6 +316,9 @@ class Blog_Queries {
 				}
 				\fwrite($file, "\n{$body}" );
 				\fclose($file);
+			}
+			if ($isShell) {
+				echo "\nExported [ {$count} ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
 			fail("Query failed: {$sql}", $e);
