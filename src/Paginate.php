@@ -16,6 +16,7 @@ class Paginate {
 
 
 	public static function doPaginate($pageNum, $pageLast, $perPage, $pageWidth=2) {
+		$pageLast  = Numbers::MinMax( (int) $pageLast,  1, 1000);
 		$pageNum   = Numbers::MinMax( (int) $pageNum,   1, $pageLast);
 		$perPage   = Numbers::MinMax( (int) $perPage,   1, 1000);
 		$pageWidth = Numbers::MinMax( (int) $pageWidth, 1, 5);
