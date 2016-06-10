@@ -269,4 +269,54 @@ class Blog_Queries {
 
 
 
+	public function export($filePath=NULL) {
+		if (empty($filePath)) {
+			$path = \pxn\phpUtils\Paths::base();
+			$timestamp = \date('Y-m-d_G-i-s');
+			$filePath = "{$path}/blog_entries-{$timestamp}/";
+		}
+		if (\is_dir($filePath)) {
+			fail("Export directory already exists: {$filePath}");
+			exit(1);
+		}
+		\mkdir($filePath, 0700);
+		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
+		$sql = '';
+		try {
+			$sql = $this->getExportSQL();
+			$db->Execute($sql);
+			while ($db->hasNext()) {
+				$id = $db->getInt('entry_id');
+				$title = $db->getString('title');
+				$body = $db->getString('body');
+				$timestamp = $db->getInt('timestamp');
+				// write export file
+				$file = \fopen("{$filePath}{$id}.txt", 'w');
+				if ($file === FALSE) {
+					fail("Failed to open file for writing: {$filePath}");
+					exit(1);
+				}
+				\fwrite($file, "id:    {$id}\n");
+				\fwrite($file, "time:  {$timestamp}\n");
+				if (!empty($title)) {
+					\fwrite($file, "title: {$title}\n");
+				}
+				\fwrite($file, "\n{$body}" );
+				\fclose($file);
+			}
+		} catch (\PDOException $e) {
+			fail("Query failed: {$sql}", $e);
+			exit(1);
+		}
+		$db->release();
+	}
+	protected function getExportSQL() {
+		return "SELECT `entry_id`, `title`, `body`, ".
+			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
+			"FROM `__TABLE__blog_entries` ".
+			"ORDER BY `timestamp` ASC, `entry_id` ASC ";
+	}
+
+
+
 }
