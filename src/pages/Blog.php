@@ -18,10 +18,30 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 
 
+	public function __construct() {
+		parent::__construct();
+	}
+
+
+
 	public function getPageContents() {
+
+//$cacher = new \pxn\phpUtils\cache\cacher_filesystem();
+//$value = $cacher->getEntry(
+//	function () {
+//		return \date('l jS \of F Y h:i:s A');
+//	},
+//	'test',
+//	11
+//);
+//dump($value);
+//fail('BLOG');
+
 //$pool = \pxn\phpUtils\pxdb\dbPool::getPool();
 //$pool->UpdateTables();
+
 //self::UpdateCommentCounts(); exit(1);
+
 		$tpl = $this->getBlogTpl();
 		$website = Website::get();
 		$entryId = (int) $website->getArg(1);

@@ -63,7 +63,7 @@ class RenderMain extends Render {
 			'<script src="/static/jquery/jquery.min.js"></script>'.$CRLF.
 			'<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>'.$CRLF.
 
-			'<meta http-equiv="refresh" content="2" />'.$CRLF.
+//'<meta http-equiv="refresh" content="2" />'.$CRLF.
 
 			'</head>'.$CRLF.
 			'<body>'.$CRLF;

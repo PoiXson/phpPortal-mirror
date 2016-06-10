@@ -18,7 +18,7 @@ use pxn\phpUtils\Numbers;
 
 class Blog_Queries {
 
-	public $dateFormat = \DATE_RFC2822;
+	public $dateFormat = 'D, d M Y, H:i';
 
 	public $pool = NULL;
 
@@ -78,6 +78,7 @@ class Blog_Queries {
 		}
 		$entries = [];
 		$rowNum = 0;
+		$sql = '';
 		try {
 			$sql = $this->getEntriesSQL($entryId);
 			$db->Prepare($sql);
@@ -111,7 +112,7 @@ class Blog_Queries {
 		$db->release();
 		return $entries;
 	}
-	public function getEntriesSQL($entryId=NULL) {
+	protected function getEntriesSQL($entryId=NULL) {
 		$entryId = (int) $entryId;
 		return "SELECT `entry_id`, `title`, `body`, `comment_count`, ".
 			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
@@ -169,7 +170,7 @@ class Blog_Queries {
 		$db->release();
 		return $comments;
 	}
-	public function getCommentsSQL($entryId=NULL) {
+	protected function getCommentsSQL($entryId=NULL) {
 		$entryId = (int) $entryId;
 		return "SELECT `comment_id`, `body`, `author`, ".
 			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
