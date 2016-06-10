@@ -34,38 +34,54 @@ class Blog_Queries {
 
 
 	public function getPaginate($pageNum) {
+		$perPage   = Numbers::MinMax( (int) $this->perPage, 1, 1000);
+		$pageCount = $this->getPageCount();
+		if ($pageCount == NULL) {
+			return NULL;
+		}
+		if ($pageNum > $pageCount) {
+			$pageNum = $pageCount;
+		}
+		$paginate = Paginate::doPaginate(
+			$pageNum,
+			$pageCount,
+			$perPage,
+			2
+		);
+		return $paginate;
+	}
+	public function getPageCount() {
+		$entryCount = $this->getEntryCount();
+		if ($entryCount == NULL) {
+			return NULL;
+		}
 		$perPage = Numbers::MinMax( (int) $this->perPage, 1, 1000);
+		$pageCount = \ceil( ((double)$entryCount) / ((double)$perPage) );
+		return $pageCount;
+	}
+	public function getEntryCount() {
 		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		if ($db == NULL) {
 			return NULL;
 		}
-		$paginate = [];
+		$entryCount = NULL;
 		$sql = '';
 		try {
-			$sql = $this->getPaginateSQL();
+			$sql = $this->getEntryCountSQL();
 			$db->Execute($sql);
 			if (!$db->hasNext()) {
+				$db->release();
 				return NULL;
 			}
-			$records = $db->getInt('count');
-			$pageCount = \ceil( ((double)$records) / ((double)$perPage) );
-			if ($pageNum > $pageCount) {
-				$pageNum = $pageCount;
-			}
-			$paginate = Paginate::doPaginate(
-				$pageNum,
-				$pageCount,
-				$perPage,
-				2
-			);
+			$entryCount = $db->getInt('count');
 		} catch (\PDOException $e) {
 			fail("Query failed: {$sql}", $e);
 			exit(1);
 		}
 		$db->release();
-		return $paginate;
+		return $entryCount;
 	}
-	protected function getPaginateSQL() {
+	protected function getEntryCountSQL() {
 		return "SELECT count(*) AS `count` FROM `__TABLE__blog_entries` WHERE `timestamp` <= NOW()";
 	}
 
