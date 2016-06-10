@@ -8,6 +8,8 @@
  */
 namespace pxn\phpPortal\pages;
 
+use pxn\phpPortal\Paginate;
+
 use pxn\phpUtils\pxdb\dbPool;
 use pxn\phpUtils\pxdb\dbConn;
 
@@ -26,6 +28,44 @@ class Blog_Queries {
 		if ($pool != NULL) {
 			$this->pool = $pool;
 		}
+	}
+
+
+
+	public function getPaginate($pageNum, $perPage=5) {
+		$perPage = Numbers::MinMax( (int) $perPage, 1, 1000);
+		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
+		if ($db == NULL) {
+			return NULL;
+		}
+		$paginate = [];
+		$sql = '';
+		try {
+			$sql = $this->getPaginateSQL();
+			$db->Execute($sql);
+			if (!$db->hasNext()) {
+				return NULL;
+			}
+			$records = $db->getInt('count');
+			$pageCount = \ceil( ((double)$records) / ((double)$perPage) );
+			if ($pageNum > $pageCount) {
+				$pageNum = $pageCount;
+			}
+			$paginate = Paginate::doPaginate(
+				$pageNum,
+				$pageCount,
+				$perPage,
+				2
+			);
+		} catch (\PDOException $e) {
+			fail("Query failed: {$sql}", $e);
+			exit(1);
+		}
+		$db->release();
+		return $paginate;
+	}
+	protected function getPaginateSQL() {
+		return "SELECT count(*) AS `count` FROM `__TABLE__blog_entries` WHERE `timestamp` <= NOW()";
 	}
 
 

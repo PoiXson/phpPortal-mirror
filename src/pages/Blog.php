@@ -26,7 +26,12 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		$website = Website::get();
 		$entryId = (int) $website->getArg(1);
 		$queries = $this->getQueriesClass();
-		$entries = $queries->getEntries($entryId);
+		$paginate = $queries->getPaginate($pageNum, $perPage);
+		if ($paginate === NULL) {
+			fail('Failed to get blog paginate!');
+			exit(1);
+		}
+		$entries  = $queries->getEntries($entryId);
 		if ($entries === NULL) {
 			fail('Failed to get blog entries!');
 			exit(1);
@@ -36,7 +41,8 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		return $tpl->render([
 			'singleId' => (int) $entryId,
 			'entries'  => $entries,
-			'comments' => $comments
+			'comments' => $comments,
+			'paginate' => $paginate
 		]);
 	}
 
