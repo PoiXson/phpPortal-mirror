@@ -10,11 +10,15 @@ namespace pxn\phpPortal\pages;
 
 use pxn\phpPortal\Website;
 
+use pxn\phpUtils\Numbers;
+
 
 abstract class Blog extends \pxn\phpPortal\Page {
 
 	protected $pool = NULL;
 	protected $queries = NULL;
+
+	protected $perPage = 4;
 
 
 
@@ -44,20 +48,49 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 		$tpl = $this->getBlogTpl();
 		$website = Website::get();
-		$entryId = (int) $website->getArg(1);
+		// get url args
+		$entryId = NULL;
+		$pageNum = NULL;
+		$arg1 = $website->getArg(1);
+		if (!empty($arg1)) {
+			$args = $website->getArgs();
+			for ($i=1; $i<count($args); $i++) {
+				if (!isset($args[$i+1]))
+					break;
+				$arg1 = \strtolower($args[$i]);
+				$arg2 = $args[++$i];
+				if (!Numbers::isNumber($arg2))
+					continue;
+				if ($arg1 == 'page') {
+					$pageNum = (int) $arg2;
+				} else
+				if ($arg1 == 'entry') {
+					$entryId = (int) $arg2;
+				}
+			}
+		}
 		$queries = $this->getQueriesClass();
-		$paginate = $queries->getPaginate($pageNum, $perPage);
+		$paginate = $queries->getPaginate(
+			$pageNum,
+			$this->perPage
+		);
 		if ($paginate === NULL) {
 			fail('Failed to get blog paginate!');
 			exit(1);
 		}
-		$entries  = $queries->getEntries($entryId);
+		$entries = $queries->getEntries(
+			$pageNum,
+			$entryId
+		);
 		if ($entries === NULL) {
 			fail('Failed to get blog entries!');
 			exit(1);
 		}
-		$comments = $this->getQueriesClass()
-			->getComments($entryId);
+		$comments = NULL;
+		if ($entryId != NULL && $entryId > 0) {
+			$comments = $this->getQueriesClass()
+				->getComments($entryId);
+		}
 		return $tpl->render([
 			'singleId' => (int) $entryId,
 			'entries'  => $entries,
@@ -73,7 +106,10 @@ abstract class Blog extends \pxn\phpPortal\Page {
 	}
 	public function getQueriesClass() {
 		if ($this->queries == NULL) {
-			$this->queries = new Blog_Queries($this->pool);
+			$this->queries = new Blog_Queries(
+				$this->pool,
+				$this->perPage
+			);
 		}
 		return $this->queries;
 	}

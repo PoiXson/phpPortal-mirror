@@ -22,18 +22,19 @@ class Blog_Queries {
 
 	public $pool = NULL;
 
+	public $perPage = NULL;
 
 
-	public function __construct($pool) {
-		if ($pool != NULL) {
-			$this->pool = $pool;
-		}
+
+	public function __construct($pool, $perPage) {
+		$this->pool    = $pool;
+		$this->perPage = $perPage;
 	}
 
 
 
-	public function getPaginate($pageNum, $perPage=5) {
-		$perPage = Numbers::MinMax( (int) $perPage, 1, 1000);
+	public function getPaginate($pageNum) {
+		$perPage = Numbers::MinMax( (int) $this->perPage, 1, 1000);
 		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		if ($db == NULL) {
 			return NULL;
@@ -70,7 +71,8 @@ class Blog_Queries {
 
 
 
-	public function getEntries($entryId=NULL) {
+	public function getEntries($pageNum=NULL, $entryId=NULL) {
+		$pageNum = (int) $pageNum;
 		$entryId = (int) $entryId;
 		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		if ($db == NULL) {
@@ -80,12 +82,8 @@ class Blog_Queries {
 		$rowNum = 0;
 		$sql = '';
 		try {
-			$sql = $this->getEntriesSQL($entryId);
-			$db->Prepare($sql);
-			if ($entryId > 0) {
-				$db->setInt(':id', $entryId);
-			}
-			$db->Execute();
+			$sql = $this->getEntriesSQL($pageNum, $entryId);
+			$db->Execute($sql);
 			while ($db->hasNext()) {
 				$rowNum++;
 				$timestamp = $db->getInt('timestamp');
@@ -112,19 +110,27 @@ class Blog_Queries {
 		$db->release();
 		return $entries;
 	}
-	protected function getEntriesSQL($entryId=NULL) {
+	protected function getEntriesSQL($pageNum=NULL, $entryId=NULL) {
+		$pageNum = Numbers::MinMax( (int) $pageNum, 0);
+		$perPage = Numbers::MinMax( (int) $this->perPage, 1, 1000);
 		$entryId = (int) $entryId;
+		$WHERE = '`timestamp` <= NOW()';
+		$LIMIT = '';
+		if ($entryId > 0) {
+			$WHERE .= "AND `entry_id` = {$entryId}";
+		} else {
+			if ($pageNum < 1) {
+				$pageNum = 1;
+			}
+			$from  = ($pageNum - 1) * $perPage;
+			$LIMIT = "LIMIT {$from}, {$perPage}";
+		}
 		return "SELECT `entry_id`, `title`, `body`, `comment_count`, ".
 			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
-//			"( SELECT COUNT(*) FROM `__TABLE__comments` ".
-//				"WHERE `context` = 'blog' AND ".
-//				"`context_id` = `__TABLE__blog_entries`.`entry_id` ".
-//				") AS `comment_count` ".
 			"FROM `__TABLE__blog_entries` ".
-			"WHERE `timestamp` <= NOW() ".
-			( $entryId > 0 ? "AND `entry_id` = :id " : '' ).
+			"WHERE {$WHERE} ".
 			"ORDER BY `timestamp` DESC, `entry_id` DESC ".
-			"LIMIT 5";
+			$LIMIT;
 	}
 
 
