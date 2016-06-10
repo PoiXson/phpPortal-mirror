@@ -10,6 +10,7 @@ namespace pxn\phpPortal;
 
 use pxn\phpUtils\Config;
 use pxn\phpUtils\Defines;
+use pxn\phpUtils\System;
 
 
 class RenderMain extends Render {
@@ -23,6 +24,7 @@ class RenderMain extends Render {
 
 
 	public function doRender() {
+		$isShell = System::isShell();
 		// get page contents
 		$pageContents = self::$website->getPageContents();
 		// get page title
@@ -37,6 +39,18 @@ class RenderMain extends Render {
 				$pageTitle,
 				Config::get(Defines::KEY_SITE_TITLE)
 		);
+
+		// shell mode
+		if ($isShell) {
+			echo "\n";
+//			if (!empty($pageTitle)) {
+//				echo " == Title: {$pageTitle} == \n";
+//			}
+			echo "\n{$pageContents}\n";
+			@\ob_flush();
+			return;
+		}
+
 		$iconFile  = Config::get(Defines::KEY_FAV_ICON);
 		// load template file
 		$tpl = self::$website->getTpl('main');
@@ -67,7 +81,7 @@ class RenderMain extends Render {
 
 			'</head>'.$CRLF.
 			'<body>'.$CRLF;
-		\ob_flush();
+		@\ob_flush();
 		// render with twig
 		echo $tpl->render([
 				'PageContents' => &$pageContents
@@ -75,7 +89,7 @@ class RenderMain extends Render {
 		echo
 			'</body>'.$CRLF.
 			'</html>';
-		\ob_flush();
+		@\ob_flush();
 	}
 
 

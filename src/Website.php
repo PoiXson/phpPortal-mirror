@@ -13,6 +13,7 @@ use pxn\phpUtils\Paths;
 use pxn\phpUtils\Strings;
 use pxn\phpUtils\San;
 use pxn\phpUtils\General;
+use pxn\phpUtils\System;
 use pxn\phpUtils\Defines;
 
 
@@ -59,26 +60,42 @@ abstract class Website {
 				include(Strings::BuildPath($path, $f));
 			}
 		}
-		// get page name from get/post values
-		if (isset($_GET['page']) || isset($_POST['page'])) {
-			$pageName = General::getVar(
+		// shell args
+		if (System::isShell()) {
+			global $argv;
+			if (isset($argv[0])) {
+				unset($argv[0]);
+			}
+			if (isset($argv[1])) {
+				if (!Strings::StartsWith($argv[1], '-')) {
+					$this->setPageName($argv[1]);
+					unset($argv[1]);
+				}
+			}
+			$this->args = \array_values($argv);
+		// web args
+		} else {
+			// get page name from get/post values
+			if (isset($_GET['page']) || isset($_POST['page'])) {
+				$pageName = General::getVar(
 					'page',
 					'str',
 					['get', 'post']
-			);
-			if (!empty($pageName)) {
-				$this->setPageName($pageName);
+				);
+				if (!empty($pageName)) {
+					$this->setPageName($pageName);
+				}
 			}
-		}
-		// get page name from url path
-		if ($this->pageName === NULL && isset($_SERVER['REQUEST_URI'])) {
-			$urlPath = Strings::Trim($_SERVER['REQUEST_URI'], ' ', '/');
-			if (!empty($urlPath)) {
-				$args = \explode('/', $urlPath);
-				if (count($args) >= 1 && !empty($args[0])) {
-					$this->pageName = $args[0];
-					unset($args[0]);
-					$this->args = $args;
+			// get page name from url path
+			if ($this->pageName === NULL && isset($_SERVER['REQUEST_URI'])) {
+				$urlPath = Strings::Trim($_SERVER['REQUEST_URI'], ' ', '/');
+				if (!empty($urlPath)) {
+					$args = \explode('/', $urlPath);
+					if (count($args) >= 1 && !empty($args[0])) {
+						$this->pageName = $args[0];
+						unset($args[0]);
+						$this->args = \array_values($args);
+					}
 				}
 			}
 		}
