@@ -62,10 +62,7 @@ class Blog_Queries {
 	}
 	public function getEntryCount() {
 		// load cacher
-		$cacher = new cacher_filesystem(
-			60,
-			\pxn\phpUtils\Paths::getCacherPath()
-		);
+		$cacher = new cacher_filesystem(60);
 		// get cache entry
 		$count = $cacher->getEntry(
 			// new cache entry
