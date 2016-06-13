@@ -90,7 +90,7 @@ class Blog_Queries {
 			}
 			$entryCount = $db->getInt('count');
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", $e);
+			fail("Query failed: {$sql}", 1, $e);
 			exit(1);
 		}
 		$db->release();
@@ -135,7 +135,7 @@ class Blog_Queries {
 				$entries[] = $entry;
 			}
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", $e);
+			fail("Query failed: {$sql}", 1, $e);
 			exit(1);
 		}
 		$db->release();
@@ -201,7 +201,7 @@ class Blog_Queries {
 				$comments[] = $comment;
 			}
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", $e);
+			fail("Query failed: {$sql}", 1, $e);
 			exit(1);
 		}
 		$db->release();
@@ -265,7 +265,7 @@ class Blog_Queries {
 				echo "\nUpdated comment counts for [ {$count} ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", $e);
+			fail("Query failed: {$sql}", 1, $e);
 			exit(1);
 		}
 		$dbUpdate->release();
