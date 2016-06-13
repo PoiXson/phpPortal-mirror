@@ -29,6 +29,8 @@ abstract class Website {
 	protected $pageContents = NULL;
 	protected $args         = [];
 
+	protected $siteNamespace = NULL;
+
 
 
 	public static function get() {
@@ -230,6 +232,9 @@ abstract class Website {
 
 
 	public static function getSiteNamespace() {
+		if ($this->siteNamespace != NULL) {
+			return $this->siteNamespace;
+		}
 		$reflect = new \ReflectionClass(self::get());
 		$namespace = $reflect->getName();
 		$pos = \strrpos($namespace, '\\');
@@ -239,6 +244,7 @@ abstract class Website {
 		}
 		$namespace = \substr($namespace, 0, $pos);
 		$namespace = Strings::ForceStartsWith($namespace, '\\');
+		$this->siteNamespace = $namespace;
 		return $namespace;
 	}
 
