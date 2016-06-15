@@ -20,6 +20,7 @@ use pxn\phpUtils\Defines;
 abstract class Website {
 
 	protected static $instance = NULL;
+	protected static $siteNamespace = NULL;
 
 	protected $render = NULL;
 	protected $hasRendered = FALSE;
@@ -28,8 +29,6 @@ abstract class Website {
 	protected $pageObj      = NULL;
 	protected $pageContents = NULL;
 	protected $args         = [];
-
-	protected $siteNamespace = NULL;
 
 
 
@@ -232,8 +231,8 @@ abstract class Website {
 
 
 	public static function getSiteNamespace() {
-		if ($this->siteNamespace != NULL) {
-			return $this->siteNamespace;
+		if (self::$siteNamespace != NULL) {
+			return self::$siteNamespace;
 		}
 		$reflect = new \ReflectionClass(self::get());
 		$namespace = $reflect->getName();
@@ -244,7 +243,7 @@ abstract class Website {
 		}
 		$namespace = \substr($namespace, 0, $pos);
 		$namespace = Strings::ForceStartsWith($namespace, '\\');
-		$this->siteNamespace = $namespace;
+		self::$siteNamespace = $namespace;
 		return $namespace;
 	}
 
