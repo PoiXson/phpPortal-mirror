@@ -233,7 +233,7 @@ class Blog_Queries {
 		$dbUpdate = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		try {
 			if ($isShell) {
-				echo "\n == Updating comment counts for blog entries..\n";
+				echo "\n\n == Updating comment counts for blog entries..\n";
 			}
 			$sql = "SELECT `entry_id` FROM `__TABLE__blog_entries`";
 			$dbQuery->Execute($sql);
@@ -261,8 +261,8 @@ class Blog_Queries {
 				$dbUpdate->clean();
 				$count++;
 			}
-			if ($isShell) {
-				echo "\nUpdated comment counts for [ {$count} ] blog entries.\n";
+			if ($isShell && $count > 0) {
+				echo "\n\nUpdated comment counts for [ {$count} ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
 			fail("Query failed: {$sql}", 1, $e);
