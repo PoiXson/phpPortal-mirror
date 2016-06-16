@@ -65,16 +65,44 @@ abstract class Website {
 		// shell args
 		if (System::isShell()) {
 			global $argv;
-			if (isset($argv[0])) {
+			if (\array_key_exists(0, $argv)) {
 				unset($argv[0]);
 			}
-			if (isset($argv[1])) {
-				if (!Strings::StartsWith($argv[1], '-')) {
-					$this->setPageName($argv[1]);
-					unset($argv[1]);
+			if (\count($argv) > 0) {
+				for ($i=1; $i<\count($argv)+1; $i++) {
+					$arg = $argv[$i];
+					// starts with --
+					if (Strings::StartsWith($arg, '--')) {
+						if (\count($argv) <= $i) {
+							fail("value missing from argument: {$arg}");
+							exit(1);
+						}
+						// duplicate arg
+						if (\array_key_exists($arg, $this->args)) {
+							// convert to array
+							if (!\is_array($this->args[$arg])) {
+								$this->args[$arg] = [
+									$this->args[$arg]
+								];
+							}
+							$this->args[$arg][] = $argv[++$i];
+						} else {
+							$this->args[$arg] = $argv[++$i];
+						}
+					} else
+					// starts with -
+					if (Strings::StartsWith($arg, '-')) {
+						$this->args[$arg] = TRUE;
+					} else
+					// page argument
+					if ($i == 1) {
+						$this->setPageName($arg);
+					// plain string
+					} else {
+						$this->args[] = $arg;
+					}
 				}
 			}
-			$this->args = \array_values($argv);
 		// web args
 		} else {
 			// get page name from get/post values
