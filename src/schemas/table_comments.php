@@ -5,7 +5,7 @@
  * @author lorenzo at poixson.com
  * @link http://growcontrol.com/
  */
-namespace pxn\gcWebsite\schemas;
+namespace pxn\phpPortal\schemas;
 
 
 class table_comments implements \pxn\phpUtils\pxdb\dbSchema {
