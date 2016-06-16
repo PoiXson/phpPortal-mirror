@@ -21,6 +21,7 @@ abstract class Website {
 
 	protected static $instance = NULL;
 	protected static $siteNamespace = NULL;
+	//protected static $portalNamespace = NULL;
 
 	protected $render = NULL;
 	protected $hasRendered = FALSE;
@@ -245,6 +246,22 @@ abstract class Website {
 		$namespace = Strings::ForceStartsWith($namespace, '\\');
 		self::$siteNamespace = $namespace;
 		return $namespace;
+	}
+	public static function getPortalNamespace() {
+		return '\\pxn\\phpPortal';
+//		if (Self::$portalNamespace != NULL) {
+//			return self::$portalNamespace;
+//		}
+//		$clss = __CLASS__;
+//		$pos = \strrpos($clss, '\\');
+//		if ($pos === FALSE || $pos < 3) {
+//			fail("Invalid website class namespace: {$clss}");
+//			exit(1);
+//		}
+//		$namespace = \substr($clss, 0, $pos);
+//		$namespace = Strings::ForceStartsWith($namespace, '\\');
+//		self::$portalNamespace = $namespace;
+//		return $namespace;
 	}
 
 
