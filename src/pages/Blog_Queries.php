@@ -20,6 +20,8 @@ use pxn\phpUtils\cache\cacher_filesystem;
 
 class Blog_Queries {
 
+	private static $context = 'blog';
+
 	public $dateFormat = 'D, d M Y, H:i';
 
 	public $pool = NULL;
@@ -178,9 +180,11 @@ class Blog_Queries {
 		$comments = [];
 		$commentNum = 0;
 		try {
+			$context = self::$context;
 			$sql = $this->getCommentsSQL($entryId);
 			$db->Prepare($sql);
 			$db->setInt(':id', $entryId);
+			$db->setString(':context', $context);
 			$db->Execute();
 			while ($db->hasNext()) {
 				$commentNum++;
@@ -212,7 +216,7 @@ class Blog_Queries {
 		return "SELECT `comment_id`, `body`, `author`, ".
 			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
 			"FROM `__TABLE__comments` ".
-			"WHERE `context` = 'blog' AND `context_id` = :id ".
+			"WHERE `context` = :context AND `context_id` = :id ".
 			"ORDER BY `timestamp` DESC, `comment_id` DESC ".
 			"LIMIT 1000";
 	}
@@ -231,6 +235,7 @@ class Blog_Queries {
 		$isShell = System::isShell();
 		$dbQuery  = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
 		$dbUpdate = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
+		$context = self::$context;
 		try {
 			if ($isShell) {
 				echo "\n\n == Updating comment counts for blog entries..\n";
@@ -248,11 +253,12 @@ class Blog_Queries {
 					$sql = "UPDATE `__TABLE__blog_entries` SET ".
 						"`comment_count` = ( ".
 							"SELECT COUNT(*) FROM `__TABLE__comments` ".
-							"WHERE `context` = 'blog' AND `context_id` = :id ".
+							"WHERE `context` = :context AND `context_id` = :id ".
 						") ".
 						"WHERE `entry_id` = :id LIMIT 1";
 					$dbUpdate->Prepare($sql);
 					$dbUpdate->setInt(':id', $id);
+					$dbUpdate->setString(':context', $context);
 					$dbUpdate->Execute();
 				} catch (\PDOException $e) {
 					fail("Query failed: {$sql}", $e);
