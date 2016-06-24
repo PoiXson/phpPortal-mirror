@@ -192,7 +192,7 @@ class Blog_Queries {
 				$sql,
 				"Query comments context: {$context}"
 			);
-			$db->setInt(':id', $entryId);
+			$db->setInt   (':id',      $entryId);
 			$db->setString(':context', $context);
 			$db->Execute();
 			while ($db->hasNext()) {
@@ -272,7 +272,7 @@ class Blog_Queries {
 						$sql,
 						"Updating comment count: {$context} - {$id}"
 					);
-					$dbUpdate->setInt(':id', $id);
+					$dbUpdate->setInt   (':id',      $id);
 					$dbUpdate->setString(':context', $context);
 					$dbUpdate->Execute();
 				} catch (\PDOException $e) {
@@ -283,7 +283,7 @@ class Blog_Queries {
 				$count++;
 			}
 			if ($isShell && $count > 0) {
-				echo "\n\nUpdated comment counts for [ {$count} ] blog entries.\n";
+				echo "Updated comment counts for [ {$count} ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
 			fail("Query failed: {$sql}", 1, $e);
@@ -294,7 +294,7 @@ class Blog_Queries {
 	}
 
 
-
+/*
 	public function export($filePath=NULL) {
 		if (empty($filePath)) {
 			$path = \pxn\phpUtils\Paths::base();
@@ -350,7 +350,7 @@ class Blog_Queries {
 			"FROM `__TABLE__blog_entries` ".
 			"ORDER BY `timestamp` ASC, `entry_id` ASC ";
 	}
-
+*/
 
 
 }
