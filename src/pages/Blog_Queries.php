@@ -85,7 +85,10 @@ class Blog_Queries {
 		$sql = '';
 		try {
 			$sql = $this->getEntryCountSQL();
-			$db->Execute($sql);
+			$db->Execute(
+				$sql,
+				'Query blog entry count'
+			);
 			if (!$db->hasNext()) {
 				$db->release();
 				return NULL;
@@ -116,7 +119,10 @@ class Blog_Queries {
 		$sql = '';
 		try {
 			$sql = $this->getEntriesSQL($pageNum, $entryId);
-			$db->Execute($sql);
+			$db->Execute(
+				$sql,
+				'Query blog entries'
+			);
 			while ($db->hasNext()) {
 				$rowNum++;
 				$timestamp = $db->getInt('timestamp');
@@ -182,7 +188,10 @@ class Blog_Queries {
 		try {
 			$context = self::$context;
 			$sql = $this->getCommentsSQL($entryId);
-			$db->Prepare($sql);
+			$db->Prepare(
+				$sql,
+				"Query comments context: {$context}"
+			);
 			$db->setInt(':id', $entryId);
 			$db->setString(':context', $context);
 			$db->Execute();
@@ -241,7 +250,10 @@ class Blog_Queries {
 				echo "\n\n == Updating comment counts for blog entries..\n";
 			}
 			$sql = "SELECT `entry_id` FROM `__TABLE__blog_entries`";
-			$dbQuery->Execute($sql);
+			$dbQuery->Execute(
+				$sql,
+				'Query blog entry id\'s'
+			);
 			$count = 0;
 			while ($dbQuery->hasNext()) {
 				$id = $dbQuery->getInt('entry_id');
@@ -256,7 +268,10 @@ class Blog_Queries {
 							"WHERE `context` = :context AND `context_id` = :id ".
 						") ".
 						"WHERE `entry_id` = :id LIMIT 1";
-					$dbUpdate->Prepare($sql);
+					$dbUpdate->Prepare(
+						$sql,
+						"Updating comment count: {$context} - {$id}"
+					);
 					$dbUpdate->setInt(':id', $id);
 					$dbUpdate->setString(':context', $context);
 					$dbUpdate->Execute();
