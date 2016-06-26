@@ -266,12 +266,12 @@ abstract class Website {
 		$reflect = new \ReflectionClass(self::get());
 		$clss = $reflect->getName();
 		unset($reflect);
-		$pos = \strrpos($clss, '\\');
+		$pos = \mb_strrpos($clss, '\\');
 		if ($pos === FALSE || $pos < 3) {
 			fail("Invalid website class namespace: {$clss}");
 			exit(1);
 		}
-		$namespace = \substr($clss, 0, $pos);
+		$namespace = \mb_substr($clss, 0, $pos);
 		$namespace = Strings::ForceStartsWith($namespace, '\\');
 		self::$siteNamespace = $namespace;
 		return $namespace;
@@ -282,12 +282,12 @@ abstract class Website {
 //			return self::$portalNamespace;
 //		}
 //		$clss = __CLASS__;
-//		$pos = \strrpos($clss, '\\');
+//		$pos = \mb_strrpos($clss, '\\');
 //		if ($pos === FALSE || $pos < 3) {
 //			fail("Invalid website class namespace: {$clss}");
 //			exit(1);
 //		}
-//		$namespace = \substr($clss, 0, $pos);
+//		$namespace = \mb_substr($clss, 0, $pos);
 //		$namespace = Strings::ForceStartsWith($namespace, '\\');
 //		self::$portalNamespace = $namespace;
 //		return $namespace;

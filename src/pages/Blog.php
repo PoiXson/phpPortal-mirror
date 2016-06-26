@@ -57,7 +57,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 			for ($i=1; $i<count($args); $i++) {
 				if (!isset($args[$i+1]))
 					break;
-				$arg1 = \strtolower($args[$i]);
+				$arg1 = \mb_strtolower($args[$i]);
 				$arg2 = $args[++$i];
 				if (!Numbers::isNumber($arg2))
 					continue;
