@@ -9,16 +9,16 @@
     "packages": [
         {
             "name": "pxn/phputils",
-            "version": "0.1.24",
+            "version": "0.1.25",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/phpUtils.git",
-                "reference": "0913328f596c2bb2a7436615eb89f2b3b5837548"
+                "reference": "75deed6e537b019e8789b003f93369fc9765f9aa"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/phpUtils/zipball/0913328f596c2bb2a7436615eb89f2b3b5837548",
-                "reference": "0913328f596c2bb2a7436615eb89f2b3b5837548",
+                "url": "https://api.github.com/repos/PoiXson/phpUtils/zipball/75deed6e537b019e8789b003f93369fc9765f9aa",
+                "reference": "75deed6e537b019e8789b003f93369fc9765f9aa",
                 "shasum": ""
             },
             "require": {
@@ -31,7 +31,7 @@
                 "ext-pdo_mysql": "*",
                 "filp/whoops": "2.1.*",
                 "phpunit/phpunit": "5.*",
-                "symfony/console": "v3.0.*"
+                "symfony/console": "v3.1.*"
             },
             "type": "library",
             "autoload": {
@@ -58,7 +58,7 @@
                 "framework",
                 "utilities"
             ],
-            "time": "2016-06-10 17:41:47"
+            "time": "2016-06-30 17:30:02"
         }
     ],
     "packages-dev": [
@@ -1918,16 +1918,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.0.7",
+            "version": "v3.0.8",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "382fc9ed852edabd6133e34f8549d7a7d99db115"
+                "reference": "a7abb7153f6d1da47f87ec50274844e246b09d9f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/382fc9ed852edabd6133e34f8549d7a7d99db115",
-                "reference": "382fc9ed852edabd6133e34f8549d7a7d99db115",
+                "url": "https://api.github.com/repos/symfony/console/zipball/a7abb7153f6d1da47f87ec50274844e246b09d9f",
+                "reference": "a7abb7153f6d1da47f87ec50274844e246b09d9f",
                 "shasum": ""
             },
             "require": {
@@ -1974,7 +1974,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-06 15:08:35"
+            "time": "2016-06-29 07:02:21"
         },
         {
             "name": "symfony/polyfill-mbstring",
@@ -2037,16 +2037,16 @@
         },
         {
             "name": "symfony/yaml",
-            "version": "v3.1.1",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/yaml.git",
-                "reference": "c5a7e7fc273c758b92b85dcb9c46149ccda89623"
+                "reference": "2884c26ce4c1d61aebf423a8b912950fe7c764de"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/yaml/zipball/c5a7e7fc273c758b92b85dcb9c46149ccda89623",
-                "reference": "c5a7e7fc273c758b92b85dcb9c46149ccda89623",
+                "url": "https://api.github.com/repos/symfony/yaml/zipball/2884c26ce4c1d61aebf423a8b912950fe7c764de",
+                "reference": "2884c26ce4c1d61aebf423a8b912950fe7c764de",
                 "shasum": ""
             },
             "require": {
@@ -2082,7 +2082,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-14 11:18:07"
+            "time": "2016-06-29 05:41:56"
         },
         {
             "name": "twig/twig",
