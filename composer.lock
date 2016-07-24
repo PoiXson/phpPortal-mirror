@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "5818bb4e7842fc3d202bbd66166c40a9",
-    "content-hash": "6a12131ccecd0204d6700b4307ebd718",
+    "hash": "b425f0f292c9164c5ce5047a45ff020e",
+    "content-hash": "0efb59c4983ee8ca4f33ef274a541a03",
     "packages": [
         {
             "name": "pxn/phputils",
@@ -1918,16 +1918,16 @@
         },
         {
             "name": "symfony/console",
-            "version": "v3.0.8",
+            "version": "v3.1.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/console.git",
-                "reference": "a7abb7153f6d1da47f87ec50274844e246b09d9f"
+                "reference": "747154aa69b0f83cd02fc9aa554836dee417631a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/console/zipball/a7abb7153f6d1da47f87ec50274844e246b09d9f",
-                "reference": "a7abb7153f6d1da47f87ec50274844e246b09d9f",
+                "url": "https://api.github.com/repos/symfony/console/zipball/747154aa69b0f83cd02fc9aa554836dee417631a",
+                "reference": "747154aa69b0f83cd02fc9aa554836dee417631a",
                 "shasum": ""
             },
             "require": {
@@ -1947,7 +1947,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "3.0-dev"
+                    "dev-master": "3.1-dev"
                 }
             },
             "autoload": {
@@ -1974,7 +1974,7 @@
             ],
             "description": "Symfony Console Component",
             "homepage": "https://symfony.com",
-            "time": "2016-06-29 07:02:21"
+            "time": "2016-06-29 07:02:31"
         },
         {
             "name": "symfony/polyfill-mbstring",

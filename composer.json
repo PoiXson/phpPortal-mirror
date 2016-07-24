@@ -44,7 +44,6 @@
 		"51systems/doctrine-encrypt": "v5.0.*",
 		"filp/whoops":     "2.1.*",
 		"twig/twig":       "v1.24.*",
-		"symfony/console": "v3.0.*",
 		"phpunit/phpunit": "5.*"
 	}
 }
