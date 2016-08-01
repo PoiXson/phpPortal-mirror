@@ -45,5 +45,11 @@
 		"filp/whoops":     "2.1.*",
 		"twig/twig":       "v1.24.*",
 		"phpunit/phpunit": "5.*"
+	},
+	"scripts": {
+		"test": "phpunit",
+		"pre-dependencies-solving": "sh symlinks.sh --restore",
+		"post-install-cmd":         "sh symlinks.sh --post-install",
+		"post-update-cmd":          "sh symlinks.sh --post-update"
 	}
 }
