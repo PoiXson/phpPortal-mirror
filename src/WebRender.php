@@ -9,10 +9,15 @@
 namespace pxn\phpPortal;
 
 
-class WebRender extends \pxn\phpUtils\app\Render {
+abstract class WebRender extends \pxn\phpUtils\app\Render {
 
 
 
+	public function doRender() {
+echo "\n\n\n";
+echo "<p>WEB RENDER</p>";
+echo "\n\n\n";
+	}
 
 
 
