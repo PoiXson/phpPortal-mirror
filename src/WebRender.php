@@ -8,12 +8,15 @@
  */
 namespace pxn\phpPortal;
 
+use pxn\phpUtils\Defines;
+use pxn\phpUtils\Paths;
+use pxn\phpUtils\Strings;
 use pxn\phpUtils\System;
 
 
 abstract class WebRender extends \pxn\phpUtils\app\Render {
 
-//	protected $twigs = array();
+	protected $twigs = [];
 
 
 
@@ -26,15 +29,24 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 
 
 
-/*
 	public function getTwig($path) {
+		return self::Twig(
+			$this->twigs,
+			$path
+		);
+	}
+	public function getTpl($filename) {
+		return self::Tpl(
+			$filename
+		);
+	}
+	public static function Twig(&$twigs, $path) {
 		if (!\is_dir($path)) {
-			fail("Template path doesn't exist: {$path}");
-			exit(1);
+			fail("Template path doesn't exist: {$path}"); ExitNow(1);
 		}
 		// existing twig instance
-		if (isset($this->twigs[$path]) && $this->twigs[$path] != NULL) {
-			return $this->twigs[$path];
+		if (isset($twigs[$path]) && $twigs[$path] != NULL) {
+			return $twigs[$path];
 		}
 		// new twig instance
 		$twigLoader = new \Twig_Loader_Filesystem(
@@ -51,22 +63,21 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 			$options
 		);
 		// global vars
-		$twig->addGlobal(
-			'page',
-			[
-				'name' => self::$website->getPageName()
-			]
-		);
+		$app = \pxn\phpUtils\app\App::get();
+		$globalVars = [
+			'name' => $app->getPageName()
+		];
+		$twig->addGlobal('page', $globalVars);
 //		// load extensions
 //		{
 //			$extSocial = new Social();
 //			$twig->addExtension($extSocial);
 //		}
 		// ready to use
-		$this->twigs[$path] = $twig;
+		$twigs[$path] = $twig;
 		return $twig;
 	}
-	public function getTpl($filename) {
+	public static function Tpl(&$twigs, $filename) {
 		$filename = Strings::ForceEndsWith(
 			$filename,
 			Defines::TEMPLATE_EXTENSION
@@ -74,8 +85,9 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 		// exact path
 		if (\file_exists($filename)) {
 			$fileinfo = \pathinfo($filename);
-			$twig = $this->getTwig($fileinfo['dirname']);
+			$twig = self::Twig($twigs, $fileinfo['dirname']);
 			$tpl = $twig->loadTemplate($fileinfo['basename']);
+			unset ($fileinfo);
 			return $tpl;
 		}
 		// website src/html
@@ -85,10 +97,11 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 				'html'
 			);
 			if (\file_exists(Strings::BuildPath($path, $filename))) {
-				$twig = $this->getTwig($path);
+				$twig = self::Twig($twigs, $path);
 				$tpl = $twig->loadTemplate($filename);
 				return $tpl;
 			}
+			unset ($path);
 		}
 		// phpUtils src/html
 		{
@@ -97,15 +110,15 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 				'html'
 			);
 			if (\file_exists(Strings::BuildPath($path, $filename))) {
-				$twig = $this->getTwig($path);
+				$twig = self::Twig($path);
 				$tpl = $twig->loadTemplate($filename);
 				return $tpl;
 			}
+			unset ($path);
 		}
 		fail("Template file not found: {$filename}");
 		return NULL;
 	}
-*/
 
 
 
