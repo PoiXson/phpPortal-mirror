@@ -11,21 +11,11 @@ namespace pxn\phpPortal;
 use pxn\phpUtils\Defines;
 use pxn\phpUtils\Paths;
 use pxn\phpUtils\Strings;
-use pxn\phpUtils\System;
 
 
 abstract class WebRender extends \pxn\phpUtils\app\Render {
 
 	protected $twigs = [];
-
-
-
-	public function doRender() {
-		if (System::isShell()) {
-			$name = $this->getName();
-			fail("Cannot use a WebRender class in this mode! {$name}"); ExitNow(1);
-		}
-	}
 
 
 
