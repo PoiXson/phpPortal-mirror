@@ -8,6 +8,8 @@
  */
 namespace pxn\phpPortal;
 
+use pxn\phpUtils\System;
+
 
 abstract class WebRender extends \pxn\phpUtils\app\Render {
 
@@ -16,9 +18,10 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 
 
 	public function doRender() {
-echo "\n\n\n";
-echo "<p>WEB RENDER</p>";
-echo "\n\n\n";
+		if (System::isShell()) {
+			$name = $this->getName();
+			fail("Cannot use a WebRender class in this mode! {$name}"); ExitNow(1);
+		}
 	}
 
 
