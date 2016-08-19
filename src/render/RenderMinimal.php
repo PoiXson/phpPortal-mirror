@@ -13,12 +13,12 @@ namespace pxn\phpPortal\render;
 //use pxn\phpUtils\System;
 
 
-class RenderMain extends \pxn\phpPortal\WebRender {
+class RenderMinimal extends \pxn\phpPortal\WebRender {
 
 
 
 	public function getName() {
-		return 'main';
+		return 'minimal';
 	}
 
 
