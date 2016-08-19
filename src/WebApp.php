@@ -27,8 +27,8 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$this->registerRender( new \pxn\phpPortal\render\RenderSplash ($this) );
 		$this->registerRender( new \pxn\phpPortal\render\RenderMinimal($this) );
 	}
-	protected function initArgs() {
-	}
+//	protected function initArgs() {
+//	}
 
 
 
