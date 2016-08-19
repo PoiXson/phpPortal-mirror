@@ -11,16 +11,17 @@ namespace pxn\phpPortal;
 
 abstract class Page {
 
-	protected $website = NULL;
+	protected $app = NULL;
 
 
 
-	public function __construct() {
-		$this->website = Website::get();
+	public function __construct(\pxn\phpUtils\app\App $app) {
+		$this->app = $app;
 	}
 
 
 
+	public abstract function getPageTitle();
 	public abstract function getPageContents();
 
 
