@@ -14,10 +14,12 @@ abstract class Commands extends \pxn\phpUtils\app\ShellApp {
 
 
 
-	public function doRender() {
+	protected function doRender() {
 		$args = ShellTools::getArgs();
+		// one or more args
 		if (\count($args) >= 1) {
-			switch ($args[0]) {
+			$arg = \strtolower($args[0]);
+			switch ($arg) {
 
 			// export db tables
 			case 'export':
@@ -29,9 +31,14 @@ echo "\n\n\n<<DO EXPORT>>\n\n\n";
 echo "\n\n\n<<DO IMPORT>>\n\n\n";
 				break;
 
+			// unknown arg
+			default:
+				return FALSE;
 			}
+			$this->setRendered();
+			return TRUE;
 		}
-		$this->setRendered();
+		return FALSE;
 	}
 
 
