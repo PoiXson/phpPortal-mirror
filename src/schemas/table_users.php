@@ -8,11 +8,11 @@
 namespace pxn\phpPortal\schemas;
 
 
-class table_users implements \pxn\phpUtils\pxdb\dbSchema {
+class table_users extends \pxn\phpUtils\pxdb\dbSchema {
 
 
 
-	public function getFields() {
+	public function initFields() {
 		return [
 			'user_id' => [
 				'type' => 'increment',

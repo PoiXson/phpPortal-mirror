@@ -8,11 +8,11 @@
 namespace pxn\phpPortal\schemas;
 
 
-class table_comments implements \pxn\phpUtils\pxdb\dbSchema {
+class table_comments extends \pxn\phpUtils\pxdb\dbSchema {
 
 
 
-	public function getFields() {
+	public function initFields() {
 		return [
 			'comment_id' => [
 				'type' => 'increment',

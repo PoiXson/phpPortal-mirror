@@ -8,11 +8,11 @@
 namespace pxn\phpPortal\schemas;
 
 
-class table_blog_entries implements \pxn\phpUtils\pxdb\dbSchema {
+class table_blog_entries extends \pxn\phpUtils\pxdb\dbSchema {
 
 
 
-	public function getFields() {
+	public function initFields() {
 		return [
 			'entry_id' => [
 				'type' => 'increment',
