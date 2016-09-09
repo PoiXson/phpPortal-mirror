@@ -20,7 +20,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	protected $pageObj      = NULL;
 	protected $pageContents = NULL;
 //	protected $args         = [];
-	protected $twigs = [];
+	protected $globalTwigs = [];
 
 
 
@@ -172,13 +172,13 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 	public function getTwig($path) {
 		return WebRender::Twig(
-			$this->twigs,
+			$this->globalTwigs,
 			$path
 		);
 	}
 	public function getTpl($filename) {
 		return WebRender::Tpl(
-			$this->twigs,
+			$this->globalTwigs,
 			$filename
 		);
 	}
