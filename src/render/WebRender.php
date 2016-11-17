@@ -6,14 +6,14 @@
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
  */
-namespace pxn\phpPortal;
+namespace pxn\phpPortal\render;
 
 use pxn\phpUtils\Defines;
 use pxn\phpUtils\Paths;
 use pxn\phpUtils\Strings;
 
 
-abstract class WebRender extends \pxn\phpUtils\app\Render {
+abstract class WebRender extends \pxn\phpUtils\app\render\Render {
 
 	protected $twigs = [];
 

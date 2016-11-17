@@ -11,7 +11,7 @@ namespace pxn\phpPortal\render;
 use pxn\phpUtils\System;
 
 
-class RenderSplash extends \pxn\phpPortal\WebRender {
+class RenderSplash extends \pxn\phpPortal\render\WebRender {
 
 
 
