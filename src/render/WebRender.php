@@ -42,10 +42,11 @@ abstract class WebRender extends \pxn\phpUtils\app\render\Render {
 		$twigLoader = new \Twig_Loader_Filesystem(
 			$path
 		);
+		$debug = \debug();
 		$options = [
-			'debug' => \pxn\phpUtils\debug(),
+			'debug' => $debug,
 		];
-		if (!\pxn\phpUtils\debug()) {
+		if (!$debug) {
 			$options['cache'] = Paths::getTwigCachePath();
 		}
 		$twig = new \Twig_Environment(
@@ -77,7 +78,7 @@ abstract class WebRender extends \pxn\phpUtils\app\render\Render {
 			$fileinfo = \pathinfo($filename);
 			$twig = self::Twig($twigs, $fileinfo['dirname']);
 			$tpl = $twig->loadTemplate($fileinfo['basename']);
-			unset ($fileinfo);
+			unset($fileinfo);
 			return $tpl;
 		}
 		// website src/html
@@ -91,7 +92,7 @@ abstract class WebRender extends \pxn\phpUtils\app\render\Render {
 				$tpl = $twig->loadTemplate($filename);
 				return $tpl;
 			}
-			unset ($path);
+			unset($path);
 		}
 		// phpUtils src/html
 		{
@@ -104,7 +105,7 @@ abstract class WebRender extends \pxn\phpUtils\app\render\Render {
 				$tpl = $twig->loadTemplate($filename);
 				return $tpl;
 			}
-			unset ($path);
+			unset($path);
 		}
 		fail("Template file not found: {$filename}");
 		return NULL;
