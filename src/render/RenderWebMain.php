@@ -13,7 +13,7 @@ use pxn\phpUtils\Defines;
 use pxn\phpUtils\System;
 
 
-class RenderMain extends \pxn\phpPortal\render\WebRender {
+class RenderWebMain extends \pxn\phpPortal\render\WebRender {
 
 
 

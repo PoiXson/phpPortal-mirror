@@ -27,9 +27,9 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	public function __construct() {
 		parent::__construct();
 		// default render types
-		$this->registerRender( new \pxn\phpPortal\render\RenderMain   ($this) );
-		$this->registerRender( new \pxn\phpPortal\render\RenderSplash ($this) );
-		$this->registerRender( new \pxn\phpPortal\render\RenderMinimal($this) );
+		$this->registerRender( new \pxn\phpPortal\render\RenderWebMain   ($this) );
+		$this->registerRender( new \pxn\phpPortal\render\RenderWebSplash ($this) );
+		$this->registerRender( new \pxn\phpPortal\render\RenderWebMinimal($this) );
 	}
 //	protected function initArgs() {
 //	}
