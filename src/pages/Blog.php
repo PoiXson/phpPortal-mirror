@@ -28,6 +28,9 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 
 
+	public function getPageTitle() {
+		return 'PAGE_TITLE';
+	}
 	public function getPageContents() {
 
 //$cacher = new \pxn\phpUtils\cache\cacher_filesystem();

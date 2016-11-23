@@ -17,6 +17,9 @@ class page_404 {
 
 
 
+	public function getPageTitle() {
+		return 'PAGE_TITLE';
+	}
 	public function getPageContents() {
 		$FailedPage = Website::get()
 			->getArg(Defines::KEY_FAILED_PAGE);
