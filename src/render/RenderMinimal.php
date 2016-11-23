@@ -18,6 +18,9 @@ class RenderMinimal extends \pxn\phpPortal\render\WebRender {
 	public function getName() {
 		return 'minimal';
 	}
+	public function getWeight() {
+		return 10;
+	}
 
 
 

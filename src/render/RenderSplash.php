@@ -18,6 +18,9 @@ class RenderSplash extends \pxn\phpPortal\render\WebRender {
 	public function getName() {
 		return 'splash';
 	}
+	public function getWeight() {
+		return 1;
+	}
 
 
 

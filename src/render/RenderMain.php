@@ -20,6 +20,9 @@ class RenderMain extends \pxn\phpPortal\render\WebRender {
 	public function getName() {
 		return 'main';
 	}
+	public function getWeight() {
+		return 11;
+	}
 
 
 
