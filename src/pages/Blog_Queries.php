@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\pages;
 
 use pxn\phpPortal\Paginate;
@@ -294,7 +294,7 @@ class Blog_Queries {
 	}
 
 
-/*
+/ *
 	public function export($filePath=NULL) {
 		if (empty($filePath)) {
 			$path = \pxn\phpUtils\Paths::base();

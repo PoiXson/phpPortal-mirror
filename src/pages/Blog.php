@@ -8,13 +8,16 @@
  */
 namespace pxn\phpPortal\pages;
 
+/*
 use pxn\phpPortal\Website;
 
 use pxn\phpUtils\Numbers;
+*/
 
 
 abstract class Blog extends \pxn\phpPortal\Page {
 
+/*
 	protected $pool = NULL;
 	protected $queries = NULL;
 
@@ -25,6 +28,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 	public function __construct() {
 		parent::__construct();
 	}
+*/
 
 
 
@@ -32,7 +36,8 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		return 'PAGE_TITLE';
 	}
 	public function getPageContents() {
-
+return '<center><h1>BLOG PAGE CONTENTS</h1></center>';
+/*
 //$cacher = new \pxn\phpUtils\cache\cacher_filesystem();
 //$value = $cacher->getEntry(
 //	function () {
@@ -100,10 +105,12 @@ abstract class Blog extends \pxn\phpPortal\Page {
 			'comments' => $comments,
 			'paginate' => $paginate
 		]);
+*/
 	}
 
 
 
+/*
 	public function getBlogTpl() {
 		return $this->getTpl('blog');
 	}
@@ -116,6 +123,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 		}
 		return $this->queries;
 	}
+*/
 
 
 
