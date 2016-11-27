@@ -17,6 +17,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	const DEFAULT_PAGE_NAME = 'home';
 
 	protected $pageName     = NULL;
+	protected $defaultPage  = NULL;
 	protected $pageObj      = NULL;
 	protected $pageContents = NULL;
 //	protected $args         = [];
@@ -51,7 +52,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			return self::sanPageName( $this->pageName );
 		}
 		return self::sanPageName(
-			$this->getDefaultPageName()
+			$this->getDefaultPage()
 		);
 	}
 	public function setPage($page) {
@@ -72,8 +73,19 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			);
 		}
 	}
-	public function getDefaultPageName() {
+	public function getDefaultPage() {
+		if (!empty($this->defaultPage)) {
+			return $this->defaultPage;
+		}
 		return self::DEFAULT_PAGE_NAME;
+	}
+	public function setDefaultPage($pageName) {
+		$pageName = self::sanPageName($pageName);
+		$this->defaultPage = (
+			empty($pageName)
+			? NULL
+			: $pageName
+		);
 	}
 
 
