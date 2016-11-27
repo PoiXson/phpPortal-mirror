@@ -20,7 +20,6 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	protected $defaultPage  = NULL;
 	protected $pageObj      = NULL;
 	protected $pageContents = NULL;
-//	protected $args         = [];
 	protected $globalTwigs = [];
 
 
@@ -32,15 +31,13 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$this->registerRender( new \pxn\phpPortal\render\RenderWebSplash ($this) );
 		$this->registerRender( new \pxn\phpPortal\render\RenderWebMinimal($this) );
 	}
-//	protected function initArgs() {
-//	}
 
 
 
 	// app weight
 	protected function getWeight() {
 		return System::isShell()
-			? 0
+			? -1
 			: 1000;
 	}
 
