@@ -91,6 +91,7 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 			'</html>';
 
 		@\ob_flush();
+		return TRUE;
 	}
 /*
 		// shell mode

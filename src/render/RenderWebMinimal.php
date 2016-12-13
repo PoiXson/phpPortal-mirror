@@ -30,6 +30,7 @@ class RenderWebMinimal extends \pxn\phpPortal\WebRender {
 			fail("Cannot use a WebRender class in this mode! {$name}"); ExitNow(1);
 		}
 fail('UNFINISHED!'); ExitNow(1);
+		return TRUE;
 	}
 
 
