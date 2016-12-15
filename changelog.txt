@@ -1,6 +1,19 @@
 phpPortal 0.1.x - Website Utilities Library
 
 
+2016-12-14 phpUtils 0.1.5
+==========================
+* removed dependency on php56 - the reason for this incomplete release
+* added caching in Website::getSiteNamespace() function
+* added database schema files for blog_entries, comments, and users
+* renamed Website class to WebApp
+* added WebRender class
+* added get page functions to WebApp class
+* added $app constructor argument to Page class
+* removed symfony console dependency
+* further cleanup and improvements of the library classes
+
+
 2016-06-09 phpUtils 0.1.4
 ==========================
 * added Paginate class
