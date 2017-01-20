@@ -100,7 +100,7 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 		if ($isShell) {
 			echo "\n";
 //			if (!empty($pageTitle)) {
-//				echo " == Title: {$pageTitle} == \n";
+//				echo " == Title: $pageTitle == \n";
 //			}
 			echo "\n{$pageContents}\n";
 			@\ob_flush();

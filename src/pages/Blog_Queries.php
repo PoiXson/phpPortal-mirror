@@ -156,13 +156,13 @@ class Blog_Queries {
 		$WHERE = '`timestamp` <= NOW()';
 		$LIMIT = '';
 		if ($entryId > 0) {
-			$WHERE .= "AND `entry_id` = {$entryId}";
+			$WHERE .= "AND `entry_id` = $entryId";
 		} else {
 			if ($pageNum < 1) {
 				$pageNum = 1;
 			}
 			$from  = ($pageNum - 1) * $perPage;
-			$LIMIT = "LIMIT {$from}, {$perPage}";
+			$LIMIT = "LIMIT {$from}, $perPage";
 		}
 		return "SELECT `entry_id`, `title`, `body`, `comment_count`, ".
 			"UNIX_TIMESTAMP(`timestamp`) AS `timestamp` ".
@@ -190,7 +190,7 @@ class Blog_Queries {
 			$sql = $this->getCommentsSQL($entryId);
 			$db->Prepare(
 				$sql,
-				"Query comments context: {$context}"
+				"Query comments context: $context"
 			);
 			$db->setInt   (':id',      $entryId);
 			$db->setString(':context', $context);
@@ -270,7 +270,7 @@ class Blog_Queries {
 						"WHERE `entry_id` = :id LIMIT 1";
 					$dbUpdate->Prepare(
 						$sql,
-						"Updating comment count: {$context} - {$id}"
+						"Updating comment count: $context - $id"
 					);
 					$dbUpdate->setInt   (':id',      $id);
 					$dbUpdate->setString(':context', $context);
@@ -283,7 +283,7 @@ class Blog_Queries {
 				$count++;
 			}
 			if ($isShell && $count > 0) {
-				echo "Updated comment counts for [ {$count} ] blog entries.\n";
+				echo "Updated comment counts for [ $count ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
 			fail("Query failed: $sql",
@@ -336,7 +336,7 @@ class Blog_Queries {
 				\fclose($file);
 			}
 			if ($isShell) {
-				echo "\nExported [ {$count} ] blog entries.\n";
+				echo "\nExported [ $count ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
 			fail("Query failed: $sql",
