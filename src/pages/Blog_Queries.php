@@ -95,8 +95,8 @@ class Blog_Queries {
 			}
 			$entryCount = $db->getInt('count');
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", 1, $e);
-			exit(1);
+			fail("Query failed: $sql",
+				Defines::EXIT_CODE_INTERNAL_ERROR, $e);
 		}
 		$db->release();
 		return $entryCount;
@@ -143,8 +143,8 @@ class Blog_Queries {
 				$entries[] = $entry;
 			}
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", 1, $e);
-			exit(1);
+			fail("Query failed: $sql",
+				Defines::EXIT_CODE_INTERNAL_ERROR, $e);
 		}
 		$db->release();
 		return $entries;
@@ -214,8 +214,8 @@ class Blog_Queries {
 				$comments[] = $comment;
 			}
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", 1, $e);
-			exit(1);
+			fail("Query failed: $sql",
+				Defines::EXIT_CODE_INTERNAL_ERROR, $e);
 		}
 		$db->release();
 		return $comments;
@@ -237,8 +237,8 @@ class Blog_Queries {
 			$entry_id = (int) $entry_id;
 			if ($entry_id <= 0) {
 				$funcName = __function__;
-				fail("Invalid entry_id provided to {$funcName} function: {$entry_id}");
-				exit(1);
+				fail("Invalid entry_id provided to: $funcName  function: $entry_id",
+					Defines::EXIT_CODE_INTERNAL_ERROR);
 			}
 		}
 		$isShell = System::isShell();
@@ -258,8 +258,8 @@ class Blog_Queries {
 			while ($dbQuery->hasNext()) {
 				$id = $dbQuery->getInt('entry_id');
 				if ($id <= 0) {
-					fail('Invalid entry_id value in blog_entries table!');
-					exit(1);
+					fail('Invalid entry_id value in blog_entries table!',
+						Defines::EXIT_CODE_INTERNAL_ERROR);
 				}
 				try {
 					$sql = "UPDATE `__TABLE__blog_entries` SET ".
@@ -276,8 +276,8 @@ class Blog_Queries {
 					$dbUpdate->setString(':context', $context);
 					$dbUpdate->Execute();
 				} catch (\PDOException $e) {
-					fail("Query failed: {$sql}", $e);
-					exit(1);
+					fail("Query failed: $sql",
+						Defines::EXIT_CODE_INTERNAL_ERROR, $e);
 				}
 				$dbUpdate->clean();
 				$count++;
@@ -286,8 +286,8 @@ class Blog_Queries {
 				echo "Updated comment counts for [ {$count} ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", 1, $e);
-			exit(1);
+			fail("Query failed: $sql",
+				Defines::EXIT_CODE_INTERNAL_ERROR, $e);
 		}
 		$dbUpdate->release();
 		$dbQuery->release();
@@ -302,8 +302,8 @@ class Blog_Queries {
 			$filePath = "{$path}/blog_entries-{$timestamp}/";
 		}
 		if (\is_dir($filePath)) {
-			fail("Export directory already exists: {$filePath}");
-			exit(1);
+			fail("Export directory already exists: $filePath",
+				Defines::EXIT_CODE_INTERNAL_ERROR);
 		}
 		\mkdir($filePath, 0700);
 		$db = dbPool::get($this->pool, dbConn::ERROR_MODE_EXCEPTION);
@@ -323,8 +323,8 @@ class Blog_Queries {
 				// write export file
 				$file = \fopen("{$filePath}{$id}.txt", 'w');
 				if ($file === FALSE) {
-					fail("Failed to open file for writing: {$filePath}");
-					exit(1);
+					fail("Failed to open file for writing: $filePath",
+						Defines::EXIT_CODE_INTERNAL_ERROR);
 				}
 				$count++;
 				\fwrite($file, "id:    {$id}\n");
@@ -339,8 +339,8 @@ class Blog_Queries {
 				echo "\nExported [ {$count} ] blog entries.\n";
 			}
 		} catch (\PDOException $e) {
-			fail("Query failed: {$sql}", $e);
-			exit(1);
+			fail("Query failed: $sql",
+				Defines::EXIT_CODE_INTERNAL_ERROR, $e);
 		}
 		$db->release();
 	}

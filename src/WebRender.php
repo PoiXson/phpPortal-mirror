@@ -8,9 +8,9 @@
  */
 namespace pxn\phpPortal;
 
-use pxn\phpUtils\Defines;
 use pxn\phpUtils\Paths;
 use pxn\phpUtils\Strings;
+use pxn\phpUtils\Defines;
 
 
 abstract class WebRender extends \pxn\phpUtils\app\Render {
@@ -32,7 +32,8 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 	}
 	public static function Twig(&$twigs, $path) {
 		if (!\is_dir($path)) {
-			fail("Template path doesn't exist: {$path}"); ExitNow(1);
+			fail("Template path doesn't exist: $path",
+				Defines::EXIT_CODE_INTERNAL_ERROR);
 		}
 		// existing twig instance
 		if (isset($twigs[$path]) && $twigs[$path] != NULL) {
@@ -107,8 +108,8 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 			}
 			unset($path);
 		}
-		fail("Template file not found: {$filename}");
-		return NULL;
+		fail("Template file not found: $filename",
+			Defines::EXIT_CODE_INTERNAL_ERROR);
 	}
 
 

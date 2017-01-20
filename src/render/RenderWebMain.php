@@ -9,8 +9,8 @@
 namespace pxn\phpPortal\render;
 
 use pxn\phpUtils\Config;
-use pxn\phpUtils\Defines;
 use pxn\phpUtils\System;
+use pxn\phpUtils\Defines;
 
 
 class RenderWebMain extends \pxn\phpPortal\WebRender {
@@ -29,10 +29,12 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 	public function doRender() {
 		if (System::isShell()) {
 			$name = $this->getName();
-			fail("Cannot use a WebRender class in this mode! {$name}"); ExitNow(1);
+			fail("Cannot use a WebRender class in this mode! $name",
+				Defines::EXIT_CODE_USAGE_ERROR);
 		}
 		if (! $this->app instanceof \pxn\phpPortal\WebApp) {
-			fail('App not instance of WebApp!'); ExitNow(1);
+			fail('App not instance of WebApp!',
+				Defines::EXIT_CODE_USAGE_ERROR);
 		}
 		// get page contents (has internal buffering)
 		$pageContents = $this->app->getPageContents();

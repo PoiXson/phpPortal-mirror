@@ -10,6 +10,7 @@ namespace pxn\phpPortal;
 
 use pxn\phpUtils\San;
 use pxn\phpUtils\System;
+use pxn\phpUtils\Defines;
 
 
 abstract class WebApp extends \pxn\phpUtils\app\App {
@@ -57,7 +58,9 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			$pageName = ($page instanceof Page)
 				? $page->getPageTitle()
 				: (string) $page;
-			fail("Unable to set page to: {$pageName}  Already set to: {$this->pageName}"); ExitNow(1);
+			$pageNameCurrent = $this->pageName;
+			fail("Unable to set page to: $pageName  Already set to: $pageNameCurrent",
+				Defines::EXIT_CODE_USAGE_ERROR);
 		}
 		if ($page instanceof Page) {
 			$this->pageObj = $page;
@@ -97,7 +100,8 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$pageName = $this->getPageName();
 		$this->pageName = $pageName;
 		if (empty($pageName)) {
-			fail('Page name could not be detected!'); ExitNow(1);
+			fail('Page name could not be detected!',
+				Defines::EXIT_CODE_INVALID_FORMAT);
 		}
 		// search paths
 		$classPaths = [

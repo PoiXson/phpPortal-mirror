@@ -8,6 +8,8 @@
  */
 namespace pxn\phpPortal\pages;
 
+use pxn\phpUtils\Defines;
+
 /*
 use pxn\phpPortal\Website;
 
@@ -83,16 +85,16 @@ return '<center><h1>BLOG PAGE CONTENTS</h1></center>';
 			$this->perPage
 		);
 		if ($paginate === NULL) {
-			fail('Failed to get blog paginate!');
-			exit(1);
+			fail('Failed to get blog paginate!',
+				Defines::EXIT_CODE_INTERNAL_ERROR);
 		}
 		$entries = $queries->getEntries(
 			$pageNum,
 			$entryId
 		);
 		if ($entries === NULL) {
-			fail('Failed to get blog entries!');
-			exit(1);
+			fail('Failed to get blog entries!',
+				Defines::EXIT_CODE_INTERNAL_ERROR);
 		}
 		$comments = NULL;
 		if ($entryId != NULL && $entryId > 0) {

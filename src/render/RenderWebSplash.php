@@ -9,6 +9,7 @@
 namespace pxn\phpPortal\render;
 
 use pxn\phpUtils\System;
+use pxn\phpUtils\Defines;
 
 
 class RenderWebSplash extends \pxn\phpPortal\WebRender {
@@ -27,9 +28,10 @@ class RenderWebSplash extends \pxn\phpPortal\WebRender {
 	public function doRender() {
 		if (System::isShell()) {
 			$name = $this->getName();
-			fail("Cannot use a WebRender class in this mode! {$name}"); ExitNow(1);
+			fail("Cannot use a WebRender class in this mode! $name",
+				Defines::EXIT_CODE_USAGE_ERROR);
 		}
-fail('UNFINISHED!'); ExitNow(1);
+fail('UNFINISHED!');
 		return TRUE;
 	}
 
