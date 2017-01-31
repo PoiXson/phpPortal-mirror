@@ -1,6 +1,12 @@
 phpPortal 0.1.x - Website Utilities Library
 
 
+2017-01-31 phpUtils 0.1.6
+==========================
+* few small fixes and cleanup
+* using phpUtils 0.1.27
+
+
 2016-12-14 phpUtils 0.1.5
 ==========================
 * removed dependency on php56 - the reason for this incomplete release
