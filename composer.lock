@@ -59,12 +59,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/pxdb.git",
-                "reference": "33524e8af9e3e2fe4568026a45ff61db77e86aa2"
+                "reference": "504a59d2178253b0d98a747e96a27d2b5c00735e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/pxdb/zipball/33524e8af9e3e2fe4568026a45ff61db77e86aa2",
-                "reference": "33524e8af9e3e2fe4568026a45ff61db77e86aa2",
+                "url": "https://api.github.com/repos/PoiXson/pxdb/zipball/504a59d2178253b0d98a747e96a27d2b5c00735e",
+                "reference": "504a59d2178253b0d98a747e96a27d2b5c00735e",
                 "shasum": ""
             },
             "require": {
