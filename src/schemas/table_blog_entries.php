@@ -22,7 +22,7 @@ class table_blog_entries extends \pxn\pxdb\dbSchema {
 			(new dbField('body',           'text'))
 				->setNullable(FALSE) ->setDefault(''),
 			(new dbField('timestamp',      'datetime'))
-				-->setNullable(FALSE),
+				->setNullable(FALSE),
 //				->setDefault('0000-00-00 00:00:00'),
 			(new dbField('author_id',      'int', 11))
 				->setNullable(FALSE) ->setDefault(0),
