@@ -7,35 +7,27 @@
  */
 namespace pxn\phpPortal\schemas;
 
+use pxn\pxdb\dbField;
 
-class table_comments extends \pxn\phpUtils\pxdb\dbSchema {
+
+class table_comments extends \pxn\pxdb\dbSchema {
 
 
 
 	public function initFields() {
 		return [
-			'comment_id' => [
-				'type' => 'increment',
-			],
-			'context' => [
-				'type' => 'varchar',
-				'size' => 16,
-			],
-			'context_id' => [
-				'type' => 'int',
-				'size' => 11,
-				'default' => 0,
-			],
-			'body' => [
-				'type' => 'text',
-			],
-			'author' => [
-				'type' => 'varchar',
-				'size' => 32,
-			],
-			'timestamp' => [
-				'type' => 'datetime',
-			],
+			(new dbField('comment_id', 'increment')),
+			(new dbField('context',    'varchar', 16))
+				->setNullable(TRUE)  ->setDefault(NULL),
+			(new dbField('context_id', 'int', 11))
+				->setNullable(FALSE) ->setDefault(0),
+			(new dbField('body',       'text'))
+				->setNullable(FALSE) ->setDefault(''),
+			(new dbField('author',     'varchar', 32))
+				->setNullable(TRUE)  ->setDefault(NULL),
+			(new dbField('timestamp',  'datetime'))
+				->setNullable(FALSE),
+//				->setDefault('0000-00-00 00:00:00'),
 		];
 	}
 

@@ -7,36 +7,27 @@
  */
 namespace pxn\phpPortal\schemas;
 
+use pxn\pxdb\dbField;
 
-class table_blog_entries extends \pxn\phpUtils\pxdb\dbSchema {
+
+class table_blog_entries extends \pxn\pxdb\dbSchema {
 
 
 
 	public function initFields() {
 		return [
-			'entry_id' => [
-				'type' => 'increment',
-			],
-			'title' => [
-				'type' => 'varchar',
-				'size' => 255,
-			],
-			'body' => [
-				'type' => 'text',
-			],
-			'timestamp' => [
-				'type' => 'datetime',
-			],
-			'author_id' => [
-				'type' => 'int',
-				'size' => 11,
-				'default' => 0,
-			],
-			'comment_count' => [
-				'type' => 'int',
-				'size' => 11,
-				'default' => 0,
-			],
+			(new dbField('entry_id',       'increment')),
+			(new dbField('title',          'varchar', 255))
+				->setNullable(FALSE) ->setDefault(''),
+			(new dbField('body',           'text'))
+				->setNullable(FALSE) ->setDefault(''),
+			(new dbField('timestamp',      'datetime'))
+				-->setNullable(FALSE),
+//				->setDefault('0000-00-00 00:00:00'),
+			(new dbField('author_id',      'int', 11))
+				->setNullable(FALSE) ->setDefault(0),
+			(new dbField('count_comments', 'int', 11))
+				->setNullable(FALSE) ->setDefault(0),
 		];
 	}
 

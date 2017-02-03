@@ -7,30 +7,22 @@
  */
 namespace pxn\phpPortal\schemas;
 
+use pxn\pxdb\dbField;
 
-class table_users extends \pxn\phpUtils\pxdb\dbSchema {
+
+class table_users extends \pxn\pxdb\dbSchema {
 
 
 
 	public function initFields() {
 		return [
-			'user_id' => [
-				'type' => 'increment',
-			],
-			'username' => [
-				'type' => 'varchar',
-				'size' => 16,
-				'nullable' => FALSE,
-				'unique' => TRUE,
-			],
-			'email' => [
-				'type' => 'varchar',
-				'size' => 255,
-			],
-			'password' => [
-				'type' => 'varchar',
-				'size' => 255,
-			],
+			(new dbField('user_id',  'increment')),
+			(new dbField('username', 'varchar', 16))
+				->setNullable(FALSE) ->setUnique(TRUE),
+			(new dbField('email',    'varchar', 255))
+				->setNullable(TRUE)  ->setDefault(NULL),
+			(new dbField('password', 'varchar', 255))
+				->setNullable(TRUE)  ->setDefault(NULL),
 		];
 	}
 
