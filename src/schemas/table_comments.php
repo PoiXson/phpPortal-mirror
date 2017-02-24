@@ -10,12 +10,12 @@ namespace pxn\phpPortal\schemas;
 use pxn\pxdb\dbField;
 
 
-class table_comments extends \pxn\pxdb\dbSchema {
+class table_comments extends \pxn\pxdb\dbTableSchema {
 
 
 
 	public function initFields() {
-		return [
+		$this->fields = [
 			(new dbField('comment_id', 'increment')),
 			(new dbField('context',    'varchar', 16))
 				->setNullable(TRUE)  ->setDefault(NULL),

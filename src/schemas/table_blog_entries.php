@@ -10,12 +10,12 @@ namespace pxn\phpPortal\schemas;
 use pxn\pxdb\dbField;
 
 
-class table_blog_entries extends \pxn\pxdb\dbSchema {
+class table_blog_entries extends \pxn\pxdb\dbTableSchema {
 
 
 
 	public function initFields() {
-		return [
+		$this->fields = [
 			(new dbField('entry_id',       'increment')),
 			(new dbField('title',          'varchar', 255))
 				->setNullable(FALSE) ->setDefault(''),

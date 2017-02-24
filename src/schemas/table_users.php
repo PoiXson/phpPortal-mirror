@@ -10,12 +10,12 @@ namespace pxn\phpPortal\schemas;
 use pxn\pxdb\dbField;
 
 
-class table_users extends \pxn\pxdb\dbSchema {
+class table_users extends \pxn\pxdb\dbTableSchema {
 
 
 
 	public function initFields() {
-		return [
+		$this->fields = [
 			(new dbField('user_id',  'increment')),
 			(new dbField('username', 'varchar', 16))
 				->setNullable(FALSE) ->setUnique(TRUE),
