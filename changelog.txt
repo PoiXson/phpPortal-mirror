@@ -1,6 +1,11 @@
 phpPortal 0.1.x - Website Utilities Library
 
 
+2017-02-24 phpPortal 0.1.7
+==========================
+* updated db schemas to use new dbTable and dbField classes
+
+
 2017-01-31 phpPortal 0.1.6
 ==========================
 * few small fixes and cleanup
