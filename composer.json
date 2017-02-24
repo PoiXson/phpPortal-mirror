@@ -34,8 +34,8 @@
 		]
 	},
 	"require": {
-		"pxn/phpUtils":    "0.1.27",
-		"pxn/pxdb":        "0.1.1"
+		"pxn/phpUtils":    "0.1.28",
+		"pxn/pxdb":        "0.1.2"
 	},
 	"require-dev": {
 		"ext-pdo":         "*",
