@@ -16,13 +16,12 @@ class table_users extends \pxn\pxdb\dbTableSchema {
 
 	public function initFields() {
 		$this->fields = [
-			(new dbField('user_id',  'increment')),
-			(new dbField('username', 'varchar', 16))
-				->setNullable(FALSE) ->setUnique(TRUE),
+			(new dbField('user_id',  'increment'   )),
+			(new dbField('username', 'varchar', 16 ))
+				->setUnique(TRUE),
 			(new dbField('email',    'varchar', 255))
-				->setNullable(TRUE)  ->setDefault(NULL),
+				->setNullable(TRUE),
 			(new dbField('password', 'varchar', 255))
-				->setNullable(TRUE)  ->setDefault(NULL),
 		];
 	}
 

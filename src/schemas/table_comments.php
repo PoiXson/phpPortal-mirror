@@ -16,18 +16,14 @@ class table_comments extends \pxn\pxdb\dbTableSchema {
 
 	public function initFields() {
 		$this->fields = [
-			(new dbField('comment_id', 'increment')),
+			(new dbField('comment_id', 'increment'  )),
 			(new dbField('context',    'varchar', 16))
-				->setNullable(TRUE)  ->setDefault(NULL),
-			(new dbField('context_id', 'int', 11))
-				->setNullable(FALSE) ->setDefault(0),
-			(new dbField('body',       'text'))
-				->setNullable(FALSE) ->setDefault(''),
+				->setNullable(TRUE),
+			(new dbField('context_id', 'int', 11    )),
+			(new dbField('body',       'text'       )),
 			(new dbField('author',     'varchar', 32))
-				->setNullable(TRUE)  ->setDefault(NULL),
-			(new dbField('timestamp',  'datetime'))
-				->setNullable(FALSE),
-//				->setDefault('0000-00-00 00:00:00'),
+				->setNullable(TRUE),
+			(new dbField('timestamp',  'datetime'   ))
 		];
 	}
 
