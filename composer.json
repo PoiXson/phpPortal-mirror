@@ -34,17 +34,17 @@
 		]
 	},
 	"require": {
-		"pxn/phpUtils":    "0.1.28",
-		"pxn/pxdb":        "0.1.2"
+		"pxn/phpUtils":    "0.1.29",
+		"pxn/pxdb":        "0.1.4"
 	},
 	"require-dev": {
 		"ext-pdo":         "*",
 		"ext-pdo_mysql":   "*",
 		"ext-mbstring":    "*",
-		"51systems/doctrine-encrypt": "v5.0.*",
+		"51systems/doctrine-encrypt": "v6.0.*",
 		"filp/whoops":     "2.1.*",
-		"twig/twig":       "v1.*",
-		"phpunit/phpunit": "5.*"
+		"twig/twig":       "v2.*",
+		"phpunit/phpunit": "6.*"
 	},
 	"scripts": {
 		"test": "phpunit",
