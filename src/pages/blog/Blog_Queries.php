@@ -1,12 +1,12 @@
 <?php
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2017
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
  * /
-namespace pxn\phpPortal\pages;
+namespace pxn\phpPortal\pages\blog;
 
 use pxn\phpPortal\Paginate;
 
