@@ -211,27 +211,45 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		}
 		$page = $this->getPageObj();
 		if ($page != NULL && $page instanceof \pxn\phpPortal\Page) {
-			// buffer echo output
+			// start buffer capture
 			$buffer = &$this->captureBuffer;
 			$buffer = '';
-			$func = function($buf) use ($buffer) {
-				$buffer .= $buf;
-			};
-			\ob_start($func);
+			\ob_start(
+				function($buf) use (&$buffer) {
+					$buffer .= $buf;
+				}
+			);
 			// get page contents
 			$result = $page->getPageContents();
-			if ($result !== TRUE && !empty($result)) {
-				if ($this->pageContents == NULL) {
-					$this->pageContents = '';
-				}
-				$this->pageContents .= "\n\n\n".$result;
+			if ($this->pageContents == NULL) {
+				$this->pageContents = '';
 			}
-			// end buffering
+			// stop buffer capture
 			\ob_end_flush();
 			if (!empty($buffer)) {
-				$this->pageContents .= "\n\n\n".$buffer;
+				$this->pageContents .= "{$buffer}\n\n\n";
+			}
 			unset($buffer);
 			$this->captureBuffer = NULL;
+			// append page contents
+			if ($result !== NULL) {
+				if ($result === FALSE) {
+//TODO:
+					$this->pageContents .= "Failed to render page!\n\n\n";
+				} else
+				if ($result !== TRUE) {
+					if (\is_array($result)) {
+						$result = Arrays::Flatten($result);
+						foreach ($result as $line) {
+							if (!empty($line)) {
+								$this->pageContents .= "{$line}\n\n\n";
+							}
+						}
+					} else {
+						$result = (string) $result;
+						$this->pageContents .= "{$result}\n\n\n";
+					}
+				}
 			}
 		}
 		return $this->pageContents;
