@@ -27,7 +27,7 @@ abstract class Page {
 
 
 	public function getTpl($filename) {
-		return $this->website->getTpl($filename);
+		return $this->app->getTpl($filename);
 	}
 
 
