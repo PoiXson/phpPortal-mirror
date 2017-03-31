@@ -8,8 +8,10 @@
  */
 namespace pxn\phpPortal;
 
+use pxn\phpUtils\Strings;
 use pxn\phpUtils\San;
 use pxn\phpUtils\System;
+use pxn\phpUtils\General;
 use pxn\phpUtils\Defines;
 
 
@@ -31,6 +33,31 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$this->registerRender( new \pxn\phpPortal\render\RenderWebMain   ($this) );
 		$this->registerRender( new \pxn\phpPortal\render\RenderWebSplash ($this) );
 		$this->registerRender( new \pxn\phpPortal\render\RenderWebMinimal($this) );
+	}
+	protected function initApp() {
+		parent::initApp();
+		// get page name from get/post values
+		if (isset($_GET['page']) || isset($_POST['page'])) {
+			$page = General::getVar('page', 'str', ['get', 'post']);
+			if (!empty($page)) {
+				$this->setPageName($page);
+			}
+		}
+		// get page name from url path
+		if (empty($this->pageName) && isset($_SERVER['REQUEST_URI'])) {
+			$urlPath = $_SERVER['REQUEST_URI'];
+			$urlPath = Strings::Trim($urlPath, ' ', '/');
+			if (!empty($urlPath)) {
+				$parts = \explode('/', $urlPath);
+				if (\count($parts) > 0) {
+					if (isset($parts[0]) && !empty($parts[0])) {
+						$this->setPageName($parts[0]);
+						unset($parts[0]);
+						$this->args = \array_values($parts);
+					}
+				}
+			}
+		}
 	}
 
 
