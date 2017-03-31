@@ -23,6 +23,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	protected $defaultPage  = NULL;
 	protected $pageObj      = NULL;
 	protected $pageContents = NULL;
+	protected $args        = [];
 	protected $globalTwigs = [];
 
 	protected $captureBuffer = NULL;
@@ -55,7 +56,9 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 					if (isset($parts[0]) && !empty($parts[0])) {
 						$this->setPageName($parts[0]);
 						unset($parts[0]);
-						$this->args = \array_values($parts);
+						$this->setArgs(
+							\array_values($parts)
+						);
 					}
 				}
 			}
@@ -180,8 +183,10 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		// forward to 404 page
 		if ($pageName != '404') {
 			@\http_response_code(404);
-//TODO:
-//			$this->args[Defines::KEY_FAILED_PAGE] = $pageName;
+			$this->setArg(
+				Defines::KEY_FAILED_PAGE,
+				$pageName
+			);
 			$this->pageName = '404';
 			$this->pageObj = NULL;
 			return $this->getPageObj();
@@ -237,6 +242,31 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	public static function sanPageName($pageName) {
 		return San::AlphaNum(
 			$pageName
+		);
+	}
+
+
+
+	public function getArg($key) {
+		if (isset($this->args[$key])) {
+			return $this->args[$key];
+		}
+		return NULL;
+	}
+	public function getArgs() {
+		return $this->args;
+	}
+	public function setArg($key, $value) {
+		if (empty($key)) {
+			$this->args[] = $value;
+		} else {
+			$this->args[$key] = $value;
+		}
+	}
+	public function setArgs(Array $args) {
+		$this->args = \array_merge(
+			$this->args,
+			$args
 		);
 	}
 
