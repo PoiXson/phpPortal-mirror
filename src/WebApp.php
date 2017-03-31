@@ -25,6 +25,8 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	protected $pageContents = NULL;
 	protected $globalTwigs = [];
 
+	protected $captureBuffer = NULL;
+
 
 
 	public function __construct() {
@@ -57,6 +59,20 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 					}
 				}
 			}
+		}
+	}
+	public function terminating() {
+		// dump captured buffer, but not page contents
+		if ($this->captureBuffer !== NULL) {
+			$buffer = &$this->captureBuffer;
+			// stop buffer capture
+			\ob_end_flush();
+			// dump buffer
+			if (!empty($buffer)) {
+				echo $buffer;
+			}
+			unset($buffer);
+			$this->captureBuffer = NULL;
 		}
 	}
 
@@ -191,6 +207,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$page = $this->getPageObj();
 		if ($page != NULL && $page instanceof \pxn\phpPortal\Page) {
 			// buffer echo output
+			$buffer = &$this->captureBuffer;
 			$buffer = '';
 			$func = function($buf) use ($buffer) {
 				$buffer .= $buf;
@@ -208,6 +225,8 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			\ob_end_flush();
 			if (!empty($buffer)) {
 				$this->pageContents .= "\n\n\n".$buffer;
+			unset($buffer);
+			$this->captureBuffer = NULL;
 			}
 		}
 		return $this->pageContents;
