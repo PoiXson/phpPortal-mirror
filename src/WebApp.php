@@ -80,24 +80,37 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			$this->getDefaultPage()
 		);
 	}
-	public function setPage($page) {
+	public function setPageName($pageName) {
 		if ($this->pageObj != NULL) {
-			$pageName = ($page instanceof Page)
-				? $page->getPageTitle()
-				: (string) $page;
 			$pageNameCurrent = $this->pageName;
 			fail("Unable to set page to: $pageName  Already set to: $pageNameCurrent",
 				Defines::EXIT_CODE_USAGE_ERROR);
 		}
-		if ($page instanceof Page) {
+		$pageName = self::sanPageName(
+			(string) $pageName
+		);
+		if (!empty($pageName)) {
+			$this->pageName = $pageName;
+		}
+	}
+	public function setPage($page) {
+		if ($this->pageObj != NULL) {
+			$pageName = (
+				$page instanceof \pxn\phpPortal\Page
+				? $page->getPageTitle()
+				: (string) $page
+			);
+			$pageNameCurrent = $this->pageName;
+			fail("Unable to set page to: $pageName  Already set to: $pageNameCurrent",
+				Defines::EXIT_CODE_USAGE_ERROR);
+		}
+		if ($page instanceof \pxn\phpPortal\Page) {
 			$this->pageObj = $page;
 			$this->pageName = self::sanPageName(
 				$page->getName()
 			);
 		} else {
-			$this->pageName = self::sanPageName(
-				(string) $page
-			);
+			$this->setPageName($page);
 		}
 	}
 	public function getDefaultPage() {
@@ -176,7 +189,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			return $this->pageContents;
 		}
 		$page = $this->getPageObj();
-		if ($page != NULL && $page instanceof Page) {
+		if ($page != NULL && $page instanceof \pxn\phpPortal\Page) {
 			// buffer echo output
 			$buffer = '';
 			$func = function($buf) use ($buffer) {
