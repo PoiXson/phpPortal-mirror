@@ -8,6 +8,8 @@
  */
 namespace pxn\phpPortal;
 
+use pxn\phpPortal\DefinesPortal;
+
 use pxn\phpUtils\Paths;
 use pxn\phpUtils\Strings;
 use pxn\phpUtils\Defines;
@@ -72,7 +74,7 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 	public static function Tpl(&$twigs, $filename) {
 		$filename = Strings::ForceEndsWith(
 			$filename,
-			Defines::TEMPLATE_EXTENSION
+			DefinesPortal::TEMPLATE_EXTENSION
 		);
 		// exact path
 		if (\file_exists($filename)) {
