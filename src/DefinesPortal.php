@@ -16,6 +16,8 @@ final class DefinesPortal {
 
 	const KEY_CONFIG_GROUP_PORTAL = 'portal config';
 
+	const KEY_CFG_PAGE            = 'page';
+
 	const KEY_CFG_TWIG_CACHE_PATH = 'twig cache path';
 	const KEY_CFG_CACHER_PATH     = 'cacher path';
 

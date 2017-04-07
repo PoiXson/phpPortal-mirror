@@ -39,6 +39,8 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	}
 	protected function initApp() {
 		parent::initApp();
+		ConfigPortal::setPageRef($this->pageName);
+		ConfigPortal::setPageDefault($this->getDefaultPage());
 		// get page name from get/post values
 		if (isset($_GET['page']) || isset($_POST['page'])) {
 			$page = General::getVar('page', 'str', ['get', 'post']);

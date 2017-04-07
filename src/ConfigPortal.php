@@ -17,6 +17,8 @@ class ConfigPortal {
 
 	const CONFIG_GROUP = DefinesPortal::KEY_CONFIG_GROUP_PORTAL;
 
+	const PAGE_NAME       = DefinesPortal::KEY_CFG_PAGE;
+
 	const TWIG_CACHE_PATH = DefinesPortal::KEY_CFG_TWIG_CACHE_PATH;
 	const CACHER_PATH     = DefinesPortal::KEY_CFG_CACHER_PATH;
 
@@ -34,6 +36,9 @@ class ConfigPortal {
 		}
 		self::$cfg = Config::get(DefinesPortal::KEY_CONFIG_GROUP_PORTAL);
 
+		// page name
+		self::$cfg->setValidHandler(self::PAGE_NAME, 'string');
+
 		// twig cache path
 		self::$cfg->setValidHandler(self::TWIG_CACHE_PATH, 'string');
 
@@ -50,6 +55,33 @@ class ConfigPortal {
 		self::$cfg->setValidHandler(self::FAV_ICON, 'string');
 
 		return TRUE;
+	}
+
+
+
+	// page name
+	public static function getPage() {
+		return self::$cfg->getString(
+			self::PAGE_NAME
+		);
+	}
+	public static function setPage($pageName) {
+		self::$cfg->setValue(
+			self::PAGE_NAME,
+			$pageName
+		);
+	}
+	public static function setPageDefault($value) {
+		self::$cfg->setDefault(
+			self::PAGE_NAME,
+			$value
+		);
+	}
+	public static function setPageRef(&$value) {
+		self::$cfg->setRef(
+			self::PAGE_NAME,
+			$value
+		);
 	}
 
 
