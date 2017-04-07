@@ -8,7 +8,7 @@
  */
 namespace pxn\phpPortal\render;
 
-use pxn\phpUtils\Config;
+use pxn\phpUtils\ConfigGlobal;
 use pxn\phpUtils\System;
 use pxn\phpUtils\Defines;
 
@@ -47,10 +47,10 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 //		$pageTitle = \mb_str_replace(
 //				'{pagetitle}',
 //				$pageTitle,
-//				Config::get(Defines::KEY_SITE_TITLE)
+//				ConfigGlobal::getSiteTitle()
 //		);
 		// page icon
-		$iconFile  = Config::get(Defines::KEY_FAV_ICON);
+		$iconFile  = ConfigGlobal::getFavIcon();
 		// load global template file
 		$tpl = $this->app->getTpl('main');
 		// start rendering html
