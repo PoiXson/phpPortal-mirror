@@ -20,7 +20,6 @@ class ConfigPortal {
 	const TWIG_CACHE_PATH = DefinesPortal::KEY_CFG_TWIG_CACHE_PATH;
 	const CACHER_PATH     = DefinesPortal::KEY_CFG_CACHER_PATH;
 
-	const RENDER_TYPE = DefinesPortal::KEY_CFG_RENDER_TYPE;
 	const FAILED_PAGE = DefinesPortal::KEY_CFG_FAILED_PAGE;
 	const SITE_TITLE  = DefinesPortal::KEY_CFG_SITE_TITLE;
 	const FAV_ICON    = DefinesPortal::KEY_CFG_FAV_ICON;
@@ -40,9 +39,6 @@ class ConfigPortal {
 
 		// cacher path
 		self::$cfg->setValidHandler(self::CACHER_PATH, 'string');
-
-		// render type
-		self::$cfg->setValidHandler(self::RENDER_TYPE, 'string');
 
 		// failed page
 		self::$cfg->setValidHandler(self::FAILED_PAGE, 'string');
@@ -83,21 +79,6 @@ class ConfigPortal {
 		self::$cfg->setValue(
 			self::CACHER_PATH,
 			$path
-		);
-	}
-
-
-
-	// render type
-	public static function getRenderType() {
-		return self::$cfg->getString(
-			self::RENDER_TYPE
-		);
-	}
-	public static function setRenderType($type) {
-		self::$cfg->setValue(
-			self::RENDER_TYPE,
-			$type
 		);
 	}
 

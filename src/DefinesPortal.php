@@ -19,7 +19,6 @@ final class DefinesPortal {
 	const KEY_CFG_TWIG_CACHE_PATH = 'twig cache path';
 	const KEY_CFG_CACHER_PATH     = 'cacher path';
 
-	const KEY_CFG_RENDER_TYPE     = 'render type';
 	const KEY_CFG_FAILED_PAGE     = 'failed page';
 	const KEY_CFG_SITE_TITLE      = 'site title';
 	const KEY_CFG_FAV_ICON        = 'fav icon';
