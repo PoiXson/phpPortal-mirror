@@ -43,7 +43,8 @@
 		"ext-mbstring":    "*",
 		"51systems/doctrine-encrypt": "v6.0.*",
 		"filp/whoops":     "2.1.*",
-		"twig/twig":       "v2.*",
+		"twig/twig":       "v2.4.*",
+		"michelf/php-markdown": "1.7.*",
 		"phpunit/phpunit": "6.*"
 	},
 	"scripts": {
