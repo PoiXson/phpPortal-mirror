@@ -19,9 +19,6 @@ class ConfigPortal {
 
 	const PAGE_NAME       = DefinesPortal::KEY_CFG_PAGE;
 
-	const TWIG_CACHE_PATH = DefinesPortal::KEY_CFG_TWIG_CACHE_PATH;
-	const CACHER_PATH     = DefinesPortal::KEY_CFG_CACHER_PATH;
-
 	const FAILED_PAGE = DefinesPortal::KEY_CFG_FAILED_PAGE;
 	const SITE_TITLE  = DefinesPortal::KEY_CFG_SITE_TITLE;
 	const FAV_ICON    = DefinesPortal::KEY_CFG_FAV_ICON;
@@ -38,12 +35,6 @@ class ConfigPortal {
 
 		// page name
 		self::$cfg->setValidHandler(self::PAGE_NAME, 'string');
-
-		// twig cache path
-		self::$cfg->setValidHandler(self::TWIG_CACHE_PATH, 'string');
-
-		// cacher path
-		self::$cfg->setValidHandler(self::CACHER_PATH, 'string');
 
 		// failed page
 		self::$cfg->setValidHandler(self::FAILED_PAGE, 'string');
@@ -81,36 +72,6 @@ class ConfigPortal {
 		self::$cfg->setRef(
 			self::PAGE_NAME,
 			$value
-		);
-	}
-
-
-
-	// twig cache path
-	public static function getTwigCachePath() {
-		return self::$cfg->getString(
-			self::TWIG_CACHE_PATH
-		);
-	}
-	public static function setTwigCachePath($path) {
-		self::$cfg->setValue(
-			self::TWIG_CACHE_PATH,
-			$path
-		);
-	}
-
-
-
-	// cacher path
-	public static function getCacherPath() {
-		return self::$cfg->getString(
-			self::CACHER_PATH
-		);
-	}
-	public static function setCacherPath($path) {
-		self::$cfg->setValue(
-			self::CACHER_PATH,
-			$path
 		);
 	}
 
