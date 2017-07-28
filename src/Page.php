@@ -13,6 +13,8 @@ abstract class Page {
 
 	protected $app = NULL;
 
+	protected $pageTitle = NULL;
+
 
 
 	public function __construct(\pxn\phpUtils\app\App $app) {
@@ -21,7 +23,22 @@ abstract class Page {
 
 
 
-	public abstract function getPageTitle();
+	public function getPageTitle() {
+		return $this->pageTitle;
+	}
+	public function setPageTitle($title) {
+		$this->pageTitle = (
+			empty($title)
+			? NULL
+			: $title
+		);
+	}
+	public function getTitle() {
+		return 'TITLE';
+	}
+
+
+
 	public abstract function getPageContents();
 
 

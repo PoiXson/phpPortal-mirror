@@ -9,8 +9,7 @@
 namespace pxn\phpPortal\pages;
 
 use pxn\phpPortal\Website;
-
-use pxn\phpUtils\Defines;
+use pxn\phpPortal\ConfigPortal;
 
 
 class page_404 {
@@ -18,11 +17,11 @@ class page_404 {
 
 
 	public function getPageTitle() {
-		return 'PAGE_TITLE';
+		return '404 - Page Not Found!';
 	}
 	public function getPageContents() {
 		$FailedPage = Website::get()
-			->getArg(Defines::KEY_FAILED_PAGE);
+			->getArg( ConfigPortal::getFailedPage() );
 		return
 "<center>
 	<h1>404 - Page Not Found!</h1>

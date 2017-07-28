@@ -16,13 +16,13 @@ use pxn\phpUtils\Defines;
 class ConfigPortal {
 	private function __construct() {}
 
-	const CONFIG_GROUP = DefinesPortal::KEY_CONFIG_GROUP_PORTAL;
+	const CONFIG_GROUP    = DefinesPortal::KEY_CONFIG_GROUP_PORTAL;
 
 	const PAGE_NAME       = DefinesPortal::KEY_CFG_PAGE;
 
-	const FAILED_PAGE = DefinesPortal::KEY_CFG_FAILED_PAGE;
-	const SITE_TITLE  = DefinesPortal::KEY_CFG_SITE_TITLE;
-	const FAV_ICON    = DefinesPortal::KEY_CFG_FAV_ICON;
+	const FAILED_PAGE     = DefinesPortal::KEY_CFG_FAILED_PAGE;
+	const SITE_TITLE      = DefinesPortal::KEY_CFG_SITE_TITLE;
+	const FAV_ICON        = DefinesPortal::KEY_CFG_FAV_ICON;
 
 	protected static $cfg = NULL;
 
@@ -53,19 +53,24 @@ class ConfigPortal {
 
 
 	// page name
-	public static function getPage() {
-		return self::$cfg->getString(
+	public static function getPageName() {
+		$pageName = self::$cfg->getString(
 			self::PAGE_NAME
 		);
 		return self::sanPageName($pageName);
 	}
-	public static function setPage($pageName) {
+	public static function setPageName($pageName) {
+		$currentValue = self::$cfg->peakValue(self::PAGE_NAME);
+		if ($currentValue != NULL) {
+			fail("Unable to set page to: $pageName  Already set to: $currentValue",
+				Defines::EXIT_CODE_USAGE_ERROR);
+		}
 		self::$cfg->setValue(
 			self::PAGE_NAME,
 			$pageName
 		);
 	}
-	public static function setPageDefault($value) {
+	public static function setDefaultPage($value) {
 		self::$cfg->setDefault(
 			self::PAGE_NAME,
 			$value

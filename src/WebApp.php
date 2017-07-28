@@ -36,12 +36,11 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	protected function initApp() {
 		parent::initApp();
 		ConfigPortal::setPageRef($this->pageName);
-		ConfigPortal::setPageDefault($this->getDefaultPage());
 		// get page name from get/post values
 		if (isset($_GET['page']) || isset($_POST['page'])) {
 			$page = General::getVar('page', 'str', ['get', 'post']);
 			if (!empty($page)) {
-				$this->setPageName($page);
+				ConfigPortal::setPageName($page);
 			}
 		}
 		// get page name from url path
@@ -52,7 +51,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 				$parts = \explode('/', $urlPath);
 				if (\count($parts) > 0) {
 					if (isset($parts[0]) && !empty($parts[0])) {
-						$this->setPageName($parts[0]);
+						ConfigPortal::setPageName($parts[0]);
 						unset($parts[0]);
 						$this->setArgs(
 							\array_values($parts)
@@ -88,47 +87,26 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 
-	// page name
-	public function getPageName() {
-		if (!empty($this->pageName)) {
-			return self::sanPageName( $this->pageName );
-		}
-		return self::sanPageName(
-			$this->getDefaultPage()
-		);
-	}
-	public function setPageName($pageName) {
-		if ($this->pageObj != NULL) {
-			$pageNameCurrent = $this->pageName;
-			fail("Unable to set page to: $pageName  Already set to: $pageNameCurrent",
-				Defines::EXIT_CODE_USAGE_ERROR);
-		}
-		$pageName = self::sanPageName(
-			(string) $pageName
-		);
-		if (!empty($pageName)) {
-			$this->pageName = $pageName;
-		}
-	}
 	public function setPage($page) {
 		if ($this->pageObj != NULL) {
-			$pageName = (
+			$pageTitle = (
 				$page instanceof \pxn\phpPortal\Page
-				? $page->getPageTitle()
+				? $page->getTitle()
 				: (string) $page
 			);
 			$pageNameCurrent = $this->pageName;
-			fail("Unable to set page to: $pageName  Already set to: $pageNameCurrent",
+			fail("Unable to set page to: $pageTitle  Already set to: $pageNameCurrent",
 				Defines::EXIT_CODE_USAGE_ERROR);
 		}
 		if ($page instanceof \pxn\phpPortal\Page) {
 			$this->pageObj = $page;
-			$this->pageName = self::sanPageName(
+			ConfigPortal::setPageName(
 				$page->getName()
 			);
 		} else {
-			$this->setPageName($page);
-		}
+			ConfigPortal::setPageName(
+				$page
+			);
 		}
 	}
 
@@ -141,8 +119,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			return $this->pageObj;
 		}
 		// get page name
-		$pageName = $this->getPageName();
-		$this->pageName = $pageName;
+		$pageName = ConfigPortal::getPageName();
 		if (empty($pageName)) {
 			fail('Page name could not be detected!',
 				Defines::EXIT_CODE_INVALID_FORMAT);
@@ -169,7 +146,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		if ($pageName != '404') {
 			@\http_response_code(404);
 			$this->setArg(
-				Defines::KEY_FAILED_PAGE,
+				ConfigPortal::getFailedPage(),
 				$pageName
 			);
 			$this->pageName = '404';
@@ -181,13 +158,12 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$this->pageContents = "\n<h1>404 - Page Not Found!</h1>\n\n";
 		return NULL;
 	}
-	public function getPageTitle() {
-//TODO: get title from config
+	public function getTitle() {
 		$page = $this->getPageObj();
 		if ($page == NULL) {
 			return NULL;
 		}
-		return $page->getPageTitle();
+		return $page->getTitle();
 	}
 	// called from render class (has internal buffering)
 	public function &getPageContents() {

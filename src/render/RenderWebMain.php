@@ -40,16 +40,16 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 		// get page contents (has internal buffering)
 		$pageContents = $this->app->getPageContents();
 		// get page title
-		$pageTitle = $this->app->getPageTitle();
-		if (\is_callable($pageTitle)) {
-			$pageTitle = $pageTitle();
+		$title = $this->app->getTitle();
+		if (\is_callable($title)) {
+			$title = $title();
 		}
-		$pageTitle = (string) $pageTitle;
-//		$pageTitle = \mb_str_replace(
-//				'{pagetitle}',
-//				$pageTitle,
-//				ConfigPortal::getSiteTitle()
-//		);
+		$title = (string) $title;
+		$title = \str_replace(
+			'{pagetitle}',
+			$title,
+			ConfigPortal::getSiteTitle()
+		);
 		// page icon
 		$iconFile  = ConfigPortal::getFavIcon();
 		// load global template file
@@ -65,7 +65,7 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 			'<meta charset="utf-8" />'.$CRLF.
 			'<meta http-equiv="X-UA-Compatible" content="IE=edge" />'.$CRLF.
 			'<meta name="viewport" content="width=device-width, initial-scale=1" />'.$CRLF.
-			"<title>{$pageTitle}</title>".$CRLF.
+			"<title>{$title}</title>".$CRLF.
 
 			// fav icon
 			(empty($iconFile) ? '' :
@@ -100,8 +100,8 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 		// shell mode
 		if ($isShell) {
 			echo "\n";
-//			if (!empty($pageTitle)) {
-//				echo " == Title: $pageTitle == \n";
+//			if (!empty($title)) {
+//				echo " == Title: $title == \n";
 //			}
 			echo "\n{$pageContents}\n";
 			@\ob_flush();
