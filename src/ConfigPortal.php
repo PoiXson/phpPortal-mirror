@@ -35,6 +35,7 @@ class ConfigPortal {
 
 		// page name
 		self::$cfg->setValidHandler(self::PAGE_NAME, 'string');
+		self::$cfg->setDefault(self::PAGE_NAME, 'home');
 
 		// failed page
 		self::$cfg->setValidHandler(self::FAILED_PAGE, 'string');
