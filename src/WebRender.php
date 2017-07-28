@@ -50,7 +50,8 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 			'debug' => $debug,
 		];
 		if (!$debug) {
-			$options['cache'] = Paths::getTwigCachePath();
+			$basePath = Paths::base();
+			$options['cache'] = "$basePath/.twig_cache";
 		}
 		$twig = new \Twig_Environment(
 			$twigLoader,
@@ -59,7 +60,7 @@ abstract class WebRender extends \pxn\phpUtils\app\Render {
 		// global vars
 		$app = \pxn\phpUtils\app\App::get();
 		$globalVars = [
-			'name' => $app->getPageName()
+			'name' => ConfigPortal::getPageName()
 		];
 		$twig->addGlobal('page', $globalVars);
 //		// load extensions
