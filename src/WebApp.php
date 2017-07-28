@@ -9,7 +9,6 @@
 namespace pxn\phpPortal;
 
 use pxn\phpUtils\Strings;
-use pxn\phpUtils\San;
 use pxn\phpUtils\System;
 use pxn\phpUtils\General;
 use pxn\phpUtils\Defines;
@@ -239,14 +238,6 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			}
 		}
 		return $this->pageContents;
-	}
-
-
-
-	public static function sanPageName($pageName) {
-		return San::AlphaNum(
-			$pageName
-		);
 	}
 
 

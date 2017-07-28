@@ -9,6 +9,7 @@
 namespace pxn\phpPortal;
 
 use pxn\phpUtils\Config;
+use pxn\phpUtils\San;
 use pxn\phpUtils\Defines;
 
 
@@ -56,6 +57,7 @@ class ConfigPortal {
 		return self::$cfg->getString(
 			self::PAGE_NAME
 		);
+		return self::sanPageName($pageName);
 	}
 	public static function setPage($pageName) {
 		self::$cfg->setValue(
@@ -73,6 +75,11 @@ class ConfigPortal {
 		self::$cfg->setRef(
 			self::PAGE_NAME,
 			$value
+		);
+	}
+	public static function sanPageName($pageName) {
+		return San::AlphaNum(
+			$pageName
 		);
 	}
 
