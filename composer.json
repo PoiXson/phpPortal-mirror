@@ -46,11 +46,5 @@
 		"twig/twig":       "v2.*",
 		"michelf/php-markdown": "1.*",
 		"phpunit/phpunit": "8.*"
-	},
-	"scripts": {
-		"test": "phpunit",
-		"pre-dependencies-solving": "sh symlinks.sh --restore",
-		"post-install-cmd":         "sh symlinks.sh --post-install",
-		"post-update-cmd":          "sh symlinks.sh --post-update"
 	}
 }
