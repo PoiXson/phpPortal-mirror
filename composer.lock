@@ -11,14 +11,8 @@
             "version": "0.1.29",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PoiXson/phpUtils.git",
+                "url": "https://git.poixson.com/r/pxn/phpUtils.git",
                 "reference": "fe785b7d08f9c5eb0cfc53a938c87bc7206f41f8"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/phpUtils/zipball/fe785b7d08f9c5eb0cfc53a938c87bc7206f41f8",
-                "reference": "fe785b7d08f9c5eb0cfc53a938c87bc7206f41f8",
-                "shasum": ""
             },
             "require-dev": {
                 "51systems/doctrine-encrypt": "v6.0.*",
@@ -58,14 +52,8 @@
             "version": "0.1.4",
             "source": {
                 "type": "git",
-                "url": "https://github.com/PoiXson/pxdb.git",
+                "url": "https://git.poixson.com/r/pxn/pxdb.git",
                 "reference": "c57ebe0bd33bb9e2bc6f07338ab832e19e0b990a"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/pxdb/zipball/c57ebe0bd33bb9e2bc6f07338ab832e19e0b990a",
-                "reference": "c57ebe0bd33bb9e2bc6f07338ab832e19e0b990a",
-                "shasum": ""
             },
             "require": {
                 "ext-pdo": "*",
