@@ -34,10 +34,10 @@
 		]
 	},
 	"require": {
-		"pxn/phputils":    "0.1.*",
-		"pxn/pxdb":        "0.1.*"
+		"pxn/phputils":    "0.1.*"
 	},
 	"require-dev": {
+		"pxn/pxdb":        "0.1.*",
 		"ext-pdo":         "*",
 		"ext-pdo_mysql":   "*",
 		"ext-mbstring":    "*",

@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b52ed0128a4161426d82b39a55ed79b2",
+    "content-hash": "a8f0a47fc43237fd9daa62b112f8baf0",
     "packages": [
         {
             "name": "pxn/phputils",
@@ -46,50 +46,6 @@
                 "utilities"
             ],
             "time": "2017-03-22T21:06:05+00:00"
-        },
-        {
-            "name": "pxn/pxdb",
-            "version": "0.1.4",
-            "source": {
-                "type": "git",
-                "url": "https://git.poixson.com/r/pxn/pxdb.git",
-                "reference": "c57ebe0bd33bb9e2bc6f07338ab832e19e0b990a"
-            },
-            "require": {
-                "ext-pdo": "*",
-                "ext-pdo_mysql": "*",
-                "pxn/phputils": "0.1.29"
-            },
-            "require-dev": {
-                "ext-mbstring": "*",
-                "filp/whoops": "2.1.*",
-                "phpunit/phpunit": "6.*"
-            },
-            "type": "library",
-            "autoload": {
-                "psr-4": {
-                    "pxn\\pxdb\\": "src/"
-                }
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0"
-            ],
-            "authors": [
-                {
-                    "name": "lorenzop",
-                    "role": "Developer"
-                }
-            ],
-            "description": "PHP Database Utilities Library",
-            "homepage": "http://poixson.com/",
-            "keywords": [
-                "database",
-                "framework",
-                "mysql",
-                "utilities"
-            ],
-            "time": "2017-03-22T21:21:54+00:00"
         }
     ],
     "packages-dev": [
@@ -1922,6 +1878,50 @@
                 "psr-3"
             ],
             "time": "2018-11-20T15:27:04+00:00"
+        },
+        {
+            "name": "pxn/pxdb",
+            "version": "0.1.4",
+            "source": {
+                "type": "git",
+                "url": "https://git.poixson.com/r/pxn/pxdb.git",
+                "reference": "c57ebe0bd33bb9e2bc6f07338ab832e19e0b990a"
+            },
+            "require": {
+                "ext-pdo": "*",
+                "ext-pdo_mysql": "*",
+                "pxn/phputils": "0.1.29"
+            },
+            "require-dev": {
+                "ext-mbstring": "*",
+                "filp/whoops": "2.1.*",
+                "phpunit/phpunit": "6.*"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "pxn\\pxdb\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "GPL-3.0"
+            ],
+            "authors": [
+                {
+                    "name": "lorenzop",
+                    "role": "Developer"
+                }
+            ],
+            "description": "PHP Database Utilities Library",
+            "homepage": "http://poixson.com/",
+            "keywords": [
+                "database",
+                "framework",
+                "mysql",
+                "utilities"
+            ],
+            "time": "2017-03-22T21:21:54+00:00"
         },
         {
             "name": "sebastian/code-unit-reverse-lookup",
