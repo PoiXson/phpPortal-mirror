@@ -45,6 +45,7 @@
 		"filp/whoops":     "2.*",
 		"twig/twig":       "v2.*",
 		"michelf/php-markdown": "1.*",
+		"pxn/composerlocaldev": "1.*",
 		"phpunit/phpunit": "8.*"
 	}
 }
