@@ -3053,9 +3053,5 @@
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
-    "platform-dev": {
-        "ext-pdo": "*",
-        "ext-pdo_mysql": "*",
-        "ext-mbstring": "*"
-    }
+    "platform-dev": []
 }

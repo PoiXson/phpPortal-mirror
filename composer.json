@@ -38,9 +38,6 @@
 	},
 	"require-dev": {
 		"pxn/pxdb":        "0.1.*",
-		"ext-pdo":         "*",
-		"ext-pdo_mysql":   "*",
-		"ext-mbstring":    "*",
 		"51systems/doctrine-encrypt": "v6.0.*",
 		"filp/whoops":     "2.*",
 		"twig/twig":       "v2.*",
