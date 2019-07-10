@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link http://poixson.com/
@@ -15,7 +15,7 @@ use pxn\phpUtils\Strings;
 use pxn\phpUtils\Defines;
 
 
-abstract class WebRender extends \pxn\phpUtils\app\Render {
+abstract class RenderWeb implements \pxn\phpUtils\app\Render {
 
 	protected $twigs = [];
 
