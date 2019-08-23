@@ -2,14 +2,14 @@
 	"name":        "pxn/phpportal",
 	"description": "Website Utilities Library",
 	"type":        "library",
-	"homepage":    "http://poixson.com/",
+	"homepage":    "https://poixson.com/",
 	"license":     "GPL-3.0",
 	"keywords": [
 		"framework", "utilities"
 	],
 	"support": {
-		"source": "http://git.poixson.com/summary/pxn!phpPortal.git",
-		"issues": "http://git.poixson.com/tickets/pxn!phpPortal.git",
+		"source": "https://git.poixson.com/summary/pxn!phpPortal.git",
+		"issues": "https://git.poixson.com/tickets/pxn!phpPortal.git",
 		"irc":    "irc://irc.esper.net/poixson"
 	},
 	"authors": [{
