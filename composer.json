@@ -34,14 +34,15 @@
 		]
 	},
 	"require": {
-		"pxn/phputils":    "0.1.*"
+		"pxn/phputils": "0.1.*",
+		"twig/twig": "v2.*",
+		"michelf/php-markdown": "1.*"
+	},
+	"suggest": {
+		"pxn/pxdb": "0.1.*"
 	},
 	"require-dev": {
-		"pxn/pxdb":        "0.1.*",
-		"51systems/doctrine-encrypt": "v6.0.*",
-		"filp/whoops":     "2.*",
-		"twig/twig":       "v2.*",
-		"michelf/php-markdown": "1.*",
+		"filp/whoops": "2.*",
 		"pxn/composerlocaldev": "1.*",
 		"phpunit/phpunit": "8.*"
 	}
