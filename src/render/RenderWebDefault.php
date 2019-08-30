@@ -1,17 +1,17 @@
 <?php
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
+ * @link https://poixson.com/
  */
 namespace pxn\phpPortal\render;
 
-use pxn\phpPortal\ConfigPortal;
+//use pxn\phpPortal\ConfigPortal;
 
-use pxn\phpUtils\System;
-use pxn\phpUtils\Defines;
+//use pxn\phpUtils\System;
+//use pxn\phpUtils\Defines;
 
 
 class RenderWebMain extends \pxn\phpPortal\WebRender {
@@ -37,6 +37,8 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 			fail('App not instance of WebApp!',
 				Defines::EXIT_CODE_USAGE_ERROR);
 		}
+	}
+/*
 		// get page contents (has internal buffering)
 		$pageContents = $this->app->getPageContents();
 		// get page title
@@ -96,7 +98,7 @@ class RenderWebMain extends \pxn\phpPortal\WebRender {
 		@\ob_flush();
 		return TRUE;
 	}
-/*
+/ *
 		// shell mode
 		if ($isShell) {
 			echo "\n";

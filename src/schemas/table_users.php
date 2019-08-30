@@ -1,10 +1,10 @@
 <?php
 /*
- * GrowControl Website
- * @copyright 2004-2016
+ * PoiXson phpPortal - Website Utilities Library
+ * @copyright 2004-2019
  * @author lorenzo at poixson.com
- * @link http://growcontrol.com/
- */
+ * @link https://poixson.com/
+ * /
 namespace pxn\phpPortal\schemas;
 
 use pxn\pxdb\dbField;
@@ -28,3 +28,4 @@ class table_users extends \pxn\pxdb\dbTableSchema {
 
 
 }
+*/

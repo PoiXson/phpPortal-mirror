@@ -4,8 +4,8 @@
  * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
- */
+ * @link https://poixson.com/
+ * /
 namespace pxn\phpPortal;
 
 use pxn\phpPortal\DefinesPortal;
@@ -118,3 +118,4 @@ abstract class RenderWeb implements \pxn\phpUtils\app\Render {
 
 
 }
+*/

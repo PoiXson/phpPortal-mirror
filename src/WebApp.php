@@ -1,38 +1,44 @@
 <?php
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2016
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
+ * @link https://poixson.com/
  */
 namespace pxn\phpPortal;
 
-use pxn\phpUtils\Strings;
-use pxn\phpUtils\System;
-use pxn\phpUtils\General;
-use pxn\phpUtils\Defines;
+//use pxn\phpUtils\Strings;
+//use pxn\phpUtils\System;
+//use pxn\phpUtils\General;
+//use pxn\phpUtils\Defines;
 
 
 abstract class WebApp extends \pxn\phpUtils\app\App {
 
-	protected $pageName     = NULL;
-	protected $pageObj      = NULL;
-	protected $pageContents = NULL;
-	protected $args        = [];
-	protected $globalTwigs = [];
+//	protected $pageName      = NULL;
+//	protected $pageObj       = NULL;
+//	protected $pageContents  = NULL;
+//	protected $captureBuffer = NULL;
 
-	protected $captureBuffer = NULL;
+	protected $menu = [];
+//	protected $args = [];
+
+//	protected $globalTwigs = [];
 
 
 
 	public function __construct() {
 		parent::__construct();
-		// default render types
-		$this->registerRender( new \pxn\phpPortal\render\RenderWebMain   ($this) );
-		$this->registerRender( new \pxn\phpPortal\render\RenderWebSplash ($this) );
-		$this->registerRender( new \pxn\phpPortal\render\RenderWebMinimal($this) );
+//		// default render types
+//		$this->registerRender( new \pxn\phpPortal\render\RenderWebMain   ($this) );
+//		$this->registerRender( new \pxn\phpPortal\render\RenderWebSplash ($this) );
+//		$this->registerRender( new \pxn\phpPortal\render\RenderWebMinimal($this) );
 	}
+
+
+
+/*
 	protected function initApp() {
 		parent::initApp();
 		ConfigPortal::setPageRef($this->pageName);
@@ -255,6 +261,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			$filename
 		);
 	}
+*/
 
 
 

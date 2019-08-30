@@ -1,4 +1,5 @@
 <?php
+/*
 // Place this file in public/ on your web server
 
 if (!\file_exists('../pxnloader.php')) {
@@ -10,3 +11,4 @@ require('../pxnloader.php');
 //debug(TRUE);
 
 \pxn\exampleWebsite\exampleWebsite::autoinit();
+*/

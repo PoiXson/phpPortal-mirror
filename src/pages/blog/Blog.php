@@ -1,25 +1,25 @@
 <?php
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2017
+ * @copyright 2004-2019
  * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
- */
+ * @link https://poixson.com/
+ * /
 namespace pxn\phpPortal\pages\blog;
 
 use pxn\phpUtils\Defines;
 
-/*
+/ *
 use pxn\phpPortal\Website;
 
 use pxn\phpUtils\Numbers;
-*/
+* /
 
 
 abstract class Blog extends \pxn\phpPortal\Page {
 
-/*
+/ *
 	protected $pool = NULL;
 	protected $queries = NULL;
 
@@ -30,7 +30,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 	public function __construct() {
 		parent::__construct();
 	}
-*/
+* /
 
 
 
@@ -39,7 +39,7 @@ abstract class Blog extends \pxn\phpPortal\Page {
 	}
 	public function getPageContents() {
 return '<center><h1>BLOG PAGE CONTENTS</h1></center>';
-/*
+/ *
 //$cacher = new \pxn\phpUtils\cache\cacher_filesystem();
 //$value = $cacher->getEntry(
 //	function () {
@@ -107,12 +107,12 @@ return '<center><h1>BLOG PAGE CONTENTS</h1></center>';
 			'comments' => $comments,
 			'paginate' => $paginate
 		]);
-*/
+* /
 	}
 
 
 
-/*
+/ *
 	public function getBlogTpl() {
 		return $this->getTpl('blog');
 	}
@@ -125,8 +125,9 @@ return '<center><h1>BLOG PAGE CONTENTS</h1></center>';
 		}
 		return $this->queries;
 	}
-*/
+* /
 
 
 
 }
+*/
