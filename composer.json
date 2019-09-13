@@ -36,14 +36,14 @@
 	"require": {
 		"pxn/phputils": "0.1.*",
 		"twig/twig": "v2.*",
-		"michelf/php-markdown": "1.*"
+		"michelf/php-markdown": "1.*",
+		"pxn/composerlocaldev": "1.*"
 	},
 	"suggest": {
 		"pxn/pxdb": "0.1.*"
 	},
 	"require-dev": {
 		"filp/whoops": "2.*",
-		"pxn/composerlocaldev": "1.*",
 		"phpunit/phpunit": "8.*"
 	}
 }
