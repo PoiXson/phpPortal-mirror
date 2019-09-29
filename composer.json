@@ -34,7 +34,7 @@
 		]
 	},
 	"require": {
-		"pxn/phputils": "0.1.*",
+		"pxn/phputils": "dev-master",
 		"twig/twig": "v2.*",
 		"michelf/php-markdown": "1.*",
 		"pxn/composerlocaldev": "1.*"
