@@ -100,7 +100,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.poixson.com/r/pxn/phpUtils.git",
-                "reference": "7c365ea1b94ea9b5608777fb062fe82fa7ac0c60"
+                "reference": "48db067b58f0757b2dd314c985fa2ffeb5a11d57"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -112,7 +112,8 @@
                 "phpunit/phpunit": "8.*"
             },
             "suggest": {
-                "51systems/doctrine-encrypt": "v6.*"
+                "51systems/doctrine-encrypt": "v6.*",
+                "symfony/console": "v4.3.*"
             },
             "type": "library",
             "autoload": {
@@ -139,7 +140,7 @@
                 "framework",
                 "utilities"
             ],
-            "time": "2019-09-20T23:03:43+00:00"
+            "time": "2019-10-03T13:32:06+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -746,22 +747,22 @@
         },
         {
             "name": "phpspec/prophecy",
-            "version": "1.8.1",
+            "version": "1.9.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/phpspec/prophecy.git",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76"
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
-                "reference": "1927e75f4ed19131ec9bcc3b002e07fb1173ee76",
+                "url": "https://api.github.com/repos/phpspec/prophecy/zipball/f6811d96d97bdf400077a0cc100ae56aa32b9203",
+                "reference": "f6811d96d97bdf400077a0cc100ae56aa32b9203",
                 "shasum": ""
             },
             "require": {
                 "doctrine/instantiator": "^1.0.2",
                 "php": "^5.3|^7.0",
-                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0",
+                "phpdocumentor/reflection-docblock": "^2.0|^3.0.2|^4.0|^5.0",
                 "sebastian/comparator": "^1.1|^2.0|^3.0",
                 "sebastian/recursion-context": "^1.0|^2.0|^3.0"
             },
@@ -805,7 +806,7 @@
                 "spy",
                 "stub"
             ],
-            "time": "2019-06-13T12:50:23+00:00"
+            "time": "2019-10-03T11:07:50+00:00"
         },
         {
             "name": "phpunit/php-code-coverage",
