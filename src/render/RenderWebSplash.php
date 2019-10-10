@@ -12,7 +12,7 @@ use pxn\phpUtils\System;
 use pxn\phpUtils\Defines;
 
 
-class RenderWebSplash extends \pxn\phpPortal\WebRender {
+class RenderWebSplash extends WebRender {
 
 
 

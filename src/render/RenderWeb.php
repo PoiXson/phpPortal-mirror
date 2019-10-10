@@ -6,7 +6,7 @@
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  * /
-namespace pxn\phpPortal;
+namespace pxn\phpPortal\render;
 
 use pxn\phpPortal\DefinesPortal;
 
