@@ -55,6 +55,71 @@ abstract class Render {
 
 
 
+	protected function renderHeadInsert() {
+		$output = '';
+		// css files
+		if (\count($this->cssFiles) > 0) {
+			$output .= "<!-- css files -->\n";
+			foreach ($this->cssFiles as $file) {
+				$output .= "<link rel=\"stylesheet\" href=\"$file\" />\n";
+			}
+			$output .= "\n";
+		}
+		// css blocks
+		if (\count($this->cssBlocks) > 0) {
+			$output .= "<!-- css blocks -->\n";
+			foreach ($this->cssBlocks as $block) {
+				$output .= "<style>\n$block\n</style>\n";
+			}
+			$output .= "\n";
+		}
+		// js files
+		if (\count($this->jsFiles) > 0) {
+			$output .= "<!-- js files -->\n";
+			foreach ($this->jsFiles as $file) {
+				$output .= "<script src=\"$file\"></script>\n";
+			}
+			$output .= "\n";
+		}
+		// js blocks
+		if (\count($this->jsBlocks) > 0) {
+			$output .= "<!-- js blocks -->\n";
+			foreach ($this->jsBlocks as $block) {
+				$output .= "<script>\n$block\n</script>\n";
+			}
+			$output .= "\n";
+		}
+		if (empty($output)) {
+			return $output;
+		}
+		return "\n\n$output";
+	}
+
+
+
+	protected function _html_head_() {
+		return <<<EOF
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
+<meta name="generator" content="Web11">
+<title>{title}</title>
+{head_insert}
+</head>
+<body>
+EOF;
+	}
+	protected function _html_foot_() {
+		return <<<EOF
+</body>
+</html>
+EOF;
+	}
+
+
+
 /*
 	public function getTwig($path) {
 		return self::Twig(
