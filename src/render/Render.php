@@ -15,7 +15,7 @@ use pxn\phpUtils\Strings;
 use pxn\phpUtils\Defines;
 
 
-abstract class RenderWeb implements \pxn\phpUtils\app\Render {
+abstract class Render {
 
 	protected $twigs = [];
 

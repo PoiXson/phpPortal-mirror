@@ -14,7 +14,7 @@ namespace pxn\phpPortal\render;
 //use pxn\phpUtils\Defines;
 
 
-class RenderWebDefault extends WebRender {
+class Render_Main extends Render {
 
 
 

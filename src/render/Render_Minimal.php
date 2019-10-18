@@ -12,7 +12,7 @@ namespace pxn\phpPortal\render;
 //use pxn\phpUtils\Defines;
 
 
-class RenderWebMinimal extends WebRender {
+class Render_Minimal extends Render {
 
 
 
