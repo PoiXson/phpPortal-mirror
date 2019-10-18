@@ -5,22 +5,57 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpPortal\render;
 
-use pxn\phpPortal\DefinesPortal;
+//use pxn\phpPortal\DefinesPortal;
 
-use pxn\phpUtils\Paths;
+//use pxn\phpUtils\Defines;
+//use pxn\phpUtils\Paths;
 use pxn\phpUtils\Strings;
-use pxn\phpUtils\Defines;
+
+use pxn\phpPortal\WebApp;
 
 
 abstract class Render {
 
-	protected $twigs = [];
+	protected $app;
+
+//	protected $twigs = [];
+
+	// css
+	protected $cssFiles  = [];
+	protected $cssBlocks = [];
+	// js
+	protected $jsFiles   = [];
+	protected $jsBlocks  = [];
 
 
 
+	public function __construct(WebApp $app) {
+		$this->app = $app;
+	}
+
+
+
+	public abstract function doRender();
+
+
+
+	public function getName() {
+		$name = \get_called_class();
+		$pos = \mb_strrpos($name, '\\');
+		if ($pos !== FALSE) {
+			$name = \mb_substr($name, $pos+1);
+		}
+		$name = Strings::TrimFront($name, 'Render', 'Web');
+		$name = \mb_strtolower($name);
+		return $name;
+	}
+
+
+
+/*
 	public function getTwig($path) {
 		return self::Twig(
 			$this->twigs,
@@ -114,8 +149,8 @@ abstract class Render {
 		fail("Template file not found: $filename",
 			Defines::EXIT_CODE_INTERNAL_ERROR);
 	}
+*/
 
 
 
 }
-*/

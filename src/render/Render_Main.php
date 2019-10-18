@@ -10,24 +10,25 @@ namespace pxn\phpPortal\render;
 
 //use pxn\phpPortal\ConfigPortal;
 
-//use pxn\phpUtils\System;
 //use pxn\phpUtils\Defines;
+//use pxn\phpUtils\System;
+
+use pxn\phpPortal\WebApp;
 
 
 class Render_Main extends Render {
 
 
 
-	public function getName() {
-		return 'main';
-	}
-	public function getWeight() {
-		return 11;
+	public function __construct(WebApp $app) {
+		parent::__construct($app);
 	}
 
 
 
 	public function doRender() {
+	}
+/*
 		if (System::isShell()) {
 			$name = $this->getName();
 			fail("Cannot use a WebRender class in this mode! $name",
@@ -38,7 +39,7 @@ class Render_Main extends Render {
 				Defines::EXIT_CODE_USAGE_ERROR);
 		}
 	}
-/*
+/ *
 		// get page contents (has internal buffering)
 		$pageContents = $this->app->getPageContents();
 		// get page title

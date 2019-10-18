@@ -8,14 +8,23 @@
  */
 namespace pxn\phpPortal\render;
 
-use pxn\phpUtils\System;
-use pxn\phpUtils\Defines;
+//use pxn\phpUtils\Defines;
+//use pxn\phpUtils\System;
+
+use pxn\phpPortal\WebApp;
 
 
 class Render_Splash extends Render {
 
 
 
+	public function __construct(WebApp $app) {
+		parent::__construct($app);
+	}
+
+
+
+/*
 //	public function getName() {
 //		return 'splash';
 //	}
@@ -34,6 +43,7 @@ class Render_Splash extends Render {
 fail('UNFINISHED!');
 //		return TRUE;
 	}
+*/
 
 
 

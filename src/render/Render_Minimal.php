@@ -8,14 +8,23 @@
  */
 namespace pxn\phpPortal\render;
 
-//use pxn\phpUtils\System;
 //use pxn\phpUtils\Defines;
+//use pxn\phpUtils\System;
+
+use pxn\phpUtils\app\App;
 
 
 class Render_Minimal extends Render {
 
 
 
+	public function __construct(App $app) {
+		parent::__construct($app);
+	}
+
+
+
+/*
 //	public function getName() {
 //		return 'minimal';
 //	}
@@ -34,6 +43,7 @@ class Render_Minimal extends Render {
 fail('UNFINISHED!');
 //		return TRUE;
 	}
+*/
 
 
 
