@@ -13,8 +13,8 @@
 		"irc":    "irc://irc.esper.net/poixson"
 	},
 	"authors": [{
-		"name":  "lorenzop",
-		"role":  "Developer"
+		"name": "lorenzop",
+		"role": "Developer"
 	}],
 	"autoload": {
 		"psr-4": {
