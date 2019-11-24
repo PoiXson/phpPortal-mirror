@@ -23,23 +23,23 @@ abstract class Page {
 
 
 
-	public function getPageTitle() {
+	public function getPageTitle(): string {
 		return $this->pageTitle;
 	}
-	public function setPageTitle($title) {
+	public function setPageTitle($title): void {
 		$this->pageTitle = (
 			empty($title)
 			? NULL
 			: $title
 		);
 	}
-	public function getTitle() {
+	public function getTitle(): string {
 		return 'TITLE';
 	}
 
 
 
-	public abstract function getPageContents();
+	public abstract function getPageContents(): string;
 
 
 

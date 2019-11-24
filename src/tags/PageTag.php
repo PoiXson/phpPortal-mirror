@@ -13,7 +13,7 @@ class PageTag extends \Twig\Extension\AbstractExtension {
 
 
 
-	public function getFunctions() {
+	public function getFunctions(): array {
 		return [
 			new \Twig\TwigFunction(
 				'PageContents',
@@ -25,7 +25,7 @@ class PageTag extends \Twig\Extension\AbstractExtension {
 
 
 
-	public function getPageContents() {
+	public function getPageContents(): string {
 		return "\n\n\n<br /><p>!!! <b>PAGE CONTENTS</b> !!!</p>\n\n\n";
 	}
 

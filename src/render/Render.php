@@ -38,11 +38,11 @@ abstract class Render {
 
 
 
-	public abstract function doRender();
+	public abstract function doRender(): void;
 
 
 
-	public function getName() {
+	public function getName(): string {
 		$name = \get_called_class();
 		$pos = \mb_strrpos($name, '\\');
 		if ($pos !== FALSE) {
@@ -55,7 +55,7 @@ abstract class Render {
 
 
 
-	protected function renderHeadInsert() {
+	protected function renderHeadInsert(): string {
 		$output = '';
 		// css files
 		if (\count($this->cssFiles) > 0) {
@@ -97,7 +97,7 @@ abstract class Render {
 
 
 
-	protected function _html_head_() {
+	protected function _html_head_(): string {
 		return <<<EOF
 <!DOCTYPE html>
 <html>
@@ -111,7 +111,7 @@ abstract class Render {
 <body>
 EOF;
 	}
-	protected function _html_foot_() {
+	protected function _html_foot_(): string {
 		return <<<EOF
 </body>
 </html>

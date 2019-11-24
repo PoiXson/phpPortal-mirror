@@ -29,32 +29,32 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 
-	public function run() {
+	public function run(): void {
 		$render = $this->getRender();
 		$render->doRender();
 	}
 
 
 
-	public function getRender() {
+	public function getRender(): \pxn\phpPortal\render\Render {
 		if ($this->render == NULL) {
 			$this->render = new \pxn\phpPortal\render\Render_Main($this);
 		}
 		return $this->render;
 	}
-	public function setRender(\pxn\phpUtils\app\Render $render) {
+	public function setRender(\pxn\phpPortal\render\Render $render): void {
 		$this->render = $render;
 	}
 
 
 
-	public function getPage() {
+	public function getPage(): \pxn\phpPortal\Page {
 		if (empty($this->page)) {
 			return $this->getDefaultPage();
 		}
 		return $this->page;
 	}
-	public function getPageRendered() {
+	public function getPageRendered(): string {
 		$page = $this->getPage();
 		if (\is_string($page)) {
 			
@@ -64,7 +64,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		}
 		return $page;
 	}
-	public abstract function getDefaultPage();
+	public abstract function getDefaultPage(): string;
 
 
 

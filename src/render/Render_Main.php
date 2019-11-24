@@ -26,7 +26,7 @@ class Render_Main extends Render {
 
 
 
-	public function doRender() {
+	public function doRender(): void {
 	}
 /*
 		if (System::isShell()) {
