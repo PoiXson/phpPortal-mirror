@@ -21,10 +21,8 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 	public function __construct() {
+		self::ValidateWeb();
 		parent::__construct();
-		if (SystemUtils::isShell()) {
-			throw new \RuntimeException('Cannot use a WebRender class in this mode: '.\get_called_class());
-		}
 	}
 
 
@@ -65,6 +63,15 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		return $page;
 	}
 	public abstract function getDefaultPage(): string;
+
+
+
+	public static function ValidateWeb(): void {
+		if (SystemUtils::isShell()) {
+			$name = $this->getName();
+			throw new \RuntimeException("This script can only run as web! $name");
+		}
+	}
 
 
 
