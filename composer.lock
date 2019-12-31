@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "f5b8784145aa0e639fa600436e1847f7",
+    "content-hash": "2ccd495724c9502962608797588bf0fc",
     "packages": [
         {
             "name": "michelf/php-markdown",
@@ -99,11 +99,11 @@
         },
         {
             "name": "pxn/phputils",
-            "version": "dev-master",
+            "version": "0.2.0",
             "source": {
                 "type": "git",
                 "url": "https://git.poixson.com/r/pxn/phpUtils.git",
-                "reference": "90eecccb727e823e64c74e5a23b24f1afb44d7c3"
+                "reference": "5ca62597ed197bf422875a03b97797948db13dca"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -141,7 +141,7 @@
                 "framework",
                 "utilities"
             ],
-            "time": "2019-11-24T17:22:38+00:00"
+            "time": "2019-12-31T18:31:37+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
@@ -1788,9 +1788,7 @@
     ],
     "aliases": [],
     "minimum-stability": "stable",
-    "stability-flags": {
-        "pxn/phputils": 20
-    },
+    "stability-flags": [],
     "prefer-stable": false,
     "prefer-lowest": false,
     "platform": [],
