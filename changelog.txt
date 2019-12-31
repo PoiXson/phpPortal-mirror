@@ -1,6 +1,15 @@
 phpPortal 0.1.x - Website Utilities Library
 
 
+2019-12-31 phpShell 0.2.0
+=========================
+* to make available to composer as dependency
+* (Not fully functional)
+* changed many classes
+* temporarily commented many unfinished classes until needed
+* typehinting function arguments and returns
+
+
 2017-03-22 phpPortal 0.1.8
 ==========================
 * updated db table schema classes for pxdb 0.1.4
