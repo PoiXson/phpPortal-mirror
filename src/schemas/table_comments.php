@@ -1,9 +1,10 @@
 <?php
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2019
+ * @copyright 2004-2020
+ * @license GPL-3
  * @author lorenzo at poixson.com
- * @link http://poixson.com/
+ * @link https://poixson.com/
  * /
 namespace pxn\phpPortal\schemas;
 
