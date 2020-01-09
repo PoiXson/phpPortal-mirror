@@ -1,4 +1,9 @@
-phpPortal 0.1.x - Website Utilities Library
+phpPortal - Website Utilities Library
+
+
+2020-01-09 phpShell 0.2.1
+=========================
+* updated composer dependencies
 
 
 2019-12-31 phpShell 0.2.0
