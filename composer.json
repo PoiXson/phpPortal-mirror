@@ -33,9 +33,12 @@
 			"examples/"
 		]
 	},
+	"suggest": {
+		"michelf/php-markdown": "1.*"
+	},
 	"require": {
 		"pxn/phputils": "0.2.*",
-		"twig/twig": "v2.*",
+		"twig/twig": "v3.*",
 		"michelf/php-markdown": "1.*",
 		"pxn/composerlocaldev": "1.*"
 	},
