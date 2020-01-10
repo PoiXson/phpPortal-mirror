@@ -44,7 +44,7 @@ class PageContentsTag extends \Twig\Extension\AbstractExtension {
 
 
 	public function getPageContents(): string {
-		return "\n\n\n<br /><p>!!! <b>PAGE CONTENTS</b> !!!</p>\n\n\n";
+		return $this->app->getPageRendered();
 	}
 
 

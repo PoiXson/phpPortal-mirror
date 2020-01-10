@@ -8,6 +8,7 @@
  */
 namespace pxn\phpPortal;
 
+use pxn\phpUtils\GeneralUtils;
 use pxn\phpUtils\SystemUtils;
 
 
@@ -25,6 +26,16 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	public function __construct() {
 		self::ValidateWeb();
 		parent::__construct();
+		{
+			$page = GeneralUtils::getVar('page', 's', ['g', 'p']);
+			if (empty($page)) {
+				if (isset($_SERVER['REQUEST_URI'])) {
+					$uri = $_SERVER['REQUEST_URI'];
+					$parts = \explode('/', $uri, 2);
+					$page = $parts[0];
+				}
+			}
+		}
 	}
 
 
@@ -48,7 +59,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 
-	public function getPage(): \pxn\phpPortal\Page {
+	public function getPage() {
 		if (empty($this->page)) {
 			return $this->getDefaultPage();
 		}
@@ -56,13 +67,26 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	}
 	public function getPageRendered(): string {
 		$page = $this->getPage();
+		// search for page
 		if (\is_string($page)) {
-			
-			
-			
-			
+			$pageSan = \pxn\phpUtils\San::AlphaNum($page);
+			if (isset($this->pages[$pageSan])) {
+				$pageClass = $this->pages[$pageSan];
+				if (\class_exists($pageClass)) {
+					$this->page = new $pageClass($this);
+					return $this->page->getPageContents();
+				}
+			}
+			// page not found
+			$page = new \pxn\phpPortal\pages\page_404($this);
+			return $page->getPageContents();
 		}
-		return $page;
+		// page object
+		if ($page instanceof \pxn\phpPortal\Page) {
+			return $page->getPageContents();
+		}
+		// string
+		return (string) $page;
 	}
 	public abstract function getDefaultPage(): string;
 
