@@ -5,32 +5,35 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpPortal\pages;
-
-use pxn\phpPortal\Website;
-use pxn\phpPortal\ConfigPortal;
 
 
 class page_404 {
 
+	protected $app;
 
 
-	public function getPageTitle() {
+
+	public function __construct(\pxn\phpPortal\WebApp $app) {
+		$this->app = $app;
+	}
+
+
+
+	public function getPageTitle(): string {
 		return '404 - Page Not Found!';
 	}
-	public function getPageContents() {
-		$FailedPage = Website::get()
-			->getArg( ConfigPortal::getFailedPage() );
-		return
-"<center>
+	public function getPageContents(): string {
+		$FailedPage = $this->app->getPage();
+		return <<<EOF
+<center>
 	<h1>404 - Page Not Found!</h1>
 	<h3>Page: {$FailedPage}</h3>
 </center>
-";
+EOF;
 	}
 
 
 
 }
-*/
