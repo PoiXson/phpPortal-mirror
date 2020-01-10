@@ -10,6 +10,8 @@ namespace pxn\phpPortal;
 
 use pxn\phpUtils\GeneralUtils;
 use pxn\phpUtils\SystemUtils;
+use pxn\phpUtils\Strings;
+use pxn\phpUtils\San;
 
 
 abstract class WebApp extends \pxn\phpUtils\app\App {
@@ -31,9 +33,13 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			if (empty($page)) {
 				if (isset($_SERVER['REQUEST_URI'])) {
 					$uri = $_SERVER['REQUEST_URI'];
+					$uri = Strings::Trim($uri, '/', ' ');
 					$parts = \explode('/', $uri, 2);
 					$page = $parts[0];
 				}
+			}
+			if (!empty($page)) {
+				$this->page = San::AlphaNum($page);
 			}
 		}
 	}
@@ -69,24 +75,25 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$page = $this->getPage();
 		// search for page
 		if (\is_string($page)) {
-			$pageSan = \pxn\phpUtils\San::AlphaNum($page);
-			if (isset($this->pages[$pageSan])) {
-				$pageClass = $this->pages[$pageSan];
+			$page = San::AlphaNum($page);
+			if (isset($this->pages[$page])) {
+				$pageClass = $this->pages[$page];
 				if (\class_exists($pageClass)) {
 					$this->page = new $pageClass($this);
-					return $this->page->getPageContents();
+					return $this->page->getContents();
 				}
 			}
 			// page not found
 			$page = new \pxn\phpPortal\pages\page_404($this);
-			return $page->getPageContents();
+			return $page->getContents();
 		}
 		// page object
 		if ($page instanceof \pxn\phpPortal\Page) {
-			return $page->getPageContents();
+			return $page->getContents();
 		}
-		// string
-		return (string) $page;
+		// page not found
+		$page = new \pxn\phpPortal\pages\page_404($this);
+		return $page->getContents();
 	}
 	public abstract function getDefaultPage(): string;
 
