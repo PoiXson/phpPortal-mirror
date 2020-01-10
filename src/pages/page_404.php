@@ -9,7 +9,7 @@
 namespace pxn\phpPortal\pages;
 
 
-class page_404 {
+class page_404 extends \pxn\phpPortal\Page {
 
 	protected $app;
 
@@ -24,7 +24,10 @@ class page_404 {
 	public function getPageTitle(): string {
 		return '404 - Page Not Found!';
 	}
-	public function getPageContents(): string {
+
+
+
+	public function getContents(): string {
 		$FailedPage = $this->app->getPage();
 		return <<<EOF
 <center>
