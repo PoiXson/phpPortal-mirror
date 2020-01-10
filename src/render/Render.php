@@ -49,16 +49,30 @@ abstract class Render {
 
 
 
-	protected function _html_head_(): string {
+	public function getTwig(): \Twig\Environment {
+//TODO
+$twigPath = '/zcode/web11/Web11Panel/src/html/default/';
+		$loader = new \Twig\Loader\FilesystemLoader($twigPath);
+		$twigOptions = [
+			'cache' => false
+		];
+		$twig = new \Twig\Environment($loader, $twigOptions);
+		return $twig;
+	}
+
+
+
+	protected function _html_head_(string $title, ?string $headInsert): string {
+		if ($headInsert == null)
+			$headInsert = '';
 		return <<<EOF
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no" />
-<meta name="generator" content="Web11">
-<title>{title}</title>
-{head_insert}
+<title>$title</title>
+$headInsert
 </head>
 <body>
 EOF;

@@ -11,7 +11,7 @@ namespace pxn\phpPortal\render;
 //use pxn\phpPortal\ConfigPortal;
 
 //use pxn\phpUtils\Defines;
-//use pxn\phpUtils\System;
+use pxn\phpUtils\SystemUtils;
 
 use pxn\phpPortal\WebApp;
 
@@ -27,19 +27,48 @@ class Render_Main extends Render {
 
 
 	public function doRender(): void {
+//TODO
+$title = 'Page Title';
+$this->addFileCSS('/static/bootstrap/css/bootstrap.min.css');
+$this->addFileCSS('/static/bootswatch/spacelab/bootstrap.min.css');
+$this->addFileJS('/static/jquery/jquery.min.js');
+$this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
+		if (SystemUtils::isShell()) {
+			throw new \RuntimeException('Cannot use a WebRender class in this mode: '.$this->getName());
+		}
+		if (!($this->app instanceof \pxn\phpPortal\WebApp)) {
+			throw new \RuntimeException('App not instance of WebApp');
+		}
+		// render html head
+		{
+			$headInsert = $this->renderHeadInsert();
+//TODO
+// fav icon
+//if (!empty($iconFile)) {
+//	$headInsert .= <<<EOF
+//<link rel="shortcut icon" href="{$iconFile}" type="image/x-icon" />
+//<link rel="icon" href="{$iconFile}" type="image/x-icon" />
+//EOF;
+//}
+			echo $this->_html_head_($title, $headInsert);
+		}
+		// render html
+		{
+			$twig = $this->getTwig();
+			\pxn\phpPortal\tags\MenuBuilderTag::loadTag($twig);
+			\pxn\phpPortal\tags\PageContentsTag::loadTag($twig);
+			$tpl = $twig->load('main.twig');
+//TODO
+$tags = [ 'test' => "THIS IS A TEST" ];
+			echo $tpl->render($tags);
+		}
+		// render html foot
+		{
+			echo $this->_html_foot_();
+		}
+		@\ob_flush();
 	}
 /*
-		if (System::isShell()) {
-			$name = $this->getName();
-			fail("Cannot use a WebRender class in this mode! $name",
-				Defines::EXIT_CODE_USAGE_ERROR);
-		}
-		if (! $this->app instanceof \pxn\phpPortal\WebApp) {
-			fail('App not instance of WebApp!',
-				Defines::EXIT_CODE_USAGE_ERROR);
-		}
-	}
-/ *
 		// get page contents (has internal buffering)
 		$pageContents = $this->app->getPageContents();
 		// get page title
@@ -61,32 +90,6 @@ class Render_Main extends Render {
 		$CRLF = Defines::CRLF;
 		$TAB  = Defines::TAB;
 
-		echo
-			'<!DOCTYPE html>'.$CRLF.
-			'<html lang="en">'.$CRLF.
-			'<head>'.$CRLF.
-			'<meta charset="utf-8" />'.$CRLF.
-			'<meta http-equiv="X-UA-Compatible" content="IE=edge" />'.$CRLF.
-			'<meta name="viewport" content="width=device-width, initial-scale=1" />'.$CRLF.
-			"<title>{$title}</title>".$CRLF.
-
-			// fav icon
-			(empty($iconFile) ? '' :
-				'<link rel="shortcut icon" href="{$iconFile}" type="image/x-icon" />'.$CRLF.
-				'<link rel="icon" href="{$iconFile}" type="image/x-icon" />'.$CRLF
-			).
-
-			'<link rel="stylesheet" href="/static/main.css" />'.$CRLF.
-			'<link rel="stylesheet" href="/static/bootstrap/dist/css/bootstrap.min.css" />'.$CRLF.
-			'<script src="/static/jquery/jquery.min.js"></script>'.$CRLF.
-			'<script src="/static/bootstrap/dist/js/bootstrap.min.js"></script>'.$CRLF.
-
-//'<meta http-equiv="refresh" content="2" />'.$CRLF.
-
-			'</head>'.$CRLF.
-			'<body>'.$CRLF;
-
-		@\ob_flush();
 
 		// render with twig
 		echo $tpl->render([
