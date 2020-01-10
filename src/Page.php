@@ -34,13 +34,28 @@ abstract class Page implements PanelContents {
 		);
 	}
 	public function getTitle(): string {
+		if (!empty($this->pageTitle))
+			return $this->pageTitle;
+//TODO
 		return 'TITLE';
 	}
 
 
 
-	public function getTpl($filename) {
-		return $this->app->getTpl($filename);
+	public function getTwig(): \Twig\Environment {
+		$loader = new \Twig\Loader\FilesystemLoader($twigPath);
+		$twigOptions = [
+//TODO
+			'cache' => false
+		];
+		$twig = new \Twig\Environment($loader, $twigOptions);
+		return $twig;
+	}
+	public function getTpl(string $filename, ?\Twig\Environment $twig=null): \Twig\TemplateWrapper {
+		if ($twig == null) {
+			$twig = $this->getTwig();
+		}
+		return $twig->load($filename);
 	}
 
 
