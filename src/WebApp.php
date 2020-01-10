@@ -14,7 +14,9 @@ use pxn\phpUtils\SystemUtils;
 abstract class WebApp extends \pxn\phpUtils\app\App {
 
 	protected $page = NULL;
-	protected $menu = [];
+
+	protected $menus = [];
+	protected $pages = [];
 
 	protected $render = NULL;
 
@@ -81,6 +83,12 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		if (!isset($this->menu[$group]))
 			$this->menu[$group] = [];
 		return $this->menu[$group];
+	}
+	public function &getPagesArray(): array {
+		return $this->pages;
+	}
+	public function addPage(string $name, string $classPath): void {
+		$this->pages[$name] = $classPath;
 	}
 
 
