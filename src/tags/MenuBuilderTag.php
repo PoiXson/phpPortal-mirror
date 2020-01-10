@@ -13,24 +13,36 @@ class MenuBuilderTag extends \Twig\Extension\AbstractExtension {
 
 
 
+	public static function loadTag(\Twig\Environment $twig) {
+		$twig->addExtension(new MenuBuilderTag());
+	}
+	public function __construct() {
+	}
+
+
+
 	public function getFunctions(): array {
+		$tagName  = 'MenuBuilder';
+		$callback = [ $this, 'buildMenu' ];
+		$options  = [ 'is_safe' => ['html'] ];
 		return [
 			new \Twig\TwigFunction(
-				'MenuBuilder',
-				[ $this, 'buildMenu' ],
-				[ 'is_safe' => ['html'] ]
+				$tagName,
+				$callback,
+				$options
 			)
 		];
 	}
 
 
 
-	public function buildMenu(): array {
-		return [
-			'a',
-			'b',
-			'c'
-		];
+	public function buildMenu(string $menuName): string {
+return "--- MENU $menuName ---";
+//		return [
+//			'a',
+//			'b',
+//			'c'
+//		];
 	}
 
 

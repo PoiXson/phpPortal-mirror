@@ -13,12 +13,23 @@ class PageContentsTag extends \Twig\Extension\AbstractExtension {
 
 
 
+	public static function loadTag(\Twig\Environment $twig) {
+		$twig->addExtension(new PageContentsTag());
+	}
+	public function __construct() {
+	}
+
+
+
 	public function getFunctions(): array {
+		$tagName  = 'PageContents';
+		$callback = [ $this, 'getPageContents' ];
+		$options  = [ 'is_safe' => ['html'] ];
 		return [
 			new \Twig\TwigFunction(
-				'PageContents',
-				[ $this, 'getPageContents' ],
-				[ 'is_safe' => ['html'] ]
+				$tagName,
+				$callback,
+				$options
 			)
 		];
 	}
