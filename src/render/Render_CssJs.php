@@ -18,6 +18,8 @@ trait Render_CssJs {
 	protected $jsFiles   = [];
 	protected $jsBlocks  = [];
 
+	protected $favIcon = null;
+
 
 
 	protected function renderHeadInsert(): string {
@@ -54,6 +56,13 @@ trait Render_CssJs {
 			}
 			$output .= "\n";
 		}
+		// fav icon
+		if (!empty($this->favIcon)) {
+			$output .= <<<EOF
+<link rel="shortcut icon" href="{$this->favIcon}" type="image/x-icon" />
+<link rel="icon" href="{$this->favIcon}" type="image/x-icon" />
+EOF;
+		}
 		if (empty($output)) {
 			return $output;
 		}
@@ -82,6 +91,12 @@ trait Render_CssJs {
 	}
 	public function addBlockJS(string $block): void {
 		$this->jsBlocks[] = $block;
+	}
+
+
+
+	public function setFavIcon(string $favIcon): void {
+		$this->favIcon = $favIcon;
 	}
 
 

@@ -42,14 +42,6 @@ $this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
 		// render html head
 		{
 			$headInsert = $this->renderHeadInsert();
-//TODO
-// fav icon
-//if (!empty($iconFile)) {
-//	$headInsert .= <<<EOF
-//<link rel="shortcut icon" href="{$iconFile}" type="image/x-icon" />
-//<link rel="icon" href="{$iconFile}" type="image/x-icon" />
-//EOF;
-//}
 			echo $this->_html_head_($title, $headInsert);
 		}
 		// render html
