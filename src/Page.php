@@ -9,7 +9,7 @@
 namespace pxn\phpPortal;
 
 
-abstract class Page {
+abstract class Page implements PanelContents {
 
 	protected $app = NULL;
 
@@ -36,10 +36,6 @@ abstract class Page {
 	public function getTitle(): string {
 		return 'TITLE';
 	}
-
-
-
-	public abstract function getPageContents(): string;
 
 
 
