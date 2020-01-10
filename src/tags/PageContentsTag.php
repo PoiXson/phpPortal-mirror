@@ -9,7 +9,7 @@
 namespace pxn\phpPortal\tags;
 
 
-class PageTag extends \Twig\Extension\AbstractExtension {
+class PageContentsTag extends \Twig\Extension\AbstractExtension {
 
 
 
