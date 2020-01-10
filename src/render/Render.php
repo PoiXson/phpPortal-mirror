@@ -18,17 +18,11 @@ use pxn\phpPortal\WebApp;
 
 
 abstract class Render {
+	use Render_CssJs;
 
 	protected $app;
 
 //	protected $twigs = [];
-
-	// css
-	protected $cssFiles  = [];
-	protected $cssBlocks = [];
-	// js
-	protected $jsFiles   = [];
-	protected $jsBlocks  = [];
 
 
 
@@ -51,48 +45,6 @@ abstract class Render {
 		$name = Strings::TrimFront($name, 'Render', 'Web');
 		$name = \mb_strtolower($name);
 		return $name;
-	}
-
-
-
-	protected function renderHeadInsert(): string {
-		$output = '';
-		// css files
-		if (\count($this->cssFiles) > 0) {
-			$output .= "<!-- css files -->\n";
-			foreach ($this->cssFiles as $file) {
-				$output .= "<link rel=\"stylesheet\" href=\"$file\" />\n";
-			}
-			$output .= "\n";
-		}
-		// css blocks
-		if (\count($this->cssBlocks) > 0) {
-			$output .= "<!-- css blocks -->\n";
-			foreach ($this->cssBlocks as $block) {
-				$output .= "<style>\n$block\n</style>\n";
-			}
-			$output .= "\n";
-		}
-		// js files
-		if (\count($this->jsFiles) > 0) {
-			$output .= "<!-- js files -->\n";
-			foreach ($this->jsFiles as $file) {
-				$output .= "<script src=\"$file\"></script>\n";
-			}
-			$output .= "\n";
-		}
-		// js blocks
-		if (\count($this->jsBlocks) > 0) {
-			$output .= "<!-- js blocks -->\n";
-			foreach ($this->jsBlocks as $block) {
-				$output .= "<script>\n$block\n</script>\n";
-			}
-			$output .= "\n";
-		}
-		if (empty($output)) {
-			return $output;
-		}
-		return "\n\n$output";
 	}
 
 
