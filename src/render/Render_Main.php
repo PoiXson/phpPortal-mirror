@@ -56,7 +56,7 @@ $this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
 		{
 			$twig = $this->getTwig();
 			\pxn\phpPortal\tags\MenuBuilderTag::loadTag($twig);
-			\pxn\phpPortal\tags\PageContentsTag::loadTag($twig);
+			\pxn\phpPortal\tags\PageContentsTag::loadTag($this->app, $twig);
 			$tpl = $twig->load('main.twig');
 //TODO
 $tags = [ 'test' => "THIS IS A TEST" ];

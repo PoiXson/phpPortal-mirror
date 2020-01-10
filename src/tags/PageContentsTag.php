@@ -8,15 +8,22 @@
  */
 namespace pxn\phpPortal\tags;
 
+use pxn\phpPortal\WebApp;
+
 
 class PageContentsTag extends \Twig\Extension\AbstractExtension {
 
+	protected $app;
 
 
-	public static function loadTag(\Twig\Environment $twig) {
-		$twig->addExtension(new PageContentsTag());
+
+	public static function loadTag(WebApp $app, \Twig\Environment $twig) {
+		$twig->addExtension(
+			new PageContentsTag($app)
+		);
 	}
-	public function __construct() {
+	public function __construct(WebApp $app) {
+		$this->app = $app;
 	}
 
 
