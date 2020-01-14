@@ -26,7 +26,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 	public function __construct() {
-		self::ValidateWeb();
+		self::AssertWeb();
 		parent::__construct();
 		{
 			$page = GeneralUtils::getVar('page', 's', ['g', 'p']);
@@ -99,7 +99,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 
-	public static function ValidateWeb(): void {
+	public static function AssertWeb(): void {
 		if (SystemUtils::isShell()) {
 			$name = $this->getName();
 			throw new \RuntimeException("This script can only run as web! $name");
