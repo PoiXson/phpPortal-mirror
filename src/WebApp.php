@@ -48,6 +48,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 	public function run(): void {
 		$render = $this->getRender();
+		$this->loadPage();
 		$render->doRender();
 	}
 
@@ -71,7 +72,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		}
 		return $this->page;
 	}
-	public function getPageRendered(): string {
+	public function loadPage(): void {
 		$page = $this->getPage();
 		// search for page
 		if (\is_string($page)) {
@@ -80,19 +81,21 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 				$pageClass = $this->pages[$page];
 				if (\class_exists($pageClass)) {
 					$this->page = new $pageClass($this);
-					return $this->page->getContents();
+					return;
 				}
 			}
 			// page not found
 			$this->page = new \pxn\phpPortal\pages\page_404($this, $page);
+		}
+	}
+	public function getPageRendered(): string {
+		$this->loadPage();
+		// page object
+		if ($this->page instanceof Page) {
 			return $this->page->getContents();
 		}
-		// page object
-		if ($page instanceof \pxn\phpPortal\Page) {
-			return $page->getContents();
-		}
 		// page not found
-		$this->page = new \pxn\phpPortal\pages\page_404($this, $page);
+		$this->page = new \pxn\phpPortal\pages\page_404($this, $this->getPage());
 		return $this->page->getContents();
 	}
 	public abstract function getDefaultPage(): string;
