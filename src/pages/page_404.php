@@ -11,12 +11,13 @@ namespace pxn\phpPortal\pages;
 
 class page_404 extends \pxn\phpPortal\Page {
 
-	protected $app;
+	protected $missingPage = NULL;
 
 
 
-	public function __construct(\pxn\phpPortal\WebApp $app) {
-		$this->app = $app;
+	public function __construct(\pxn\phpPortal\WebApp $app, ?string $missingPage=NULL) {
+		parent::__construct($app);
+		$this->missingPage = $missingPage;
 	}
 
 
@@ -28,11 +29,11 @@ class page_404 extends \pxn\phpPortal\Page {
 
 
 	public function getContents(): string {
-		$FailedPage = $this->app->getPage();
+		$missingPageName = self::getPageName($this->missingPage);
 		return <<<EOF
 <center>
 	<h1>404 - Page Not Found!</h1>
-	<h3>Page: {$FailedPage}</h3>
+	<h3>Page: {$missingPageName}</h3>
 </center>
 EOF;
 	}
