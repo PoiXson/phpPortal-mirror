@@ -49,8 +49,11 @@ $this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
 			$twig = $this->getTwig();
 			\pxn\phpPortal\tags\PageContentsTag::loadTag($this->app, $twig);
 			$tpl = $twig->load('main.twig');
-//TODO
-$tags = [ 'test' => "THIS IS A TEST" ];
+			$tags = [];
+			$menus = $this->app->getMenuArray();
+			foreach ($menus as $menuName => $menu) {
+				$tags[$menuName] = $menu;
+			}
 			echo $tpl->render($tags);
 		}
 		// render html foot
