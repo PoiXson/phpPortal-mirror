@@ -22,6 +22,8 @@ abstract class Render {
 
 	protected $app;
 
+	protected $forwardTo = NULL;
+
 //	protected $twigs = [];
 
 
@@ -45,6 +47,12 @@ abstract class Render {
 		$name = Strings::TrimFront($name, 'Render', 'Web');
 		$name = \mb_strtolower($name);
 		return $name;
+	}
+
+
+
+	public function forwardTo(string $url): void {
+		$this->forwardTo = $url;
 	}
 
 

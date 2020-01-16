@@ -27,6 +27,18 @@ class Render_Main extends Render {
 
 
 	public function doRender(): void {
+		if (!empty($this->forwardTo)) {
+			if (\headers_sent()) {
+				echo <<<EOF
+<html><header><meta http-equiv="refresh" content="0;url={$this->forwardTo}"></header>
+<body><p><a href="{$this->forwardTo}"><font size="+1">Continue..</font></a></p></body></html>
+EOF;
+			} else {
+				\header('HTTP/1.0 302 Found');
+				\header("Location: {$this->forwardTo}");
+			}
+			return;
+		}
 		$title = $this->app->getTitle();
 //TODO
 $this->addFileCSS('/static/bootstrap/css/bootstrap.min.css');
