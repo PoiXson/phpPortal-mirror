@@ -8,17 +8,37 @@
  */
 namespace pxn\phpPortal;
 
+use pxn\phpUtils\Strings;
+
 
 abstract class Page implements PanelContents {
 
 	protected $app = NULL;
 
+	protected $pageName  = NULL;
 	protected $pageTitle = NULL;
 
 
 
 	public function __construct(\pxn\phpUtils\app\App $app) {
 		$this->app = $app;
+	}
+
+
+
+	public function getPageName(): string {
+		if ($this->pageName === NULL) {
+			$name = \get_called_class();
+			$pos = \mb_strrpos($name, '\\');
+			if ($pos !== FALSE) {
+				$name = \mb_substr($name, $pos + 1);
+			}
+			if (Strings::StartsWith($name, 'page_')) {
+				$name = \mb_substr($name, 5);
+			}
+			$this->pageName = $name;
+		}
+		return $this->pageName;
 	}
 
 
