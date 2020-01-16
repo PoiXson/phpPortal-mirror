@@ -43,21 +43,15 @@ abstract class Page implements PanelContents {
 
 
 
-	public function getPageTitle(): string {
+	public function getPageTitle(): ?string {
 		return $this->pageTitle;
 	}
-	public function setPageTitle($title): void {
+	public function setPageTitle(?string $title): void {
 		$this->pageTitle = (
 			empty($title)
 			? NULL
 			: $title
 		);
-	}
-	public function getTitle(): string {
-		if (!empty($this->pageTitle))
-			return $this->pageTitle;
-//TODO
-		return 'TITLE';
 	}
 
 
