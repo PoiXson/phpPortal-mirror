@@ -108,7 +108,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 
-	public function &getMenuArray(?string $group=null): array {
+	public function &getMenuArray(?string $group=NULL): array {
 		if (empty($group))
 			return $this->menu;
 		if (!isset($this->menu[$group]))

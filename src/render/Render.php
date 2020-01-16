@@ -55,13 +55,13 @@ $twigPath = '/zcode/web11/Web11Panel/src/html/default/';
 		$loader = new \Twig\Loader\FilesystemLoader($twigPath);
 		$twigOptions = [
 //TODO
-			'cache' => false
+			'cache' => FALSE
 		];
 		$twig = new \Twig\Environment($loader, $twigOptions);
 		return $twig;
 	}
-	public function getTpl(string $filename, ?\Twig\Environment $twig=null): \Twig\TemplateWrapper {
-		if ($twig == null) {
+	public function getTpl(string $filename, ?\Twig\Environment $twig=NULL): \Twig\TemplateWrapper {
+		if ($twig == NULL) {
 			$twig = $this->getTwig();
 		}
 		return $twig->load($filename);
@@ -70,7 +70,7 @@ $twigPath = '/zcode/web11/Web11Panel/src/html/default/';
 
 
 	protected function _html_head_(string $title, ?string $headInsert): string {
-		if ($headInsert == null)
+		if ($headInsert == NULL)
 			$headInsert = '';
 		return <<<EOF
 <!DOCTYPE html>

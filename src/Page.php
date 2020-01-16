@@ -46,13 +46,13 @@ abstract class Page implements PanelContents {
 		$loader = new \Twig\Loader\FilesystemLoader($twigPath);
 		$twigOptions = [
 //TODO
-			'cache' => false
+			'cache' => FALSE
 		];
 		$twig = new \Twig\Environment($loader, $twigOptions);
 		return $twig;
 	}
-	public function getTpl(string $filename, ?\Twig\Environment $twig=null): \Twig\TemplateWrapper {
-		if ($twig == null) {
+	public function getTpl(string $filename, ?\Twig\Environment $twig=NULL): \Twig\TemplateWrapper {
+		if ($twig == NULL) {
 			$twig = $this->getTwig();
 		}
 		return $twig->load($filename);
