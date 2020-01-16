@@ -118,9 +118,6 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 	public function &getPagesArray(): array {
 		return $this->pages;
 	}
-	public function addPage(string $name, string $classPath): void {
-		$this->pages[$name] = $classPath;
-	}
 
 
 
