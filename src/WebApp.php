@@ -29,7 +29,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		self::AssertWeb();
 		parent::__construct();
 		{
-			$page = GeneralUtils::getVar('page', 's', ['g', 'p']);
+			$page = GeneralUtils::getVar('page', 's', 'g', 'p');
 			if (empty($page)) {
 				if (isset($_SERVER['REQUEST_URI'])) {
 					$uri = $_SERVER['REQUEST_URI'];
