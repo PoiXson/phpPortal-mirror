@@ -27,8 +27,8 @@ class Render_Main extends Render {
 
 
 	public function doRender(): void {
+		$title = $this->app->getTitle();
 //TODO
-$title = 'Page Title';
 $this->addFileCSS('/static/bootstrap/css/bootstrap.min.css');
 $this->addFileCSS('/static/bootswatch/spacelab/bootstrap.min.css');
 $this->addFileJS('/static/jquery/jquery.min.js');

@@ -66,6 +66,20 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 
+	public function getTitle(): string {
+		$this->loadPage();
+		if ($this->page instanceof Page) {
+			$title = $this->page->getPageTitle();
+			if (!empty($title)) {
+				return $title;
+			}
+		}
+//TODO: default site title
+		return '';
+	}
+
+
+
 	public function getPage() {
 		if (empty($this->page)) {
 			return $this->getDefaultPage();
