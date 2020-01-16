@@ -84,16 +84,16 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 				}
 			}
 			// page not found
-			$page = new \pxn\phpPortal\pages\page_404($this);
-			return $page->getContents();
+			$this->page = new \pxn\phpPortal\pages\page_404($this, $page);
+			return $this->page->getContents();
 		}
 		// page object
 		if ($page instanceof \pxn\phpPortal\Page) {
 			return $page->getContents();
 		}
 		// page not found
-		$page = new \pxn\phpPortal\pages\page_404($this);
-		return $page->getContents();
+		$this->page = new \pxn\phpPortal\pages\page_404($this, $page);
+		return $this->page->getContents();
 	}
 	public abstract function getDefaultPage(): string;
 
@@ -110,10 +110,10 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 	public function &getMenuArray(?string $group=NULL): array {
 		if (empty($group))
-			return $this->menu;
-		if (!isset($this->menu[$group]))
-			$this->menu[$group] = [];
-		return $this->menu[$group];
+			return $this->menus;
+		if (!isset($this->menus[$group]))
+			$this->menus[$group] = [];
+		return $this->menus[$group];
 	}
 	public function &getPagesArray(): array {
 		return $this->pages;
