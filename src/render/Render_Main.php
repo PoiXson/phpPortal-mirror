@@ -62,7 +62,7 @@ $this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
 			\pxn\phpPortal\tags\PageContentsTag::loadTag($this->app, $twig);
 			$tpl = $twig->load('main.twig');
 			$tags = [];
-			$menus = $this->app->getMenuArray();
+			$menus = $this->app->getMenusArray();
 			foreach ($menus as $menuName => $menu) {
 				$tags[$menuName] = $menu;
 			}
