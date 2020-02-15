@@ -86,6 +86,15 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		}
 		return $this->page;
 	}
+	public function getPageName() {
+		if ($this->page instanceof Page) {
+			return $this->page->getName();
+		} else
+		if (\is_string($this->page)) {
+			return (string) $this->page;
+		}
+		return NULL;
+	}
 	public function loadPage(): void {
 		$page = $this->getPage();
 		// search for page
