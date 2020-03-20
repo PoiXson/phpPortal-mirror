@@ -16,6 +16,8 @@ use pxn\phpUtils\San;
 
 abstract class WebApp extends \pxn\phpUtils\app\App {
 
+	protected $autoload = NULL;
+
 	protected $page = NULL;
 	protected $pageDefault = NULL;
 
@@ -26,7 +28,10 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 
 
 
-	public function __construct() {
+	public function __construct(?\Composer\Autoload\ClassLoader $autoload=NULL) {
+		if ($autoload != NULL) {
+			$this->autoload = $autoload;
+		}
 		self::AssertWeb();
 		parent::__construct();
 		{
