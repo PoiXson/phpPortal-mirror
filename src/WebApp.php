@@ -17,6 +17,7 @@ use pxn\phpUtils\San;
 abstract class WebApp extends \pxn\phpUtils\app\App {
 
 	protected $page = NULL;
+	protected $pageDefault = NULL;
 
 	protected $menus = [];
 	protected $pages = [];
@@ -121,7 +122,9 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 		$this->page = new \pxn\phpPortal\pages\page_404($this, $this->getPage());
 		return $this->page->getContents();
 	}
-	public abstract function getDefaultPage(): string;
+	public function getDefaultPage(): ?string {
+		return $this->pageDefault;
+	}
 
 
 
