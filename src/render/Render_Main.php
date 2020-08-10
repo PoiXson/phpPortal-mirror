@@ -59,7 +59,7 @@ $this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
 		// render html
 		{
 			$twig = $this->getTwig();
-			\pxn\phpPortal\tags\PageContentsTag::loadTag($this->app, $twig);
+			\pxn\phpPortal\tags\Tag_PageContents::LoadTag($this->app, $twig);
 			$tpl = $twig->load('main.twig');
 			$tags = [];
 			$menus = $this->app->getMenusArray();
