@@ -26,6 +26,16 @@ abstract class Page implements PanelContents {
 
 
 
+	public static function ToPageName($page) {
+		if ($page instanceof Page)
+			return $page->getPageName();
+		if (\is_string($page))
+			return (string) $page;
+		return NULL;
+	}
+
+
+
 	public function getPageName(): string {
 		if ($this->pageName === NULL) {
 			$name = \get_called_class();
