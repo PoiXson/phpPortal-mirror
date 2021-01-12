@@ -1,7 +1,7 @@
 <?php
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2020
+ * @copyright 2004-2021
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
@@ -17,10 +17,10 @@ class Tag_PageContents extends \Twig\Extension\AbstractExtension {
 
 
 
-		$twig->addExtension(
-			new PageContentsTag($app)
-		);
 	public static function LoadTag(WebApp $app, \Twig\Environment $twig): Tag_PageContents {
+		$tag = new Tag_PageContents($app);
+		$twig->addExtension($tag);
+		return $tag;
 	}
 	public function __construct(WebApp $app) {
 		$this->app = $app;
@@ -44,7 +44,7 @@ class Tag_PageContents extends \Twig\Extension\AbstractExtension {
 
 
 	public function getPageContents(): string {
-		return $this->app->getPageRendered();
+		return $this->app->getPageContents();
 	}
 
 
