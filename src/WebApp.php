@@ -117,7 +117,7 @@ abstract class WebApp extends \pxn\phpUtils\app\App {
 			$this->page = new \pxn\phpPortal\pages\page_404($this, $page);
 		}
 	}
-	public function getPageRendered(): string {
+	public function getPageContents(): string {
 		$this->loadPage();
 		// page object
 		if ($this->page instanceof Page) {
