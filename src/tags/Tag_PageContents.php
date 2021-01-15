@@ -1,4 +1,4 @@
-<?php
+<?php declare(strict_types = 1);
 /*
  * PoiXson phpPortal - Website Utilities Library
  * @copyright 2004-2021
