@@ -34,12 +34,14 @@
 		]
 	},
 	"suggest": {
-		"michelf/php-markdown": "1.*"
+		"twbs/bootstrap": "v4.*",
+		"thomaspark/bootswatch": "v4.*"
 	},
 	"require": {
 		"pxn/phputils": "0.2.*",
 		"twig/twig": "v3.*",
 		"michelf/php-markdown": "1.*",
+		"php": ">=7.4",
 		"pxn/composerlocaldev": "1.*"
 	},
 	"require-dev": {
