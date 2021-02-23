@@ -1,6 +1,12 @@
 phpPortal - Website Utilities Library
 
 
+2021-02-23 - 0.3.0
+==================
+* refactoring project for php 8.0
+* releasing only to allow dependent projects to update composer.lock files
+
+
 2020-01-09 - 0.2.1
 ==================
 * updated composer dependencies
