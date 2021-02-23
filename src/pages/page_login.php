@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\pages;
 
 use pxn\phpUtils\GeneralUtils;
@@ -48,3 +48,4 @@ class page_login extends \pxn\phpPortal\Page {
 
 
 }
+*/

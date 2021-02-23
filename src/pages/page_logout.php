@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\pages;
 
 
@@ -34,3 +34,4 @@ class page_logout extends \pxn\phpPortal\Page {
 
 
 }
+*/

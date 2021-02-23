@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\render;
 
 //use pxn\phpUtils\Defines;
@@ -24,7 +24,7 @@ class Render_Splash extends Render {
 
 
 
-/*
+/ *
 //	public function getName() {
 //		return 'splash';
 //	}
@@ -43,8 +43,9 @@ class Render_Splash extends Render {
 fail('UNFINISHED!');
 //		return TRUE;
 	}
-*/
+* /
 
 
 
 }
+*/

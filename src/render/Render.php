@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\render;
 
 //use pxn\phpPortal\DefinesPortal;
@@ -101,7 +101,7 @@ EOF;
 
 
 
-/*
+/ *
 	public function getTwig($path) {
 		return self::Twig(
 			$this->twigs,
@@ -195,8 +195,9 @@ EOF;
 		fail("Template file not found: $filename",
 			Defines::EXIT_CODE_INTERNAL_ERROR);
 	}
-*/
+* /
 
 
 
 }
+*/

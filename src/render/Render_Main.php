@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\render;
 
 //use pxn\phpPortal\ConfigPortal;
@@ -74,7 +74,7 @@ $this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
 		}
 		@\ob_flush();
 	}
-/*
+/ *
 		// get page contents (has internal buffering)
 		$pageContents = $this->app->getPageContents();
 		// get page title
@@ -119,8 +119,9 @@ $this->addFileJS('/static/bootstrap/js/bootstrap.bundle.min.js');
 			@\ob_flush();
 			return;
 		}
-*/
+* /
 
 
 
 }
+*/
