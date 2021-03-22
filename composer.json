@@ -28,8 +28,7 @@
 		]
 	},
 	"suggest": {
-		"twbs/bootstrap": "v4.*",
-		"thomaspark/bootswatch": "v4.*"
+		"pxn/webresources": "0.1.*",
 	},
 	"require": {
 		"pxn/phputils": "0.3.*",
