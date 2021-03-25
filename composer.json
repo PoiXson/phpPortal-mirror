@@ -27,13 +27,11 @@
 			"examples/"
 		]
 	},
-	"suggest": {
-		"pxn/webresources": "0.1.*",
-		"twig/twig": "v3.*",
-		"michelf/php-markdown": "1.*"
-	},
 	"require": {
 		"pxn/phputils": "0.3.*",
+		"pxn/webresources": "0.1.*",
+		"twig/twig": "v3.*",
+		"michelf/php-markdown": "1.*",
 		"pxn/composerlocaldev": "1.*"
 	},
 	"require-dev": {
