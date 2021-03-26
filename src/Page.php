@@ -5,84 +5,138 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpPortal;
 
-use pxn\phpUtils\Strings;
+use pxn\phpUtils\Paths;
+use pxn\phpUtils\exceptions\NullPointerException;
+use pxn\phpUtils\exceptions\RequiredArgumentException;
+
+use Twig\Environment as TwigEnv;
+use Twig\Loader\FilesystemLoader as TwigFileLoader;
+use Twig\TemplateWrapper as TwigTmpWrapper;
 
 
-abstract class Page implements PanelContents {
+abstract class Page {
 
-	protected $app = NULL;
+	protected WebApp $app;
 
-	protected $pageName  = NULL;
-	protected $pageTitle = NULL;
+	protected string $name;
+	protected string $args;
 
 
 
-	public function __construct(\pxn\phpUtils\app\App $app) {
-		$this->app = $app;
+	public function __construct(WebApp $app, string $args, string $name=null) {
+		if ($app == null) throw new RequiredArgumentException('app');
+		$this->app  = $app;
+		$this->args = $args;
+		// page name
+		if (empty($name)) {
+			// page name from class
+			$clss = \get_class($this);
+			$pos = \mb_strrpos(haystack: $clss, needle: '\\');
+			if ($pos === false) {
+				$name = $clss;
+			} else {
+				$name = \mb_substr($clss, $pos+1);
+			}
+		}
+		if (empty($name)) throw new NullPointerException('name');
+		if (\str_starts_with(haystack: $name, needle: 'page_'))
+			$name = \mb_substr($name, 5);
+		$this->name = $name;
+		// init page
+		$this->init();
 	}
 
 
 
-	public static function ToPageName($page) {
-		if ($page instanceof Page)
-			return $page->getPageName();
-		if (\is_string($page))
-			return (string) $page;
-		return NULL;
+	public function init(): void {
+	}
+
+
+
+	public function render(): void {
+		if (!\headers_sent()) {
+			header(header: 'X-Content-Security-Policy: script-src \'self\'', replace: false);
+		}
+	}
+
+
+
+	#########
+	## get ##
+	#########
+
+
+
+	public function getApp(): WebApp {
+		return $this->app;
 	}
 
 
 
 	public function getPageName(): string {
-		if ($this->pageName === NULL) {
-			$name = \get_called_class();
-			$pos = \mb_strrpos($name, '\\');
-			if ($pos !== FALSE) {
-				$name = \mb_substr($name, $pos + 1);
-			}
-			if (Strings::StartsWith($name, 'page_')) {
-				$name = \mb_substr($name, 5);
-			}
-			$this->pageName = $name;
-		}
-		return $this->pageName;
+		return $this->name;
 	}
 
-
-
-	public function getPageTitle(): ?string {
-		return $this->pageTitle;
-	}
-	public function setPageTitle(?string $title): void {
-		$this->pageTitle = (
-			empty($title)
-			? NULL
-			: $title
-		);
+	public static function san_page_name(?string $name): ?string {
+		if (empty($name)) return null;
+		return SanUtils::alpha_num_simple(value: $name);
 	}
 
-
-
-	public function getTwig(): \Twig\Environment {
-		$loader = new \Twig\Loader\FilesystemLoader($twigPath);
-		$twigOptions = [
 //TODO
-			'cache' => FALSE
+//	public function getPageTitle(): string {
+//		return \mb_ucfirst( $this->getName() );
+//	}
+
+
+
+	##########
+	## Twig ##
+	##########
+
+
+
+	public function getTags(): array {
+		return [
+			'debug' => \debug(),
+			'menus' => [],
 		];
-		$twig = new \Twig\Environment($loader, $twigOptions);
+	}
+
+
+
+	public function getTwigPaths(): array {
+		return [
+			Paths::get('html')
+		];
+	}
+
+
+
+	public function getTwig(): TwigEnv {
+		$debug = \debug();
+		$paths = $this->getTwigPaths();
+		$loader = new TwigFileLoader(paths: $paths);
+		$options = [
+			'debug' => $debug,
+			'strict_variables' => $debug,
+			'cache' => ($debug ? false : Paths::get('twig_cache')),
+		];
+		$twig = new TwigEnv(loader: $loader, options: $options);
 		return $twig;
 	}
-	public function getTpl(string $filename, ?\Twig\Environment $twig=NULL): \Twig\TemplateWrapper {
-		if ($twig == NULL) {
+
+	public function getTpl(string $file, ?TwigEnv $twig=null): TwigTmpWrapper {
+		if ($twig == null) {
 			$twig = $this->getTwig();
+			$this->defaultTags($twig);
 		}
-		return $twig->load($filename);
+		$tpl = $twig->load($file);
+		return $tpl;
 	}
 
 
 
 }
-*/
