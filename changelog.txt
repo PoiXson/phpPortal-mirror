@@ -1,6 +1,13 @@
 phpPortal - Website Utilities Library
 
 
+2021-03-30 - 0.3.2
+==================
+* cleanup and improvements to Router and Page classes
+* added dependencies for twig/markdown
+* 404 page is working
+
+
 2021-03-25 - 0.3.1
 ==================
 * stripping out a lot of old code
