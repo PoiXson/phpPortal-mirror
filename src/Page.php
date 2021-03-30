@@ -54,7 +54,7 @@ abstract class Page {
 
 
 
-	public function init(): void {
+	protected function init(): void {
 	}
 
 
