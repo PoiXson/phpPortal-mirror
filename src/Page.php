@@ -13,6 +13,7 @@ use pxn\phpUtils\exceptions\NullPointerException;
 use pxn\phpUtils\exceptions\RequiredArgumentException;
 
 use Twig\Environment as TwigEnv;
+use Twig\Loader\LoaderInterface as TwigLoader;
 use Twig\Loader\FilesystemLoader as TwigFileLoader;
 use Twig\TemplateWrapper as TwigTmpWrapper;
 
@@ -23,6 +24,8 @@ abstract class Page {
 
 	protected string $name;
 	protected string $args;
+
+	protected ?TwigEnv $twig = null;
 
 
 
@@ -107,34 +110,69 @@ abstract class Page {
 
 
 
-	public function getTwigPaths(): array {
+	public function getTwig(): TwigEnv {
+		if ($this->twig == null) {
+			$this->twig =
+				new TwigEnv(
+					loader:  $this->getTwigLoader(),
+					options: $this->getTwigOptions()
+				);
+		}
+		return $this->twig;
+	}
+
+	protected function getTwigLoader(): TwigLoader {
+		return new TwigFileLoader(paths: $this->getTwigPaths());
+	}
+
+	protected function getTwigPaths(): array {
 		return [
 			Paths::get('html')
 		];
 	}
 
-
-
-	public function getTwig(): TwigEnv {
+	protected function getTwigOptions(): array {
 		$debug = \debug();
-		$paths = $this->getTwigPaths();
-		$loader = new TwigFileLoader(paths: $paths);
-		$options = [
+		return [
 			'debug' => $debug,
 			'strict_variables' => $debug,
 			'cache' => ($debug ? false : Paths::get('twig_cache')),
 		];
-		$twig = new TwigEnv(loader: $loader, options: $options);
-		return $twig;
 	}
 
-	public function getTpl(string $file, ?TwigEnv $twig=null): TwigTmpWrapper {
-		if ($twig == null) {
-			$twig = $this->getTwig();
-			$this->defaultTags($twig);
-		}
-		$tpl = $twig->load($file);
-		return $tpl;
+
+
+	protected function prependTwigPath(string $path): void {
+		$twig = $this->getTwig();
+		$loader = $twig->getLoader();
+		$loader->prependPath($path);
+	}
+	protected function addTwigPath(string $path): void {
+		$twig = $this->getTwig();
+		$loader = $twig->getLoader();
+		$loader->addPath($path);
+	}
+
+
+
+	protected function addTwigExt_Markdown(): void {
+		if (!\class_exists('\\Twig\\Extra\\Markdown\\MarkdownExtension'))
+			throw new \RuntimeException('Markdown extention not available');
+		$twig = $this->getTwig();
+		$twig->addExtension(
+			new \Twig\Extra\Markdown\MarkdownExtension()
+		);
+		$twig->addRuntimeLoader(
+			new class implements \Twig\RuntimeLoader\RuntimeLoaderInterface {
+				public function load($class) {
+					if (\Twig\Extra\Markdown\MarkdownRuntime::class === $class)
+						return
+							new \Twig\Extra\Markdown\MarkdownRuntime(
+								new \Twig\Extra\Markdown\DefaultMarkdown()
+							);
+				}
+			}
+		);
 	}
 
 
