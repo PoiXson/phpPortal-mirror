@@ -33,7 +33,7 @@ abstract class Page {
 		// page name
 		if (empty($name)) {
 			// page name from class
-			$clss = \get_class($this);
+			$clss = \get_called_class();
 			$pos = \mb_strrpos(haystack: $clss, needle: '\\');
 			if ($pos === false) {
 				$name = $clss;
