@@ -32,6 +32,7 @@
 		"pxn/webresources": "0.1.*",
 		"twig/twig": "v3.*",
 		"twig/markdown-extra": "v3.*",
+		"michelf/php-markdown": "1.*",
 		"pxn/composerlocaldev": "1.*"
 	},
 	"require-dev": {
