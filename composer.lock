@@ -61,11 +61,11 @@
         },
         {
             "name": "pxn/composerlocaldev",
-            "version": "1.19",
+            "version": "1.21",
             "source": {
                 "type": "git",
                 "url": "https://git.poixson.com/r/pxn/ComposerLocalDev.git",
-                "reference": "cda0a9fc6810f403b80a3c983fc71756c99c61c5"
+                "reference": "c11bfe180b87e1857c51b52af8037678c597360e"
             },
             "require": {
                 "composer-plugin-api": "^2.0.0"
@@ -93,18 +93,20 @@
                     "role": "Developer"
                 }
             ],
-            "description": "Links vendor data to a local workspace",
-            "homepage": "http://poixson.com/",
+            "description": "Symlink vendor data to your local workspace",
+            "homepage": "https://poixson.com/",
             "keywords": [
                 "dev",
-                "symlink"
+                "local",
+                "symlink",
+                "workspace"
             ],
             "support": {
                 "irc": "irc://irc.esper.net/poixson",
                 "issues": "http://git.poixson.com/tickets/pxn!ComposerLocalDev.git",
                 "source": "http://git.poixson.com/summary/pxn!ComposerLocalDev.git"
             },
-            "time": "2020-12-24T02:09:38+00:00"
+            "time": "2021-04-02T05:52:45+00:00"
         },
         {
             "name": "pxn/phputils",
