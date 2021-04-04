@@ -22,17 +22,16 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		parent::__construct();
 	}
 
-	protected function check_run_mode(): void {
-		SystemUtils::AssertWeb();
+	protected function init(): void {
+		parent::init();
+		// load configs
+		$this->load_configs();
+		// pages
+		$this->load_pages();
 	}
 
-
-
-	public function run(): void {
-		// load page
-		$router = $this->getRouter();
-		$page = $router->getPage();
-		$page->render();
+	protected function check_run_mode(): void {
+		SystemUtils::AssertWeb();
 	}
 
 
@@ -43,7 +42,8 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		Paths::set(key: 'html',       path: '{entry}/../html');
 	}
 
-
+	protected function load_configs(): void {
+	}
 
 	protected function load_pages(): void {
 		$router = $this->getRouter();
