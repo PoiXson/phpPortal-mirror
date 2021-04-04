@@ -1,6 +1,12 @@
 phpPortal - Website Utilities Library
 
 
+2021-04-03 - 0.3.3
+==================
+* improved Router class and added unit tests
+* support for filp whoops and kint
+
+
 2021-03-30 - 0.3.2
 ==================
 * cleanup and improvements to Router and Page classes
