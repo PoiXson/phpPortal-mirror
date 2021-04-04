@@ -18,6 +18,10 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
+	public function __construct() {
+		parent::__construct();
+	}
+
 	protected function check_run_mode(): void {
 		SystemUtils::AssertWeb();
 	}
@@ -43,7 +47,8 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	protected function load_pages(): void {
 		$router = $this->getRouter();
-		$router->add_page(name: '404', clss: 'pxn\\phpPortal\\pages\\page_404');
+		// default pages
+		$router->addPage(pattern: '404', clss: 'pxn\\phpPortal\\pages\\page_404');
 	}
 
 
