@@ -61,11 +61,11 @@
         },
         {
             "name": "pxn/composerlocaldev",
-            "version": "1.21",
+            "version": "1.23",
             "source": {
                 "type": "git",
                 "url": "https://git.poixson.com/r/pxn/ComposerLocalDev.git",
-                "reference": "c11bfe180b87e1857c51b52af8037678c597360e"
+                "reference": "35274198df60a8f4cc4f8a1374f85781b6e78dcb"
             },
             "require": {
                 "composer-plugin-api": "^2.0.0"
@@ -106,7 +106,7 @@
                 "issues": "http://git.poixson.com/tickets/pxn!ComposerLocalDev.git",
                 "source": "http://git.poixson.com/summary/pxn!ComposerLocalDev.git"
             },
-            "time": "2021-04-02T05:52:45+00:00"
+            "time": "2021-04-03T21:20:18+00:00"
         },
         {
             "name": "pxn/phputils",
