@@ -41,6 +41,8 @@
 		"pxn/composerlocaldev": "1.*"
 	},
 	"require-dev": {
+		"filp/whoops": "2.*",
+		"kint-php/kint": "3.*",
 		"phpunit/phpunit": "*"
 	}
 }
