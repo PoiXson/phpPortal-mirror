@@ -21,6 +21,11 @@
 			"pxn\\phpPortal\\": "src/"
 		}
 	},
+	"autoload-dev": {
+		"psr-4": {
+			"pxn\\phpPortal\\tests\\": "tests/"
+		}
+	},
 	"archive": {
 		"exclude": [
 			"tests/",
