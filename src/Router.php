@@ -142,7 +142,8 @@ class Router {
 		if (isset($this->routes[$pattern])) {
 			if ($router == null)
 				return $this->routes[$pattern];
-			throw new \RuntimeException("Route pattern already set: $pattern");
+//TODO: logging
+//			throw new \RuntimeException("Route pattern already set: $pattern");
 		}
 		if ($router == null)
 			$router = new Router(app: $this->app, parent: $this);
@@ -151,8 +152,9 @@ class Router {
 	}
 
 	public function addPage(string $pattern, string $clss=null, Page $page=null): void {
-		if (isset($this->routes[$pattern]))
-			throw new \RuntimeException("Route pattern already set: $pattern");
+//TODO: logging
+//		if (isset($this->routes[$pattern]))
+//			throw new \RuntimeException("Route pattern already set: $pattern");
 		// page instance
 		if ($page != null) {
 			$this->routes[$pattern] = $page;
