@@ -9,6 +9,7 @@
 namespace pxn\phpPortal;
 
 use pxn\phpUtils\utils\StringUtils;
+use pxn\phpUtils\utils\SanUtils;
 use pxn\phpUtils\exceptions\RequiredArgumentException;
 use pxn\phpUtils\exceptions\FileNotFoundException;
 
@@ -16,11 +17,9 @@ use pxn\phpUtils\exceptions\FileNotFoundException;
 class Router {
 
 	protected WebApp $app;
+	protected ?Router $parent;
 
-	protected ?string $name;
-
-	protected array $pages   = [];
-	protected array $routers = [];
+	protected array $routes = [];
 
 	protected ?string $page_current = null;
 	protected ?string $page_default = null;
@@ -28,25 +27,27 @@ class Router {
 
 
 
-	public function __construct(WebApp $app, string $name=null) {
-		$this->app  = $app;
-		$this->name = $name;
+	public function __construct(WebApp $app, Router $parent=null) {
+		$this->app    = $app;
+		$this->parent = $parent;
 	}
 
 
 
-	public function getCurrentPage(): string {
+	protected function getCurrentPage(): string {
 		if (!empty($this->page_current))
 			return $this->page_current;
 		// requested page
 		if (!empty($_SERVER['REQUEST_URI'])) {
-			$query = self::san_query( $_SERVER['REQUEST_URI'] );
-			if (!empty($query)) { $this->page_current = $query; return $query; }
+			$this->page_current = self::san_query( $_SERVER['REQUEST_URI'] );
+			if (!empty($this->page_current))
+				return $this->page_current;
 		}
 		// default page
 		if (!empty($this->page_default)) {
-			$query = self::san_query( $this->page_default );
-			if (!empty($query)) { $this->page_current = $query; return $query; }
+			$this->page_current = self::san_query( $this->page_default );
+			if (!empty($this->page_current))
+				return $this->page_current;
 		}
 		// 404 page not found
 		$this->page_current = '404';
@@ -57,13 +58,14 @@ class Router {
 		// page already loaded
 		if ($this->page_loaded != null)
 			return $this->page_loaded;
-		$query = self::san_query($query);
-		// current page
+		// requested page
 		if (empty($query))
 			$query = $this->getCurrentPage();
+		$query = self::san_query($query);
 		if (empty($query)) throw new \RuntimeException('Failed to find current page');
 		$pos = \mb_strpos(haystack: $query, needle: '/');
 		$name = null;
+		$path = null;
 		if ($pos === false) {
 			$name = $query;
 			$path = '';
@@ -71,103 +73,107 @@ class Router {
 			$name = \mb_substr($query, 0, $pos);
 			$path = \mb_substr($query, $pos+1);
 		}
+		// known route
 		if (!empty($name)) {
-			// known page
-			if (isset($this->pages[$name])) {
-				// probably not needed but just in case
-				if ($this->pages[$name] instanceof Page) {
-					$this->page = $this->pages[$name];
-					return $this->page;
-				}
+			if (isset($this->routes[$name])) {
+				$rt = $this->routes[$name];
+				// child router
+				if ($rt instanceof Router) {
+					$this->page_loaded = $rt->getPage($path);
+					if ($this->page_loaded != null)
+						return $this->page_loaded;
+				} else
+				// page instance
+				if ($rt instanceof Page)
+					return $this->page_loaded = $this->routes[$name];
 				// load page
-				$clss = $this->pages[$name];
+				$clss = $rt;
 				if (!\class_exists($clss))
 					throw new FileNotFoundException("class: $clss");
-				$this->page = new $clss(app: $this->app, args: $path);
-				return $this->page;
-			}
-			// child router
-			if (isset($this->routers[$name])) {
-				if (empty($path))
-					$path = $this->routers[$name]->page_default;
-					
-					
-					
-				return $this->routers[$name]->getPage($path);
+				return $this->page_loaded = new $clss(app: $this->app, args: $path);
 			}
 		}
 		// 404 page itself not found
 		if ($name == '404') {
 //TODO: logging
-			header("HTTP/1.0 404 Not Found");
-			echo '404 page itself not found';
+			if (!\headers_sent())
+				header("HTTP/1.0 404 Not Found");
+			echo "\nError: 404 page itself not found\n";
 			exit(1);
 		}
 		// get 404 page
-		{
-			$router = $this->app->getRouter();
-			return $router->getPage("404/$query");
+		return $this->app->getRouter()
+				->getPage('404/'.$query);
+	}
+
+
+
+	public function add(array $pages): void {
+		foreach ($pages as $pattern => $entry) {
+			// router
+			if ($entry instanceof Router) {
+				$this->addRouter($pattern, $entry);
+				continue;
+			}
+			// page instance
+			if ($entry instanceof Page) {
+				$this->addPage(pattern: $pattern, page: $entry);
+				continue;
+			}
+			// page class
+			if (\is_string($entry)) {
+				$this->addPage(pattern: $pattern, clss: (string)$entry);
+				continue;
+			}
+			// unknown type
+			throw new \RuntimeException("Unknown page route type for: $pattern");
+		}
+	}
+
+	public function addRouter(string $pattern, Router $router=null): Router {
+		if (false !== \mb_strpos(haystack: $pattern, needle: '/')) {
+			$rt = $this;
+			foreach (\explode(string: $pattern, separator: '/') as $part) {
+				if (empty($part)) continue;
+				$rt = $rt->addRouter(pattern: $part);
+			}
+			return $rt;
+		}
+		if (isset($this->routes[$pattern])) {
+			if ($router == null)
+				return $this->routes[$pattern];
+			throw new \RuntimeException("Route pattern already set: $pattern");
+		}
+		if ($router == null)
+			$router = new Router(app: $this->app, parent: $this);
+		$this->routes[$pattern] = $router;
+		return $router;
+	}
+
+	public function addPage(string $pattern, string $clss=null, Page $page=null): void {
+		if (isset($this->routes[$pattern]))
+			throw new \RuntimeException("Route pattern already set: $pattern");
+		// page instance
+		if ($page != null) {
+			$this->routes[$pattern] = $page;
+		// page class string
+		} else
+		if (!empty($clss)) {
+			$this->routes[$pattern] = $clss;
+		} else {
+			throw new RequiredArgumentException('clss or page');
 		}
 	}
 
 
 
-	public function addMany(array $pages): Router {
-		foreach ($pages as $key => $value) {
-			$this->add(name: $key, page: $value);
-		}
-		return $this;
+	public function getRoutes(): array {
+		return $this->routes;
 	}
-	public function add(string $name, string|Router $page): Router {
-		if (empty($name))  throw new RequiredArgumentException('name');
-		if ($page == null) throw new RequiredArgumentException('page');
-		// add router
-		if ($page instanceof Router) {
-			return $this->add_router(name: $name, router: $page);
-		}
-		// add page class
-		if (\is_string($page)) {
-			$page = (string) $page;
-			if (empty($page)) throw new RequiredArgumentException('page');
-			$this->add_page(name: $name, clss: $page);
-			return $this;
-		}
-		// unknown type
-		throw new \RuntimeException("Unknown page type for: $name");
-	}
-	public function router(string $name): Router {
-		if (empty($name)) throw new \RequiredArgumentException('router name');
-		if (!isset($this->routers[$name])) {
-			$this->routers[$name] = new self(app: $this->app, name: $name);
-		}
-		return $this->routers[$name];
-	}
-	public function add_router(string $name, Router $router): void {
-		if (isset($this->routers[$name]))
-			if ($router !== $this->routers[$name])
-				throw new \RuntimeException("Router already registered: $name");
-		$this->routers[$name] = $router;
-	}
-	public function add_page(string $name, string $clss): void {
-		if (isset($this->pages[$name]))
-			if (!empty($clss) && $clss !== $this->pages[$name])
-				throw new \RuntimeException("Page already registered: $name");
-		$this->pages[$name] = $clss;
-	}
-
-
-
-	public function get_pages_array(): array {
-		return $this->pages;
-	}
-	public function get_routers_array(): array {
-		return $this->routers;
-	}
-
 
 
 	// default page
-	public function defpage(string $name): void {
+	public function defPage(string $name): void {
 		$this->page_default = $name;
 	}
 
@@ -177,8 +183,8 @@ class Router {
 		if (empty($query))
 			return null;
 		return
-			\pxn\phpUtils\utils\SanUtils::path_safe(
-				path: StringUtils::trim(text: $query, remove: '/')
+			SanUtils::path_safe(
+				StringUtils::trim(text: $query, remove: '/')
 			);
 	}
 
