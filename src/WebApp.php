@@ -53,6 +53,15 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
+	public function run(): void {
+		// load page
+		$router = $this->getRouter();
+		$page = $router->getPage();
+		$page->render();
+	}
+
+
+
 	public function getRouter(): Router {
 		if ($this->router == null)
 			$this->router = new Router($this);
