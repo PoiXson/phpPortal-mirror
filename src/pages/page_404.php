@@ -20,7 +20,9 @@ class page_404 extends \pxn\phpPortal\Page {
 
 	public function init(): void {
 		parent::init();
-		header("HTTP/1.0 404 Not Found");
+		if (!\headers_sent()) {
+			\header("HTTP/1.0 404 Not Found");
+		}
 //TODO: san this
 //		$this->page_missing = $missing;
 	}
