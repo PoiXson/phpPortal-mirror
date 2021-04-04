@@ -110,11 +110,11 @@
         },
         {
             "name": "pxn/phputils",
-            "version": "0.3.2",
+            "version": "0.3.3",
             "source": {
                 "type": "git",
                 "url": "https://git.poixson.com/r/pxn/phpUtils.git",
-                "reference": "97bbcda6bf381f76b98bd887ffbe092dd3dcaa1f"
+                "reference": "66177b8c14ab9097b76ea1989c6a40efd0c5ae68"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -159,7 +159,7 @@
                 "issues": "https://git.poixson.com/tickets/pxn!phpUtils.git",
                 "source": "https://git.poixson.com/summary/pxn!phpUtils.git"
             },
-            "time": "2021-04-04T03:38:31+00:00"
+            "time": "2021-04-04T04:00:11+00:00"
         },
         {
             "name": "pxn/webresources",
