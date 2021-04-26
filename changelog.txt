@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2021-04-25 - 0.3.4
+==================
+* added WebApp->getMenus() function
+
+
 2021-04-03 - 0.3.3
 ==================
 * improved Router class and added unit tests
