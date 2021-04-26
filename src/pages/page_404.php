@@ -38,6 +38,7 @@ class page_404 extends \pxn\phpPortal\Page {
 		$tags = $this->getTags();
 		$tags['page_title'] = '404 Page Not Found';
 		$tags['page_missing'] = $this->route ?? '';
+		$tags['menus'] = $this->app->getMenus();
 		// render page
 		$tpl->display($tags);
 	}

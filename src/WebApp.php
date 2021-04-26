@@ -15,6 +15,7 @@ use pxn\phpUtils\Paths;
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	protected ?Router $router = null;
+	protected array $menus = [];
 
 
 
@@ -47,6 +48,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	protected function load_pages(): void {
 		$router = $this->getRouter();
+		$menus = &$this->getMenus();
 		// default pages
 		$router->addPage(pattern: '404', clss: 'pxn\\phpPortal\\pages\\page_404');
 	}
@@ -66,6 +68,9 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		if ($this->router == null)
 			$this->router = new Router($this);
 		return $this->router;
+	}
+	public function &getMenus(): array {
+		return $this->menus;
 	}
 
 
