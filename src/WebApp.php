@@ -15,7 +15,6 @@ use pxn\phpUtils\Paths;
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	protected ?Router $router = null;
-	protected array $menus = [];
 
 
 
@@ -68,9 +67,6 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		if ($this->router == null)
 			$this->router = new Router($this);
 		return $this->router;
-	}
-	public function &getMenus(): array {
-		return $this->menus;
 	}
 
 

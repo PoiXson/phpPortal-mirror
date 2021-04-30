@@ -25,6 +25,14 @@ class Router {
 	protected ?string $page_default = null;
 	protected ?Page   $page_loaded  = null;
 
+	public static array $menus = [
+		// location
+		'main' => [
+			// group
+			'main' => [],
+		],
+	];
+
 
 
 	public function __construct(WebApp $app, Router $parent=null) {
