@@ -21,9 +21,9 @@ class Router {
 
 	protected array $routes = [];
 
-	protected ?string $page_current = null;
-	protected ?string $page_default = null;
-	protected ?Page   $page_loaded  = null;
+	protected string $page_current = '';
+	protected string $page_default = '';
+	protected ?Page  $page_loaded  = null;
 
 	public static array $menus = [
 		// location
@@ -38,6 +38,12 @@ class Router {
 	public function __construct(WebApp $app, Router $parent=null) {
 		$this->app    = $app;
 		$this->parent = $parent;
+	}
+
+
+
+	public function getApp(): WebApp {
+		return $this->app;
 	}
 
 
@@ -73,32 +79,39 @@ class Router {
 		if (empty($query)) throw new \RuntimeException('Failed to find current page');
 		$pos = \mb_strpos(haystack: $query, needle: '/');
 		$name = null;
-		$path = null;
+		$args = null;
 		if ($pos === false) {
 			$name = $query;
-			$path = '';
+			$args = '';
 		} else {
 			$name = \mb_substr($query, 0, $pos);
-			$path = \mb_substr($query, $pos+1);
+			$args = \mb_substr($query, $pos+1);
 		}
 		// known route
 		if (!empty($name)) {
 			if (isset($this->routes[$name])) {
-				$rt = $this->routes[$name];
+				$route = $this->routes[$name];
 				// child router
-				if ($rt instanceof Router) {
-					$this->page_loaded = $rt->getPage($path);
-					if ($this->page_loaded != null)
-						return $this->page_loaded;
-				} else
+				if ($route instanceof Router) {
+					$this->page_loaded = $route->getPage($args);
+					if ($this->page_loaded != null) return $this->page_loaded;
+				}
+				// page dao
+				if ($route instanceof PageDAO) {
+					$this->page_loaded = $route->getPageInstance($args);
+					if ($this->page_loaded != null) return $this->page_loaded;
+				}
 				// page instance
-				if ($rt instanceof Page)
+				if ($route instanceof Page) {
 					return $this->page_loaded = $this->routes[$name];
-				// load page
-				$clss = $rt;
-				if (!\class_exists($clss))
-					throw new FileNotFoundException("class: $clss");
-				return $this->page_loaded = new $clss(app: $this->app, args: $path);
+				}
+				// class string
+				if (\is_string($route)) {
+					if (!\class_exists($route))
+						throw new FileNotFoundException("class: $route");
+					$this->page_loaded = new $route(app: $this->app, args: $args);
+					if ($this->page_loaded != null) return $this->page_loaded;
+				}
 			}
 		}
 		// 404 page itself not found
@@ -116,75 +129,61 @@ class Router {
 
 
 
-	public function add(array $pages): void {
-		foreach ($pages as $pattern => $entry) {
-			// router
-			if ($entry instanceof Router) {
-				$this->addRouter($pattern, $entry);
-				continue;
-			}
-			// page instance
-			if ($entry instanceof Page) {
-				$this->addPage(pattern: $pattern, page: $entry);
-				continue;
-			}
-			// page class
-			if (\is_string($entry)) {
-				$this->addPage(pattern: $pattern, clss: (string)$entry);
-				continue;
-			}
-			// unknown type
-			throw new \RuntimeException("Unknown page route type for: $pattern");
-		}
-	}
-
-	public function addRouter(string $pattern, Router $router=null): Router {
-		if (false !== \mb_strpos(haystack: $pattern, needle: '/')) {
-			$rt = $this;
-			foreach (\explode(string: $pattern, separator: '/') as $part) {
+	public function addRouter(string $name, Router $router=null): Router {
+		$name = StringUtils::trim($name, '/');
+		if (false !== \mb_strpos(haystack: $name, needle: '/')) {
+			$route = $this;
+			foreach (\explode(string: $name, separator: '/') as $part) {
 				if (empty($part)) continue;
-				$rt = $rt->addRouter(pattern: $part);
+				$route = $route->addRouter(name: $part);
 			}
-			return $rt;
+			return $route;
 		}
-		if (isset($this->routes[$pattern])) {
+		if (isset($this->routes[$name])) {
 			if ($router == null)
-				return $this->routes[$pattern];
-//TODO: logging
-//			throw new \RuntimeException("Route pattern already set: $pattern");
+				return $this->routes[$name];
+			throw new \RuntimeException("Route already set: $name");
 		}
 		if ($router == null)
 			$router = new Router(app: $this->app, parent: $this);
-		$this->routes[$pattern] = $router;
+		$this->routes[$name] = $router;
 		return $router;
 	}
 
-	public function addPage(string $pattern, string $clss=null, Page $page=null): void {
-//TODO: logging
-//		if (isset($this->routes[$pattern]))
-//			throw new \RuntimeException("Route pattern already set: $pattern");
-		// page instance
-		if ($page != null) {
-			$this->routes[$pattern] = $page;
-		// page class string
-		} else
-		if (!empty($clss)) {
-			$this->routes[$pattern] = $clss;
-		} else {
-			throw new RequiredArgumentException('clss or page');
+	public function addPage(string $name, PageDAO $dao=null): PageDAO {
+		$name = StringUtils::trim($name, '/');
+		if (false !== \mb_strpos(haystack: $name, needle: '/')) {
+			$route = $this;
+			foreach (\explode(string: $name, separator: '/') as $part) {
+				if (empty($part)) continue;
+				$route = $route->addRouter(name: $part);
+			}
+			return $route;
 		}
+		if (isset($this->routes[$name])) {
+			if ($this->routes[$name] instanceof PageDAO)
+				return $this->routes[$name];
+			throw new \RuntimeException("Route already set: $name");
+		}
+		if ($dao == null) {
+			$dao = new PageDAO($this, $name);
+		}
+		$this->routes[$name] = $dao;
+		return $dao;
 	}
 
 
 
-	public function getRoutes(): array {
+	public function &getRoutesArray(): array {
 		return $this->routes;
 	}
 
 
 	// default page
-	public function defPage(string $name): void {
-		$this->page_default = $name;
+	public function defPage(string $name=null): string {
+		if ($name !== null)
+			$this->page_default = $name;
+		return $this->page_default;
 	}
 
 
