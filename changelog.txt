@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2021-04-29 - 0.3.5
+==================
+* improved Router class and added new PageDAO class
+
+
 2021-04-25 - 0.3.4
 ==================
 * added WebApp->getMenus() function
