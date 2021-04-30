@@ -47,9 +47,9 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	protected function load_pages(): void {
 		$router = $this->getRouter();
-		$menus = &$this->getMenus();
-		// default pages
-		$router->addPage(pattern: '404', clss: 'pxn\\phpPortal\\pages\\page_404');
+		// 404 page
+		$router->addPage('404')
+			->setPageClass('pxn\\phpPortal\\pages\\page_404');
 	}
 
 
