@@ -163,11 +163,11 @@
         },
         {
             "name": "pxn/webresources",
-            "version": "0.1.4",
+            "version": "0.1.5",
             "source": {
                 "type": "git",
                 "url": "https://git.poixson.com/r/pxn/WebResources.git",
-                "reference": "c39febbda416496e84de985542a90e04d9c68616"
+                "reference": "22a36a3af928f37a3b9313aa7e49a8081b5274c8"
             },
             "replace": {
                 "components/jquery": "*",
@@ -193,7 +193,7 @@
                 "jquery",
                 "web"
             ],
-            "time": "2021-05-08T12:38:28+00:00"
+            "time": "2021-05-08T12:56:16+00:00"
         },
         {
             "name": "symfony/polyfill-ctype",
