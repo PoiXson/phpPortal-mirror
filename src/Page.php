@@ -15,54 +15,69 @@ use pxn\phpUtils\exceptions\RequiredArgumentException;
 use Twig\Environment as TwigEnv;
 use Twig\Loader\LoaderInterface as TwigLoader;
 use Twig\Loader\FilesystemLoader as TwigFileLoader;
-use Twig\TemplateWrapper as TwigTmpWrapper;
 
 
 abstract class Page {
 
 	protected WebApp $app;
 
-	protected string $name;
-	protected string $args;
+	protected string $key = '';
+	protected array $args = [];
+
+	protected string $title = '';
 
 	protected ?TwigEnv $twig = null;
 
 
 
-	public function __construct(WebApp $app, string $args, string $name=null) {
+	public function __construct(WebApp $app, string $key=null) {
 		if ($app == null) throw new RequiredArgumentException('app');
-		$this->app  = $app;
-		$this->args = $args;
+		$this->app = $app;
 		// page name
-		if (empty($name)) {
+		if (empty($key)) {
 			// page name from class
 			$clss = \get_called_class();
 			$pos = \mb_strrpos(haystack: $clss, needle: '\\');
 			if ($pos === false) {
-				$name = $clss;
+				$key = $clss;
 			} else {
-				$name = \mb_substr($clss, $pos+1);
+				$key = \mb_substr($clss, $pos+1);
 			}
 		}
-		if (empty($name)) throw new NullPointerException('name');
-		if (\str_starts_with(haystack: $name, needle: 'page_'))
-			$name = \mb_substr($name, 5);
-		$this->name = $name;
+		if (empty($key)) throw new NullPointerException('key');
+		if (\str_starts_with(haystack: $key, needle: 'page_'))
+			$key = \mb_substr($key, 5);
+		$this->key = $key;
 		// init page
 		$this->init();
 	}
 
 
 
-	protected function init(): void {
-	}
+	protected function init(): void {}
 
 
 
-	public function render(): void {
+	public function doRender(): void {
 		if (!\headers_sent()) {
 			header(header: 'X-Content-Security-Policy: script-src \'self\'', replace: false);
 		}
+		// render api
+		if (Router::isAPI()) {
+			$result = $this->render_api();
+			if (\is_array($result)) {
+				echo \json_encode($result);
+			}
+			return;
+		}
+		// render normal
+		$this->render();
+	}
+	public function render(): void {
+		throw new \RuntimeException('Unhandled page: '.$this->getPageName());
+	}
+	public function render_api(): ?array {
+		throw new \RuntimeException('Unhandled api: '.$this->getPageName());
 	}
 
 
@@ -80,18 +95,33 @@ abstract class Page {
 
 
 	public function getPageName(): string {
-		return $this->name;
+		return $this->key;
 	}
 
-	public static function san_page_name(?string $name): ?string {
-		if (empty($name)) return null;
-		return SanUtils::alpha_num_simple(value: $name);
+	public static function san_page_name(?string $key): ?string {
+		if (empty($key)) return null;
+		return SanUtils::alpha_num_simple(value: $key);
 	}
 
-//TODO
-//	public function getPageTitle(): string {
-//		return \mb_ucfirst( $this->getName() );
-//	}
+
+
+	public function getPageTitle(): string {
+		if (!empty($this->title))
+			return $this->title;
+		return \ucwords( $this->getPageName() );
+	}
+	public function setPageTitle(string $title): void {
+		$this->title = $title;
+	}
+
+
+
+	public function getArgs(): array {
+		return $this->args;
+	}
+	public function setArgs(array $args): void {
+		$this->args = $args;
+	}
 
 
 
@@ -105,6 +135,7 @@ abstract class Page {
 		return [
 			'debug' => \debug(),
 			'menus' => [],
+			'page_title' => $this->getPageTitle(),
 		];
 	}
 
@@ -117,6 +148,10 @@ abstract class Page {
 					loader:  $this->getTwigLoader(),
 					options: $this->getTwigOptions()
 				);
+		}
+		if (\debug()) {
+			if (!$this->twig->hasExtension('\\Twig\\Extension\\DebugExtension'))
+				$this->twig->addExtension(new \Twig\Extension\DebugExtension());
 		}
 		return $this->twig;
 	}
