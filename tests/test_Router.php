@@ -20,6 +20,13 @@ class test_Router extends \PHPUnit\Framework\TestCase {
 	const PAGE_ABOUT  = 'pxn\\phpPortal\\tests\\pages\\page_about';
 	const PAGE_HAMMER = 'pxn\\phpPortal\\tests\\pages\\page_hammer';
 	const PAGE_CARS   = 'pxn\\phpPortal\\tests\\pages\\page_cars';
+	const PAGE_TRUCKS = 'pxn\\phpPortal\\tests\\pages\\page_trucks';
+
+	const PATH_404    = '404';
+	const PATH_ABOUT  = 'about';
+	const PATH_HAMMER = 'tools/hammer';
+	const PATH_CARS   = 'transport/civil/cars';
+	const PATH_TRUCKS = 'transport/commercial/trucks';
 
 	protected ?TestApp $app = null;
 
@@ -30,15 +37,19 @@ class test_Router extends \PHPUnit\Framework\TestCase {
 			return;
 		$this->app = new TestApp();
 		$router = $this->app->getRouter();
-		$router->defPage('about');
+		$router->defPage(self::PATH_ABOUT);
 		// 404
-		$router->addPage(pattern: '404', clss: self::PAGE_404);
+		$router->addPage(self::PATH_404)
+			->setPageClass(self::PAGE_404);
 		// test pages
-		$router->add([
-			'about'                 => self::PAGE_ABOUT,
-			'tools/hammer'          => self::PAGE_HAMMER,
-			'things/transport/cars' => self::PAGE_CARS,
-		]);
+		$router->addPage(self::PATH_ABOUT)
+			->setPageClass(self::PAGE_ABOUT);
+		$router->addPage(self::PATH_HAMMER)
+			->setPageClass(self::PAGE_HAMMER);
+		$router->addPage(self::PATH_CARS)
+			->setPageClass(self::PAGE_CARS);
+		$router->addPage(self::PATH_TRUCKS)
+			->setPageClass(self::PAGE_TRUCKS);
 	}
 
 
@@ -52,15 +63,15 @@ class test_Router extends \PHPUnit\Framework\TestCase {
 	public function test_routes() {
 		$this->initApp();
 		$router = $this->app->getRouter();
+		$routes = $router->getRoutesArray();
 		$this->assertEquals(
 			expected: [
-				'404'                   => self::PAGE_404,
-				'about'                 => self::PAGE_ABOUT,
-				'tools/hammer'          => self::PAGE_HAMMER,
-				'things/transport/cars' => self::PAGE_CARS,
+				404,
+				self::PATH_ABOUT,
+				'tools',
+				'transport',
 			],
-			actual: $router->getRoutes()
-//			actual: self::GetRouterRoutes($router)
+			actual: \array_keys($routes)
 		);
 	}
 //	protected static function GetRouterRoutes(Router $router): array {

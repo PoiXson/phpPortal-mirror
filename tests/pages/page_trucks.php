@@ -9,18 +9,12 @@
 namespace pxn\phpPortal\tests\pages;
 
 
-class page_hammer extends \pxn\phpPortal\Page {
+class page_trucks extends \pxn\phpPortal\Page {
 
 
 
 	public function render(): void {
-		echo 'Hammer Page';
-	}
-
-	public function render_api(): ?array {
-		return [
-			'tool' => 'hammer'
-		];
+		echo 'Trucks Page';
 	}
 
 
