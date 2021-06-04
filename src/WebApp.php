@@ -58,7 +58,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		// load page
 		$router = $this->getRouter();
 		$page = $router->getPage();
-		$page->render();
+		$page->doRender();
 	}
 
 

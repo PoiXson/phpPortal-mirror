@@ -8,25 +8,23 @@
  */
 namespace pxn\phpPortal;
 
+use pxn\phpUtils\exceptions\FileNotFoundException;
 
-class PageDAO {
 
-	protected WebApp $app;
-	protected Router $router;
+class PageDAO extends RouteNode {
 
-	protected string $name;
 	protected string $title = '';
 	protected string $clss  = '';
 	protected string $url   = '';
 	protected string $icon  = '';
-	protected bool $active = false;
+
+	protected ?Page $page_loaded = null;
+	protected bool $menu_active = false;
 
 
 
-	public function __construct(Router $router, string $name) {
-		$this->app = $router->getApp();
-		$this->router = $router;
-		$this->name = $name;
+	public function __construct(WebApp $app, Router $parent, string $key='') {
+		parent::__construct(app: $app, parent: $parent, key: $key);
 	}
 
 
@@ -73,16 +71,36 @@ class PageDAO {
 
 
 
-	public function isActive(): bool {
-		return $this->active;
+	public function isMenuActive(): bool {
+		return $this->menu_active;
 	}
-	public function setActive(?bool $active=null): PageDAO {
+	public function setMenuActive(?bool $active=null): PageDAO {
 		if ($active === null) {
-			$this->active = true;
+			$this->menu_active = true;
 		} else {
-			$this->active = $active;
+			$this->menu_active = $active;
 		}
 		return $this;
+	}
+
+
+
+	public function getPageInstance(array $args=[]): Page {
+		if ($this->page_loaded == null) {
+			$clss = $this->clss;
+			if (empty($clss))
+				throw new \RuntimeException('Unknown page class, not set for: '.$this->key);
+			if (!\class_exists($clss))
+				throw new FileNotFoundException('class: '.$clss);
+			$this->page_loaded =
+				new $clss(
+					app: $this->app,
+					key: $this->key
+				);
+			if (!empty($args))
+				$this->page_loaded->setArgs($args);
+		}
+		return $this->page_loaded;
 	}
 
 
@@ -90,28 +108,21 @@ class PageDAO {
 	public function addMenuEntry(string $location=null, string $group=null, string $title=null): PageDAO {
 		if (empty($location)) $location = 'main';
 		if (empty($group))    $group    = 'main';
-		if (empty($title))
-			$title = &$this->title;
-		else
-			$title = "$title";
-		Router::$menus[$location][$group][$this->name] = [
-			'title'  => &$title,
-			'url'    => &$this->url,
-			'icls'   => &$this->icon,
-			'active' => &$this->active,
-		];
-//		Router::$menus[$location][$group][$this->name] = $this;
+		$entry = [];
+		if (empty($title)) {
+			$entry['title'] = &$this->title;
+		} else {
+			$entry['title'] = $title;
+		}
+		if (empty($this->url)) {
+			$entry['url'] = '/'.$this->parent->getRoutesTree($this->key);
+		} else {
+			$entry['url'] = &$this->url;
+		}
+		$entry['icls']   = &$this->icon;
+		$entry['active'] = &$this->menu_active;
+		Router::$menus[$location][$group][$this->key] = $entry;
 		return $this;
-	}
-
-
-
-	public function getPageInstance(string $args): Page {
-		if (empty($this->clss))
-			throw new \RuntimeException('Unknown page class, not set for: '.$this->name);
-		if (!\class_exists($this->clss))
-			throw new FileNotFoundException('class: '.$this->clss);
-		return new $this->clss(app: $this->app, args: $args);
 	}
 
 
