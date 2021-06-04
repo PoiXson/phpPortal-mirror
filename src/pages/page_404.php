@@ -8,7 +8,7 @@
  */
 namespace pxn\phpPortal\pages;
 
-use pxn\phpPortal\WebApp;
+use pxn\phpPortal\Router;
 
 
 class page_404 extends \pxn\phpPortal\Page {
@@ -19,7 +19,6 @@ class page_404 extends \pxn\phpPortal\Page {
 
 
 	public function init(): void {
-		parent::init();
 		if (!\headers_sent()) {
 			\header("HTTP/1.0 404 Not Found");
 		}
@@ -30,15 +29,14 @@ class page_404 extends \pxn\phpPortal\Page {
 
 
 	public function render(): void {
-		parent::render();
-		$twig = $this->getTwig();
 		// load template
+		$twig = $this->getTwig();
 		$tpl = $twig->load('pages/404.twig');
 		// tags
 		$tags = $this->getTags();
 		$tags['page_title'] = '404 Page Not Found';
 		$tags['page_missing'] = $this->route ?? '';
-		$tags['menus'] = $this->app->getMenus();
+		$tags['menus'] = Router::$menus;
 		// render page
 		$tpl->display($tags);
 	}
