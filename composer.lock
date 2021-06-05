@@ -162,7 +162,7 @@
             "source": {
                 "type": "git",
                 "url": "https://git.poixson.com/r/pxn/phpUtils.git",
-                "reference": "b69576e51f7853878832e171db379fcef2ed4603"
+                "reference": "cd84ca3698edc1aecb8fb904aac41484cac8676c"
             },
             "require": {
                 "ext-mbstring": "*",
@@ -207,7 +207,7 @@
                 "issues": "https://git.poixson.com/tickets/pxn!phpUtils.git",
                 "source": "https://git.poixson.com/summary/pxn!phpUtils.git"
             },
-            "time": "2021-05-25T23:10:22+00:00"
+            "time": "2021-06-05T00:05:25+00:00"
         },
         {
             "name": "pxn/webresources",
