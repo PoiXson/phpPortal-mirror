@@ -1,6 +1,12 @@
 phpPortal - Website Utilities Library
 
 
+2021-06-04 - 0.3.6
+==================
+* replacing michelf/markdown with league/commonmark
+* improved Router and Page classes
+
+
 2021-04-29 - 0.3.5
 ==================
 * improved Router class and added new PageDAO class
