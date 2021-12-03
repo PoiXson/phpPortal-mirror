@@ -33,15 +33,15 @@
 		]
 	},
 	"require": {
-		"pxn/phputils": "0.3.*",
-		"pxn/webresources": "0.1.*",
-		"twig/twig": "v3.*",
-		"league/commonmark": "1.*",
-		"pxn/composerlocaldev": "1.*"
+		"pxn/phputils": "*",
+		"pxn/webresources": "*",
+		"twig/twig": "*",
+		"league/commonmark": "*",
+		"pxn/composerlocaldev": "*"
 	},
 	"require-dev": {
-		"filp/whoops": "2.*",
-		"kint-php/kint": "3.*",
+		"filp/whoops": "*",
+		"kint-php/kint": "*",
 		"phpunit/phpunit": "*"
 	}
 }
