@@ -44,5 +44,10 @@
 		"filp/whoops": "*",
 		"kint-php/kint": "*",
 		"phpunit/phpunit": "*"
+	},
+	"config": {
+		"allow-plugins": {
+			"pxn/composerlocaldev": true
+		}
 	}
 }
