@@ -524,30 +524,30 @@
         },
         {
             "name": "pxn/phputils",
-            "version": "0.3.6",
+            "version": "0.3.7",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/phpUtils-mirror.git",
-                "reference": "cd84ca3698edc1aecb8fb904aac41484cac8676c"
+                "reference": "e5ca9f78ac22ea0740229770ba11cf5543fba7b3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/phpUtils-mirror/zipball/cd84ca3698edc1aecb8fb904aac41484cac8676c",
-                "reference": "cd84ca3698edc1aecb8fb904aac41484cac8676c",
+                "url": "https://api.github.com/repos/PoiXson/phpUtils-mirror/zipball/e5ca9f78ac22ea0740229770ba11cf5543fba7b3",
+                "reference": "e5ca9f78ac22ea0740229770ba11cf5543fba7b3",
                 "shasum": ""
             },
             "require": {
                 "ext-mbstring": "*",
                 "php": ">=8.0",
-                "pxn/composerlocaldev": "1.*"
+                "pxn/composerlocaldev": "*"
             },
             "require-dev": {
-                "filp/whoops": "2.*",
-                "kint-php/kint": "3.*",
+                "filp/whoops": "*",
+                "kint-php/kint": "*",
                 "phpunit/phpunit": "*"
             },
             "suggest": {
-                "51systems/doctrine-encrypt": "v6.0.*"
+                "51systems/doctrine-encrypt": "*"
             },
             "type": "library",
             "autoload": {
@@ -569,17 +569,18 @@
                 }
             ],
             "description": "PHP Utilities Library",
-            "homepage": "https://poixson.com/",
+            "homepage": "https://poixson.com",
             "keywords": [
                 "framework",
                 "utilities"
             ],
             "support": {
+                "discord": "https://discord.gg/jHgP2a3kDx",
                 "irc": "irc://irc.esper.net/poixson",
                 "issues": "https://git.poixson.com/tickets/pxn!phpUtils.git",
                 "source": "https://git.poixson.com/summary/pxn!phpUtils.git"
             },
-            "time": "2021-06-05T00:05:25+00:00"
+            "time": "2022-08-04T03:30:43+00:00"
         },
         {
             "name": "pxn/webresources",
