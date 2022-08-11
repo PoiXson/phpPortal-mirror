@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\pages;
 
 use pxn\phpPortal\Router;
@@ -44,3 +44,4 @@ class page_404 extends \pxn\phpPortal\Page {
 
 
 }
+*/

@@ -5,7 +5,7 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal;
 
 use pxn\phpUtils\utils\StringUtils;
@@ -288,3 +288,4 @@ class Router extends RouteNode {
 
 
 }
+*/
