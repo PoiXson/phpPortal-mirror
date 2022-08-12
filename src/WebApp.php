@@ -8,78 +8,26 @@
  */
 namespace pxn\phpPortal;
 
-use pxn\phpUtils\utils\SystemUtils;
-use pxn\phpUtils\Paths;
-
 
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
+
+	protected ?\Composer\Autoload\ClassLoader $loader = null;
 
 	protected ?Router $router = null;
 
 
 
-	public function __construct() {
+    public function __construct(?\Composer\Autoload\ClassLoader $loader=NULL) {
 		parent::__construct();
+		$this->loader = $loader;
 	}
 
 
 
-	public function run() {
+	public function run(): void {
 echo "render page\n";
 	}
 
 
 
 }
-/*
-	protected function init(): void {
-		parent::init();
-		// load configs
-		$this->load_configs();
-		// pages
-		$this->load_pages();
-	}
-
-	protected function check_run_mode(): void {
-		SystemUtils::AssertWeb();
-	}
-
-
-
-	protected function load_paths(): void {
-		parent::load_paths();
-		Paths::set(key: 'twig_cache', path: '{entry}/../twig_cache');
-		Paths::set(key: 'html',       path: '{entry}/../html');
-	}
-
-	protected function load_configs(): void {
-	}
-
-	protected function load_pages(): void {
-		$router = $this->getRouter();
-		// 404 page
-		$router->addPage('404')
-			->setPageClass('pxn\\phpPortal\\pages\\page_404');
-	}
-
-
-
-	public function run(): void {
-		// load page
-		$router = $this->getRouter();
-		$page = $router->getPage();
-		$page->doRender();
-	}
-
-
-
-	public function getRouter(): Router {
-		if ($this->router == null)
-			$this->router = new Router($this);
-		return $this->router;
-	}
-
-
-
-}
-*/
