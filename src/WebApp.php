@@ -22,6 +22,16 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		parent::__construct();
 	}
 
+
+
+	public function run() {
+echo "render page\n";
+	}
+
+
+
+}
+/*
 	protected function init(): void {
 		parent::init();
 		// load configs
@@ -72,3 +82,4 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 }
+*/
