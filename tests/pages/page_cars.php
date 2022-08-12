@@ -1,7 +1,7 @@
-<?php declare(strict_types = 1);
+<?php declare(strict_types=1);
 /*
  * PoiXson phpPortal - Website Utilities Library
- * @copyright 2004-2021
+ * @copyright 2004-2022
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
