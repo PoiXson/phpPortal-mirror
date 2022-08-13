@@ -10,7 +10,6 @@
 	"support": {
 		"source": "https://git.poixson.com/summary/pxn!phpPortal.git",
 		"issues": "https://git.poixson.com/tickets/pxn!phpPortal.git",
-		"irc":    "irc://irc.esper.net/poixson",
 		"discord": "https://discord.gg/jHgP2a3kDx"
 	},
 	"authors": [{
