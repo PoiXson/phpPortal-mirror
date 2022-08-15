@@ -468,16 +468,16 @@
         },
         {
             "name": "pxn/composerlocaldev",
-            "version": "1.25",
+            "version": "1.27",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/ComposerLocalDev-mirror.git",
-                "reference": "5e08f25cb1e656a53c08b3a8a0494e2859dedc91"
+                "reference": "b4011862ae29da0f15adbae98fd127efe8aa749a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/ComposerLocalDev-mirror/zipball/5e08f25cb1e656a53c08b3a8a0494e2859dedc91",
-                "reference": "5e08f25cb1e656a53c08b3a8a0494e2859dedc91",
+                "url": "https://api.github.com/repos/PoiXson/ComposerLocalDev-mirror/zipball/b4011862ae29da0f15adbae98fd127efe8aa749a",
+                "reference": "b4011862ae29da0f15adbae98fd127efe8aa749a",
                 "shasum": ""
             },
             "require": {
@@ -516,11 +516,10 @@
             ],
             "support": {
                 "discord": "https://discord.gg/jHgP2a3kDx",
-                "irc": "irc://irc.esper.net/poixson",
                 "issues": "http://git.poixson.com/tickets/pxn!ComposerLocalDev.git",
                 "source": "http://git.poixson.com/summary/pxn!ComposerLocalDev.git"
             },
-            "time": "2022-08-04T02:30:27+00:00"
+            "time": "2022-08-15T19:01:15+00:00"
         },
         {
             "name": "pxn/phputils",
