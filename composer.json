@@ -36,7 +36,6 @@
 		"pxn/phputils": "*",
 		"pxn/webresources": "*",
 		"twig/twig": "*",
-		"symfony/routing": "*",
 		"league/commonmark": "*",
 		"pxn/composerlocaldev": "*"
 	},
