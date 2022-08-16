@@ -69,7 +69,7 @@ abstract class Page {
 			throw new \RuntimeException('Markdown extention not available');
 		$twig = $this->getTwig();
 		$twig->addExtension(
-			new \Twig\Extra\Markdown\LeagueMarkdown()
+			new \Twig\Extra\Markdown\MarkdownExtension()
 		);
 		$twig->addRuntimeLoader(
 			new class implements \Twig\RuntimeLoader\RuntimeLoaderInterface {
@@ -77,7 +77,7 @@ abstract class Page {
 					if (\Twig\Extra\Markdown\MarkdownRuntime::class === $class)
 						return
 							new \Twig\Extra\Markdown\MarkdownRuntime(
-								new \Twig\Extra\Markdown\DefaultMarkdown()
+								new \Twig\Extra\Markdown\LeagueMarkdown()
 							);
 				}
 			}
