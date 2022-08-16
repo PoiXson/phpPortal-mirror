@@ -1,6 +1,12 @@
 phpPortal - Website Utilities Library
 
 
+2022-08-15 - 0.4.1
+==================
+* cleanup and simplifying
+* added new StaticTwig page class
+
+
 2022-08-12 - 0.4.0
 ==================
 * commented out code to be cleaned and sorted
