@@ -40,7 +40,7 @@ abstract class Page {
 	}
 	public function getTwigLoader(): FilesystemLoader {
 		if ($this->loader == null) {
-			$tpl_paths = $this->app->getTplPaths();
+			$tpl_paths = $this->app->paths['html'];
 			if (empty($tpl_paths))
 				throw new \RuntimeException('Template paths not found');
 			$this->loader = new FilesystemLoader($tpl_paths);
