@@ -35,8 +35,9 @@
 	"require": {
 		"pxn/phputils": "*",
 		"pxn/webresources": "*",
-		"twig/twig": "*",
 		"league/commonmark": "*",
+		"twig/twig": "*",
+		"twig/markdown-extra": "*",
 		"pxn/composerlocaldev": "*"
 	},
 	"require-dev": {
