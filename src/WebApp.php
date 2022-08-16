@@ -15,8 +15,12 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	protected ?\Composer\Autoload\ClassLoader $loader = null;
 
-	public $page = null;
 	public ?string $uri = null;
+//TODO
+	public array $args = [];
+
+	public $page = null;
+	public array $pages = [];
 
 
 
@@ -27,7 +31,10 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
-	public abstract function loadPages(): void;
+	public function loadPages(): void {
+		$this->addPage('\\pxn\\phpPortal\\pages\\page_404')
+			->set404Page();
+	}
 
 	public function run(): void {
 		if (empty($this->uri)) {
@@ -39,32 +46,78 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		$this->uri = StringUtils::trim($this->uri, '/');
 		// load pages
 		$this->loadPages();
-		if ($this->page == null) {
-			echo "404 Not found!\n";
-			exit(1);
-		}
-		// new instance
-		if (\is_string($this->page)) {
-			if (\str_contains($this->page, '\\')) {
-				$this->page = new $this->page($this);
-			} else {
-				echo $this->page;
-				return;
-			}
-		}
+		// load page
+		$page = $this->getPage();
+		if ($page == null)
+			throw new \RuntimeException('Failed to find page!');
 		// render page
-		if (\is_subclass_of($this->page, '\\pxn\\phpPortal\\Page', false)) {
-			echo $this->page->render();
-			return;
-		}
-		echo 'Unknown page type: '.\get_class($this->page);
+		$page->render();
 	}
 
 
 
-	public function getTplPath(): string {
+	public function getPage(): Page {
+		$page = $this->page;
+		if ($page == null)
+			$page = $this->findPage();
+		if ($page instanceof \pxn\phpPortal\PageDAO)
+			return $page->getInstance();
+		if ($page instanceof \pxn\phpPortal\Page)
+			return $page;
+		throw new \RuntimeException('Unknown page type: '.\get_class($page));
+	}
+	public function findPage(): string|Page|PageDAO {
+		// page already set
+		if ($this->page != null) return $this->page;
+		// from uri
+		if (!empty($this->uri)) {
+			$this->page = $this->findPage($this->uri);
+			if ($this->page == null)
+				return $this->find404Page();
+		}
+		if ($this->page != null) return $this->page;
+		// default page
+		$this->page = $this->findDefaultPage();
+		if ($this->page != null) return $this->page;
+		// 404
+		return $this->find404Page();
+	}
+	public function findDefaultPage(): PageDAO {
+		foreach ($this->pages as $page) {
+			if ($page->isDefaultPage())
+				return $page;
+		}
+	}
+	public function find404Page(): PageDAO {
+		foreach ($this->pages as $page) {
+			if ($page->is404Page())
+				return $page;
+		}
+//TODO: add 404 page here
+		echo "404 Not found!\n";
+		exit(1);
+	}
+
+	public function addPage(string|PageDAO $page): PageDAO {
+		if (\is_string($page)) {
+			$page = (string) $page;
+			$page = new PageDAO($this, $page);
+		}
+		if ($page instanceof PageDAO) {
+			$this->pages[] = $page;
+			return $page;
+		} else {
+			throw new \RuntimeException('Unknown Page type: '.\get_class($page));
+		}
+	}
+
+
+
+	public function getTplPaths(): array {
 //TODO
-		return $_SERVER['DOCUMENT_ROOT'].'/../html';
+		return [
+			$_SERVER['DOCUMENT_ROOT'].'/../html',
+		];
 	}
 
 
