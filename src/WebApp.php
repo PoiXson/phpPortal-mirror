@@ -113,13 +113,4 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
-	public function getTplPaths(): array {
-//TODO
-		return [
-			$_SERVER['DOCUMENT_ROOT'].'/../html',
-		];
-	}
-
-
-
 }
