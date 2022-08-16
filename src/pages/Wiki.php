@@ -5,50 +5,29 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpPortal\pages\wiki;
-
-use Michelf\Markdown;
-use Michelf\MarkdownExtra;
+ */
+namespace pxn\phpPortal\pages;
 
 
-// https://michelf.ca/projects/php-markdown/extra/
 abstract class Wiki extends \pxn\phpPortal\Page {
 
-	protected $allowExtra = FALSE;
 
 
-
-	protected abstract function getPageData();
-
-
-
-	public function getPageContents() {
-		$data = $this->getPageData();
-		if (empty($data)) {
-			return 'This page is currently blank.';
-		}
-		$markdown = $this->getMarkdown();
-		$html = $markdown->transform($data);
-		return $html;
+	public function __construct(\pxn\phpPortal\WebApp $app) {
+		parent::__construct($app);
 	}
 
 
 
-	public function getMarkdown() {
-		$markdown = (
-			$this->allowExtra
-			? new MarkdownExtra()
-			: new Markdown()
-		);
-		$markdown->enhanced_ordered_list = TRUE;
-		return $markdown;
-	}
-	protected function setAllowExtra($allow=TRUE) {
-		$this->allowExtra = $allow;
+	public function render(): void {
+		$twig = $this->getTwig();
+		$this->addTwigExt_Markdown();
+		$tags = [
+			'body' => 'wiki.twig',
+		];
+		echo $twig->render('main.twig', $tags);
 	}
 
 
 
 }
-*/
