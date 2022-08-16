@@ -48,10 +48,17 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 
 	public function render(): void {
+		$converter = self::getMarkdownConverter();
+//TODO:
+		$file = $this->app->paths['data'].'/wiki/home.txt';
+		$content = \file_get_contents($file);
+		if ($content === false)
+			throw new \RuntimeException('Failed to load wiki file: '.$file);
+		$rendered_content = $converter->convertToHtml($content);
 		$twig = $this->getTwig();
-		$this->addTwigExt_Markdown();
 		$tags = [
 			'body' => 'wiki.twig',
+			'content' => $rendered_content,
 		];
 		echo $twig->render('main.twig', $tags);
 	}
