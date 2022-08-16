@@ -29,8 +29,6 @@ abstract class Page {
 
 	public abstract function render(): void;
 
-	public abstract function getPageName(): string;
-
 
 
 	public function getTwigOptions(): array {
