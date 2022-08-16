@@ -62,26 +62,4 @@ abstract class Page {
 
 
 
-	public function addTwigExt_Markdown(): void {
-		if (!\class_exists('\\Twig\\Extra\\Markdown\\LeagueMarkdown'))
-			throw new \RuntimeException('Markdown extention not available');
-		$twig = $this->getTwig();
-		$twig->addExtension(
-			new \Twig\Extra\Markdown\MarkdownExtension()
-		);
-		$twig->addRuntimeLoader(
-			new class implements \Twig\RuntimeLoader\RuntimeLoaderInterface {
-				public function load($class) {
-					if (\Twig\Extra\Markdown\MarkdownRuntime::class === $class)
-						return
-							new \Twig\Extra\Markdown\MarkdownRuntime(
-								new \Twig\Extra\Markdown\LeagueMarkdown()
-							);
-				}
-			}
-		);
-	}
-
-
-
 }
