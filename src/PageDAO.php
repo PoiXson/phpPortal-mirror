@@ -13,7 +13,8 @@ class PageDAO {
 
 	public ?WebApp $app = null;
 
-	public ?string $clss = null;
+	public ?string $name   = null;
+	public ?string $clss   = null;
 	public ?Page $instance = null;
 
 	public bool $isDefault = false;
@@ -21,8 +22,9 @@ class PageDAO {
 
 
 
-	public function __construct(WebApp $app, string $clss) {
-		$this->app = $app;
+	public function __construct(WebApp $app, string $name, string $clss) {
+		$this->app  = $app;
+		$this->name = $name;
 		$this->clss = $clss;
 		if (!\class_exists($clss))
 			throw new \RuntimeException('Page class not found: '.$clss);
@@ -35,6 +37,13 @@ class PageDAO {
 			$this->instance = new $this->clss($this->app);
 		return $this->instance;
 	}
+
+
+
+	public function isPageName($name): bool {
+		return (0 == \strcasecmp($this->name, $name));
+	}
+
 
 
 	public function isDefaultPage(): bool {
