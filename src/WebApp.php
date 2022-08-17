@@ -9,6 +9,7 @@
 namespace pxn\phpPortal;
 
 use \pxn\phpUtils\utils\StringUtils;
+use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
@@ -32,7 +33,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 	public function loadPages(): void {
-		$this->addPage('\\pxn\\phpPortal\\pages\\page_404')
+		$this->addPage('404', '\\pxn\\phpPortal\\pages\\page_404')
 			->set404Page();
 	}
 
@@ -60,20 +61,39 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		$page = $this->page;
 		if ($page == null)
 			$page = $this->findPage();
+		if (\is_string($page)) {
+			$page = StringUtils::trim($page, '/');
+			if (\str_contains($page, '/')) {
+				$this->args = \explode($page, '/');
+				$page = \array_shift($this->args);
+			}
+			// find page
+			foreach ($this->pages as $dao) {
+				if ($dao->isPageName($page)) {
+					$this->page = $dao->getInstance();
+					return $this->page;
+				}
+			}
+		}
 		if ($page instanceof \pxn\phpPortal\PageDAO)
 			return $page->getInstance();
 		if ($page instanceof \pxn\phpPortal\Page)
 			return $page;
-		throw new \RuntimeException('Unknown page type: '.\get_class($page));
+		// page not found
+		{
+			$this->args = [ print_r($page, true) ];
+			$this->page = $this->find404Page()->getInstance();
+		}
+		return $this->page;
 	}
 	public function findPage(): string|Page|PageDAO {
 		// page already set
 		if ($this->page != null) return $this->page;
 		// from uri
 		if (!empty($this->uri)) {
-			$this->page = $this->findPage($this->uri);
-			if ($this->page == null)
+			if (empty($this->uri))
 				return $this->find404Page();
+			return $this->uri;
 		}
 		if ($this->page != null) return $this->page;
 		// default page
@@ -98,17 +118,15 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		exit(1);
 	}
 
-	public function addPage(string|PageDAO $page): PageDAO {
-		if (\is_string($page)) {
-			$page = (string) $page;
-			$page = new PageDAO($this, $page);
-		}
-		if ($page instanceof PageDAO) {
-			$this->pages[] = $page;
-			return $page;
-		} else {
-			throw new \RuntimeException('Unknown Page type: '.\get_class($page));
-		}
+	public function addPage(string $name, string $clss): PageDAO {
+		if (empty($name)) throw new RequiredArgumentException('name');
+		if (empty($clss)) throw new RequiredArgumentException('clss');
+		$dao = new PageDAO($this, $name, $clss);
+		$this->addPageDAO($dao);
+		return $dao;
+	}
+	public function addPageDAO(PageDAO $dao): void {
+		$this->pages[] = $dao;
 	}
 
 
