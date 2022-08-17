@@ -9,6 +9,7 @@
 namespace pxn\phpPortal\pages;
 
 use \League\CommonMark\MarkdownConverter;
+use \League\CommonMark\Extension as ComMarkExt;
 
 
 abstract class Wiki extends \pxn\phpPortal\Page {
@@ -27,14 +28,14 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 			]
 		];
 		$env = new \League\CommonMark\Environment\Environment($cfg);
-		$env->addExtension( new \League\CommonMark\Extension\CommonMark\CommonMarkCoreExtension()       );
-		$env->addExtension( new \League\CommonMark\Extension\Attributes\AttributesExtension()           );
-		$env->addExtension( new \League\CommonMark\Extension\DescriptionList\DescriptionListExtension() );
-		$env->addExtension( new \League\CommonMark\Extension\ExternalLink\ExternalLinkExtension()       );
-		$env->addExtension( new \League\CommonMark\Extension\Autolink\AutolinkExtension()               );
-		$env->addExtension( new \League\CommonMark\Extension\Strikethrough\StrikethroughExtension()     );
-		$env->addExtension( new \League\CommonMark\Extension\Table\TableExtension()                     );
-		$env->addExtension( new \League\CommonMark\Extension\TaskList\TaskListExtension()               );
+		$env->addExtension( new ComMarkExt\CommonMark\CommonMarkCoreExtension()       );
+		$env->addExtension( new ComMarkExt\Attributes\AttributesExtension()           );
+		$env->addExtension( new ComMarkExt\DescriptionList\DescriptionListExtension() );
+		$env->addExtension( new ComMarkExt\ExternalLink\ExternalLinkExtension()       );
+		$env->addExtension( new ComMarkExt\Autolink\AutolinkExtension()               );
+		$env->addExtension( new ComMarkExt\Strikethrough\StrikethroughExtension()     );
+		$env->addExtension( new ComMarkExt\Table\TableExtension()                     );
+		$env->addExtension( new ComMarkExt\TaskList\TaskListExtension()               );
 		$converter = new MarkdownConverter($env);
 		return $converter;
 	}
