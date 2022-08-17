@@ -23,7 +23,14 @@ class page_404 extends \pxn\phpPortal\Page {
 		if (!\headers_sent()) {
 			\header("HTTP/1.0 404 Not Found");
 		}
-		echo "404 - page not found!\n";
+		echo "<p>404 - page not found!</p>\n";
+		if (!empty($this->app->args)) {
+			if (count($this->app->args) == 1) {
+				echo \reset($this->app->args)."\n";
+			} else {
+				echo "<pre>\n".print_r($this->app->args, true)."</pre>\n";
+			}
+		}
 	}
 
 
