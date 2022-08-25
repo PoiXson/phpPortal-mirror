@@ -16,12 +16,12 @@ use \pxn\phpUtils\utils\PathUtils;
 
 abstract class Wiki extends \pxn\phpPortal\Page {
 
-	protected ?string $wiki_name = null;
+	protected  string $wiki_name = '';
 	protected ?string $wiki_file = null;
 
 
 
-	public static function getMarkdownConverter(string $wiki_name): MarkdownConverter {
+	public static function getMarkdownConverter(string $wiki_name=''): MarkdownConverter {
 		$cfg = [
 			'internal_link' => [
 				'base_uri' => "/$wiki_name",
@@ -53,7 +53,7 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 
 
-	public function __construct(\pxn\phpPortal\WebApp $app, string $wiki_name=null) {
+	public function __construct(\pxn\phpPortal\WebApp $app, string $wiki_name='') {
 		parent::__construct($app);
 		$this->wiki_name = $wiki_name;
 	}
