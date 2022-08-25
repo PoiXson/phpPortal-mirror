@@ -38,9 +38,19 @@ abstract class Page {
 
 	public abstract function render(): void;
 
+	public function render_main(string $content,
+	string $tpl_file=null, array $tags=[]): string {
+		$tags['content'] = $content;
+		if (empty($tpl_file))
+			$tpl_file = 'main.twig';
+		$twig = $this->getTwig();
+		return $twig->render($tpl_file, $tags);
+	}
+
 
 
 	public function getTwigOptions(): array {
+//TODO
 		return [
 			'cache' => false,
 			'debug' => true,
