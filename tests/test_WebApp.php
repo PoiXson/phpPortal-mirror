@@ -8,7 +8,7 @@
  */
 namespace pxn\phpPortal\tests;
 
-use pxn\phpPortal\WebApp;
+use \pxn\phpPortal\WebApp;
 
 
 /**

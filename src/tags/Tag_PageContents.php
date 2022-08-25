@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpPortal\tags;
 
-use pxn\phpPortal\WebApp;
+use \pxn\phpPortal\WebApp;
 
 
 class Tag_PageContents extends \Twig\Extension\AbstractExtension {

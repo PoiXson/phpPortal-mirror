@@ -8,9 +8,9 @@
  * /
 namespace pxn\phpPortal;
 
-use pxn\phpUtils\Config;
-use pxn\phpUtils\San;
-use pxn\phpUtils\Defines;
+use \pxn\phpUtils\Config;
+use \pxn\phpUtils\San;
+use \pxn\phpUtils\Defines;
 
 
 class ConfigPortal {

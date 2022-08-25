@@ -8,7 +8,7 @@
  */
 namespace pxn\phpPortal\tests;
 
-use pxn\phpPortal\router\Router;
+use \pxn\phpPortal\router\Router;
 
 
 /**

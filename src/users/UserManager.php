@@ -8,10 +8,10 @@
  * /
 namespace pxn\phpPortal;
 
-use pxn\phpUtils\GeneralUtils;
-use pxn\phpUtils\SystemUtils;
-use pxn\phpUtils\Strings;
-use pxn\phpUtils\San;
+use \pxn\phpUtils\GeneralUtils;
+use \pxn\phpUtils\SystemUtils;
+use \pxn\phpUtils\Strings;
+use \pxn\phpUtils\San;
 
 
 trait UserManager {

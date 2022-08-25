@@ -8,7 +8,7 @@
  * /
 namespace pxn\phpPortal\schemas;
 
-use pxn\pxdb\dbField;
+use \pxn\pxdb\dbField;
 
 
 class table_users extends \pxn\pxdb\dbTableSchema {
