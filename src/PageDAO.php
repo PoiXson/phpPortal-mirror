@@ -61,6 +61,8 @@ class PageDAO {
 
 
 	public function is404Page(): bool {
+		if ($this->instance !== null)
+			return $this->instance->is404Page();
 		return $this->is404;
 	}
 	public function set404Page(?bool $is404=null): self {

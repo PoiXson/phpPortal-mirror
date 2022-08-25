@@ -27,6 +27,15 @@ abstract class Page {
 
 
 
+	public function isValid(): bool {
+		return true;
+	}
+	public function is404Page(): bool {
+		return false;
+	}
+
+
+
 	public abstract function render(): void;
 
 
