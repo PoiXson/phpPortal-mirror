@@ -17,7 +17,6 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 	protected ?\Composer\Autoload\ClassLoader $loader = null;
 
 	public ?string $uri = null;
-//TODO
 	public array $args = [];
 
 	public $page = null;
@@ -64,24 +63,31 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		if (\is_string($page)) {
 			$page = StringUtils::trim($page, '/');
 			if (\str_contains($page, '/')) {
-				$this->args = \explode($page, '/');
+				$this->args = \explode('/', $page);
 				$page = \array_shift($this->args);
 			}
 			// find page
 			foreach ($this->pages as $dao) {
 				if ($dao->isPageName($page)) {
-					$this->page = $dao->getInstance();
-					return $this->page;
+					$page = $dao;
+					break;
 				}
 			}
 		}
 		if ($page instanceof \pxn\phpPortal\PageDAO)
-			return $page->getInstance();
-		if ($page instanceof \pxn\phpPortal\Page)
-			return $page;
+			$page = $page->getInstance();
+		if ($page instanceof \pxn\phpPortal\Page) {
+			if ($page->isValidPage())
+				return $page;
+			$this->args = [ 'not valid' ];
+		}
 		// page not found
 		{
-			$this->args = [ print_r($page, true) ];
+			$this->args = [];
+			if (\is_string($page))
+				$this->args[] = $page;
+//TODO
+//			$this->args = [ print_r($page, true) ];
 			$this->page = $this->find404Page()->getInstance();
 		}
 		return $this->page;
@@ -114,7 +120,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 				return $page;
 		}
 //TODO: add 404 page here
-		echo "404 Not found!\n";
+		echo "<p>404 NOT FOUND!</p>\n";
 		exit(1);
 	}
 
