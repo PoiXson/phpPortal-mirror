@@ -33,7 +33,14 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 				'nofollow'   => '',
 				'noopener'   => '',
 				'noreferrer' => '',
-			]
+			],
+			'table' => [
+				'wrap' => [
+					'enabled' => true,
+					'tag'     => 'div',
+					'attributes' => [ 'class' => 'table-responsive wiki-table' ],
+				],
+			],
 		];
 		$env = new \League\CommonMark\Environment\Environment($cfg);
 		$env->addExtension( new ComMarkExt\CommonMark\CommonMarkCoreExtension()       );
