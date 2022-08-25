@@ -5,15 +5,15 @@
  * @license GPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- */
+ * /
 namespace pxn\phpPortal\tests;
 
 use \pxn\phpPortal\router\Router;
 
 
-/**
+/ **
  * @coversDefaultClass \pxn\phpPortal\Router
- */
+ * /
 class test_Router extends \PHPUnit\Framework\TestCase {
 
 	const PAGE_404    = 'pxn\\phpPortal\\tests\\pages\\page_404';
@@ -54,12 +54,12 @@ class test_Router extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers \pxn\phpPortal\WebApp::getRouter
 	 * @covers ::__construct
 	 * @covers ::addRouter
 	 * @covers ::addPage
-	 */
+	 * /
 	public function test_routes() {
 		$this->initApp();
 		$router = $this->app->getRouter();
@@ -83,13 +83,13 @@ class test_Router extends \PHPUnit\Framework\TestCase {
 
 
 
-	/**
+	/ **
 	 * @covers \pxn\phpPortal\WebApp::getRouter
 	 * @covers ::__construct
 	 * @covers ::addRouter
 	 * @covers ::addPage
 	 * @covers ::getPage
-	 */
+	 * /
 	public function test_GetDefaultPage() {
 		$this->initApp();
 		$router = $this->app->getRouter();
@@ -104,3 +104,4 @@ class test_Router extends \PHPUnit\Framework\TestCase {
 
 
 }
+*/
