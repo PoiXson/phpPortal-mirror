@@ -19,10 +19,15 @@ class page_404 extends \pxn\phpPortal\Page {
 
 
 
+	public function is404Page(): bool {
+		return true;
+	}
+
+
+
 	public function render(): void {
-		if (!\headers_sent()) {
+		if (!\headers_sent())
 			\header("HTTP/1.0 404 Not Found");
-		}
 		echo "<p>404 - page not found!</p>\n";
 		if (!empty($this->app->args)) {
 			if (count($this->app->args) == 1) {
@@ -31,12 +36,6 @@ class page_404 extends \pxn\phpPortal\Page {
 				echo "<pre>\n".print_r($this->app->args, true)."</pre>\n";
 			}
 		}
-	}
-
-
-
-	public function getPageName(): string {
-		return '404';
 	}
 
 
