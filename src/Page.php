@@ -27,7 +27,7 @@ abstract class Page {
 
 
 
-	public function isValid(): bool {
+	public function isValidPage(): bool {
 		return true;
 	}
 	public function is404Page(): bool {
