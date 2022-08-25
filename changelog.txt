@@ -1,6 +1,14 @@
 phpPortal - Website Utilities Library
 
 
+2022-08-25 - 0.4.2
+==================
+* finished wiki page type - using common mark
+* finished static twig page type
+* added Page->render_main() function
+* cleanup and fixes
+
+
 2022-08-15 - 0.4.1
 ==================
 * cleanup and simplifying
