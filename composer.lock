@@ -523,16 +523,16 @@
         },
         {
             "name": "pxn/phputils",
-            "version": "0.4.1",
+            "version": "0.4.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/phpUtils-mirror.git",
-                "reference": "f228cb7a94b71f41e6a2b68a3940b4a47e97eedc"
+                "reference": "6e0bee66d7000a2f79f5516800a52c51a081e19a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/phpUtils-mirror/zipball/f228cb7a94b71f41e6a2b68a3940b4a47e97eedc",
-                "reference": "f228cb7a94b71f41e6a2b68a3940b4a47e97eedc",
+                "url": "https://api.github.com/repos/PoiXson/phpUtils-mirror/zipball/6e0bee66d7000a2f79f5516800a52c51a081e19a",
+                "reference": "6e0bee66d7000a2f79f5516800a52c51a081e19a",
                 "shasum": ""
             },
             "require": {
@@ -578,7 +578,7 @@
                 "issues": "https://git.poixson.com/tickets/pxn!phpUtils.git",
                 "source": "https://git.poixson.com/summary/pxn!phpUtils.git"
             },
-            "time": "2022-08-16T01:25:12+00:00"
+            "time": "2022-08-25T20:35:51+00:00"
         },
         {
             "name": "pxn/webresources",
