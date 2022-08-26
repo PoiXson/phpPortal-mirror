@@ -23,9 +23,10 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 	public static function getMarkdownConverter(string $wiki_name=''): MarkdownConverter {
 		$cfg = [
-			'internal_link' => [
-				'base_uri' => "/$wiki_name",
-			],
+//			'internal_link' => [
+//				'base_uri' => "/",
+//				'base_uri' => "/$wiki_name",
+//			],
 			'external_link' => [
 				'internal_hosts' => 'offgrid.local',
 				'open_in_new_window' => true,
