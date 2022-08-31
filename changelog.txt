@@ -1,6 +1,13 @@
 phpPortal - Website Utilities Library
 
 
+2022-08-31 - 0.4.3
+==================
+* use new xPaths class from phpUtils
+* removed old render_main() function and render properly
+* more cleanup and fixes
+
+
 2022-08-26 - 0.4.2
 ==================
 * finished wiki page type - using common mark
