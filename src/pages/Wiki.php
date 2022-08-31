@@ -13,6 +13,7 @@ use \League\CommonMark\Extension as ComMarkExt;
 
 use \pxn\phpUtils\xPaths;
 use \pxn\phpUtils\utils\PathUtils;
+use \pxn\phpUtils\Debug;
 
 
 abstract class Wiki extends \pxn\phpPortal\Page {
@@ -110,10 +111,10 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 		$rendered_content = $converter->convertToHtml($content);
 		$twig = $this->getTwig();
 		$tags = [
-			'content' => $rendered_content->getContent(),
+			'debug' => Debug::debug(),
+			'content' => $rendered_content,
 		];
-		$page_content = $twig->render('wiki.twig', $tags);
-		echo $this->render_main($page_content);
+		echo $twig->render('wiki.twig', $tags);
 	}
 
 

@@ -10,6 +10,7 @@ namespace pxn\phpPortal\pages;
 
 use \pxn\phpUtils\xPaths;
 use \pxn\phpUtils\utils\PathUtils;
+use \pxn\phpUtils\Debug;
 
 
 abstract class StaticTwig extends \pxn\phpPortal\Page {
@@ -55,9 +56,10 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 		if ($f === false)
 			throw new \RuntimeException("Invalid page path: $file");
 		$twig = $this->getTwig();
-		$tags = [];
-		$content = $twig->render($f, $tags);
-		echo $this->render_main($content);
+		$tags = [
+			'debug' => Debug::debug(),
+		];
+		echo $twig->render($f, $tags);
 	}
 
 
