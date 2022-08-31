@@ -11,6 +11,8 @@ namespace pxn\phpPortal;
 use \Twig\Environment;
 use \Twig\Loader\FilesystemLoader;
 
+use \pxn\phpUtils\xPaths;
+
 
 abstract class Page {
 
@@ -59,7 +61,7 @@ abstract class Page {
 	}
 	public function getTwigLoader(): FilesystemLoader {
 		if ($this->loader == null) {
-			$tpl_paths = $this->app->paths['html'];
+			$tpl_paths = xPaths::get('html');
 			if (empty($tpl_paths))
 				throw new \RuntimeException('Template paths not found');
 			$this->loader = new FilesystemLoader($tpl_paths);

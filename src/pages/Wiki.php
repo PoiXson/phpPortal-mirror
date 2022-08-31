@@ -11,6 +11,7 @@ namespace pxn\phpPortal\pages;
 use \League\CommonMark\MarkdownConverter;
 use \League\CommonMark\Extension as ComMarkExt;
 
+use \pxn\phpUtils\xPaths;
 use \pxn\phpUtils\utils\PathUtils;
 
 
@@ -79,7 +80,7 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 			if (empty($file))
 				$file = $this->getDefaultPage();
 			$file = \implode('/', [
-				$this->app->paths['data'],
+				xPaths::get('data'),
 				$this->wiki_name,
 				$file,
 			]);
@@ -87,7 +88,7 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 				$file .= '.txt';
 			// check safe path
 			$file = PathUtils::NormPath($file);
-			if (!\str_starts_with($file, $this->app->paths['data']))
+			if (!\str_starts_with($file, xPaths::get('data')))
 				throw new \RuntimeException("Invalid wiki path: $file");
 			$this->wiki_file = $file;
 		}

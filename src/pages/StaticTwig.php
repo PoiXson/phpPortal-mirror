@@ -8,6 +8,7 @@
  */
 namespace pxn\phpPortal\pages;
 
+use \pxn\phpUtils\xPaths;
 use \pxn\phpUtils\utils\PathUtils;
 
 
@@ -28,14 +29,14 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 	public function getFile(): string {
 		if (empty($this->tpl_file)) {
 			$file = \implode('/', [
-				$this->app->paths['html'],
+				xPaths::get('html'),
 				$this->page_file,
 			]);
 			if (!\str_ends_with($file, '.twig'))
 				$file .= '.twig';
 			// check safe path
 			$file = PathUtils::NormPath($file);
-			if (!\str_starts_with($file, $this->app->paths['html']))
+			if (!\str_starts_with($file, xPaths::get('html'))
 				throw new \RuntimeException("Invalid page path: $file");
 			$this->tpl_file = $file;
 		}
@@ -50,7 +51,7 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 
 	public function render(): void {
 		$file = $this->getFile();
-		$f = PathUtils::TrimPath($file, $this->app->paths['html']);
+		$f = PathUtils::TrimPath($file, xPaths::get('html'));
 		if ($f === false)
 			throw new \RuntimeException("Invalid page path: $file");
 		$twig = $this->getTwig();
