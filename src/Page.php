@@ -20,7 +20,7 @@ abstract class Page {
 	protected ?\pxn\phpPortal\WebApp $app = null;
 
 	protected ?FilesystemLoader $loader = null;
-	protected ?Environment $twig  = null;
+	protected ?Environment      $twig   = null;
 
 
 
@@ -30,11 +30,18 @@ abstract class Page {
 
 
 
-	public function isValidPage(): bool {
-		return true;
+	public abstract function getName(): string;
+
+
+
+	public function isDefaultPage(): bool {
+		return false;
 	}
 	public function is404Page(): bool {
 		return false;
+	}
+	public function isActivePage(): int {
+		return ($this->isDefaultPage() ? 1 : 0);
 	}
 
 

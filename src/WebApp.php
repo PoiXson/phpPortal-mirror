@@ -19,12 +19,12 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 	public ?string $uri = null;
 	public array $args = [];
 
-	public $page = null;
+	public ?Page $page = null;
 	public array $pages = [];
 
 
 
-    public function __construct(?\Composer\Autoload\ClassLoader $loader=NULL) {
+	public function __construct(?\Composer\Autoload\ClassLoader $loader=NULL) {
 		parent::__construct();
 		$this->loader = $loader;
 	}
@@ -32,9 +32,10 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 	public function loadPages(): void {
-		$this->addPage('404', '\\pxn\\phpPortal\\pages\\page_404')
-			->set404Page();
+		$this->addPage( new \pxn\phpPortal\pages\page_404($this) );
 	}
+
+
 
 	public function run(): void {
 		if (empty($this->uri)) {
@@ -44,9 +45,8 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 			);
 		}
 		$this->uri = StringUtils::trim($this->uri, '/');
-		// load pages
-		$this->loadPages();
 		// load page
+		$this->loadPages();
 		$page = $this->getPage();
 		if ($page == null)
 			throw new \RuntimeException('Failed to find page!');
@@ -56,83 +56,47 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
-	public function getPage(): Page {
-		$page = $this->page;
-		if ($page == null)
-			$page = $this->findPage();
-		if (\is_string($page)) {
-			$page = StringUtils::trim($page, '/');
-			if (\str_contains($page, '/')) {
-				$this->args = \explode('/', $page);
-				$page = \array_shift($this->args);
-			}
-			// find page
-			foreach ($this->pages as $dao) {
-				if ($dao->isPageName($page)) {
-					$page = $dao;
-					break;
-				}
-			}
-		}
-		if ($page instanceof \pxn\phpPortal\PageDAO)
-			$page = $page->getInstance();
-		if ($page instanceof \pxn\phpPortal\Page) {
-			if ($page->isValidPage())
-				return $page;
-			$this->args = [ 'not valid' ];
-		}
+	protected function getPage(): Page {
+		if ($this->page != null) return $this->page;
+		$this->page = $this->selectPage();
+		if ($this->page != null) return $this->page;
 		// page not found
-		{
-			$this->args = [];
-			if (\is_string($page))
-				$this->args[] = $page;
-//TODO
-//			$this->args = [ print_r($page, true) ];
-			$this->page = $this->find404Page()->getInstance();
-		}
-		return $this->page;
-	}
-	public function findPage(): string|Page|PageDAO {
-		// page already set
+		$this->page = $this->select404Page();
 		if ($this->page != null) return $this->page;
-		// from uri
-		if (!empty($this->uri)) {
-			if (empty($this->uri))
-				return $this->find404Page();
-			return $this->uri;
-		}
-		if ($this->page != null) return $this->page;
-		// default page
-		$this->page = $this->findDefaultPage();
-		if ($this->page != null) return $this->page;
-		// 404
-		return $this->find404Page();
+		throw new \RuntimeException('Unable to find a page');
 	}
-	public function findDefaultPage(): PageDAO {
-		foreach ($this->pages as $page) {
-			if ($page->isDefaultPage())
-				return $page;
+	protected function selectPage(): Page {
+		$highest = -1;
+		$found = null;
+		foreach ($this->pages as $p) {
+			$weight = $p->isActivePage();
+			if ($highest <= $weight) {
+				$highest = $weight;
+				$found = $p;
+			}
 		}
+		if ($found != null)
+			return $found;
+		return $this->select404Page();
 	}
-	public function find404Page(): PageDAO {
-		foreach ($this->pages as $page) {
-			if ($page->is404Page())
-				return $page;
+	protected function select404Page(): Page {
+		$highest = -1;
+		$found = null;
+		foreach ($this->pages as $p) {
+			if (!$p->is404Page()) continue;
+			$weight = $p->isActivePage();
+			if ($highest <= $weight) {
+				$highest = $weight;
+				$found = $p;
+			}
 		}
-//TODO: add 404 page here
-		echo "<p>404 NOT FOUND!</p>\n";
-		exit(1);
 	}
 
-	public function addPage(string $name, string $clss): PageDAO {
-		if (empty($name)) throw new RequiredArgumentException('name');
-		if (empty($clss)) throw new RequiredArgumentException('clss');
-		$dao = new PageDAO($this, $name, $clss);
-		$this->addPageDAO($dao);
-		return $dao;
-	}
-	public function addPageDAO(PageDAO $dao): void {
-		$this->pages[] = $dao;
+
+
+	public function addPage(Page $page): void {
+		if ($page == null) throw new RequiredArgumentException('page');
+		$this->pages[] = $page;
 	}
 
 
