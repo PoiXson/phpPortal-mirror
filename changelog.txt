@@ -1,6 +1,12 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-08 - 0.4.4
+==================
+* further simplified page classes
+* using a weighted system to select the current page
+
+
 2022-08-31 - 0.4.3
 ==================
 * use new xPaths class from phpUtils
