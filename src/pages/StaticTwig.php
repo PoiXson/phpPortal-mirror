@@ -15,19 +15,25 @@ use \pxn\phpUtils\Debug;
 
 abstract class StaticTwig extends \pxn\phpPortal\Page {
 
-	protected string $page_file;
-	protected ?string $tpl_file = null;
+	protected string $page_file = '';
+	protected string $tpl_file  = '';
 
 
 
-	public function __construct(\pxn\phpPortal\WebApp $app, string $page_file) {
-		parent::__construct($app);
-		$this->page_file = $page_file;
+	public function isActivePage(): int {
+//TODO
+return 100;
+//		return \is_file( $this->getFile() );
 	}
 
 
 
 	public function getFile(): string {
+		if (empty($this->page_file)) {
+			$this->page_file = $this->getName();
+		}
+		if (empty($this->page_file))
+			throw new \RuntimeException('Unknown page file');
 		if (empty($this->tpl_file)) {
 			$file = \implode('/', [
 				xPaths::get('html'),
@@ -37,15 +43,11 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 				$file .= '.twig';
 			// check safe path
 			$file = PathUtils::NormPath($file);
-			if (!\str_starts_with($file, xPaths::get('html'))
+			if (!\str_starts_with($file, xPaths::get('html')))
 				throw new \RuntimeException("Invalid page path: $file");
 			$this->tpl_file = $file;
 		}
 		return $this->tpl_file;
-	}
-
-	public function isValidPage(): bool {
-		return \is_file( $this->getFile() );
 	}
 
 

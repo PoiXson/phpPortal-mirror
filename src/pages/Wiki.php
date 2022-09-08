@@ -18,8 +18,8 @@ use \pxn\phpUtils\Debug;
 
 abstract class Wiki extends \pxn\phpPortal\Page {
 
-	protected  string $wiki_name = '';
-	protected ?string $wiki_file = null;
+	protected string $wiki_name = '';
+	protected string $wiki_file = '';
 
 
 
@@ -63,26 +63,31 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 
 
-	public function __construct(\pxn\phpPortal\WebApp $app, string $wiki_name='') {
-		parent::__construct($app);
-		$this->wiki_name = $wiki_name;
+	public function isActivePage(): int {
+//TODO
+return 100;
+//		return \is_file( $this->getFile() );
 	}
 
 
 
-	public function getDefaultPage(): string {
-		return 'home';
+	public function getWikiName(): string {
+		return (
+			empty($this->wiki_name)
+			? $this->getName()
+			: $this->wiki_name
+		);
 	}
 
 	public function getFile(): string {
 		if (empty($this->wiki_file)) {
+			// content file
 			$file = \implode('/', $this->app->args);
-			// default
 			if (empty($file))
-				$file = $this->getDefaultPage();
+				$file = $this->getDefaultFile();
 			$file = \implode('/', [
 				xPaths::get('data'),
-				$this->wiki_name,
+				$this->getWikiName(),
 				$file,
 			]);
 			if (!\str_ends_with($file, '.txt'))
@@ -96,8 +101,8 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 		return $this->wiki_file;
 	}
 
-	public function isValidPage(): bool {
-		return \is_file( $this->getFile() );
+	public function getDefaultFile(): string {
+		return 'home';
 	}
 
 
