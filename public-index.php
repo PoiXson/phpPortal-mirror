@@ -1,13 +1,7 @@
 <?php declare(strict_types=1);
 
 // class loader
-$loader = null;
-if (\file_exists(__DIR__.'/../vendor/autoload.php')) {
-	$loader = require(__DIR__.'/../vendor/autoload.php');
-} else
-if (\file_exists(__DIR__.'/../website.phar')) {
-	$loader = require('phar://'.__DIR__.'/../website.phar/vendor/autoload.php');
-}
+$loader = require(__DIR__.'/../vendor/autoload.php');
 if ($loader == null) { echo "Failed to detect autoload.php\n"; exit(1); }
 
 // website class
