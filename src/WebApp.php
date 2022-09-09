@@ -16,6 +16,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	protected ?\Composer\Autoload\ClassLoader $loader = null;
 
+//TODO: args not populated
 	public ?string $uri = null;
 	public array $args = [];
 
