@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-10 - 0.4.6
+==================
+* changing license from GPL3 to AGPL3
+
+
 2022-09-09 - 0.4.5
 ==================
 * removed support for loading phar files - simpler index.php
