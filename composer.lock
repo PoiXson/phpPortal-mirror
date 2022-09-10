@@ -523,16 +523,16 @@
         },
         {
             "name": "pxn/phputils",
-            "version": "0.4.5",
+            "version": "0.4.6",
             "source": {
                 "type": "git",
                 "url": "https://github.com/PoiXson/phpUtils-mirror.git",
-                "reference": "f7e92bcc5a0f0a2f2b2efe2eb51c0bc705d600f3"
+                "reference": "5fef70a27b9b2045557ee651103fbb2777c2c15d"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/PoiXson/phpUtils-mirror/zipball/f7e92bcc5a0f0a2f2b2efe2eb51c0bc705d600f3",
-                "reference": "f7e92bcc5a0f0a2f2b2efe2eb51c0bc705d600f3",
+                "url": "https://api.github.com/repos/PoiXson/phpUtils-mirror/zipball/5fef70a27b9b2045557ee651103fbb2777c2c15d",
+                "reference": "5fef70a27b9b2045557ee651103fbb2777c2c15d",
                 "shasum": ""
             },
             "require": {
@@ -559,7 +559,7 @@
             },
             "notification-url": "https://packagist.org/downloads/",
             "license": [
-                "GPL-3.0"
+                "AGPL-3.0"
             ],
             "authors": [
                 {
@@ -578,7 +578,7 @@
                 "issues": "https://git.poixson.com/tickets/pxn!phpUtils.git",
                 "source": "https://git.poixson.com/summary/pxn!phpUtils.git"
             },
-            "time": "2022-09-10T00:03:24+00:00"
+            "time": "2022-09-10T18:07:07+00:00"
         },
         {
             "name": "pxn/webresources",
