@@ -3,7 +3,7 @@
 	"description": "Website Utilities Library",
 	"type":        "library",
 	"homepage":    "https://poixson.com",
-	"license":     "GPL-3.0",
+	"license":     "AGPL-3.0",
 	"keywords": [
 		"framework", "utilities"
 	],

@@ -2,7 +2,7 @@
 /*
  * PoiXson phpPortal - Website Utilities Library
  * @copyright 2004-2022
- * @license GPL-3
+ * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
  */
