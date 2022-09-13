@@ -23,6 +23,8 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 	public ?Page $page = null;
 	public array $pages = [];
 
+	public array $menus = [];
+
 
 
 	public function __construct(?\Composer\Autoload\ClassLoader $loader=NULL) {
