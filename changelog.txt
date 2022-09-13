@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-13 - 0.4.7
+==================
+* added $menus array for simple access
+
+
 2022-09-10 - 0.4.6
 ==================
 * changing license from GPL3 to AGPL3
