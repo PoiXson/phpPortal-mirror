@@ -66,7 +66,6 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 	public function isActivePage(): int {
 //TODO
 return 100;
-//		return \is_file( $this->getFile() );
 	}
 
 
