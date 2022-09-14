@@ -55,7 +55,7 @@ abstract class Page {
 	public function getTwigOptions(): array {
 		$debug = Debug::debug();
 		return [
-			'cache' => !$debug,
+			'cache' => ($debug ? false : xPaths::common().'/cache'),
 			'debug' => $debug,
 			'strict_variables' => true,
 		];
