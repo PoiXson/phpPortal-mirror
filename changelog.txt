@@ -1,6 +1,12 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-14 - 0.4.10
+===================
+* fixed handling of twig cache path
+* updated dependencies
+
+
 2022-09-14 - 0.4.9
 ==================
 * fixed enabling twig caching in production mode
