@@ -22,6 +22,8 @@ abstract class Page {
 	protected ?FilesystemLoader $loader = null;
 	protected ?Environment      $twig   = null;
 
+	public const DEFAULT_PAGE_WEIGHT = 90;
+
 
 
 	public function __construct(\pxn\phpPortal\WebApp $app) {
@@ -41,7 +43,7 @@ abstract class Page {
 		return false;
 	}
 	public function isActivePage(): int {
-		return ($this->isDefaultPage() ? 1 : 0);
+		return 0;
 	}
 
 
@@ -51,10 +53,10 @@ abstract class Page {
 
 
 	public function getTwigOptions(): array {
-//TODO
+		$debug = Debug::debug();
 		return [
-			'cache' => false,
-			'debug' => true,
+			'cache' => !$debug,
+			'debug' => $debug,
 			'strict_variables' => true,
 		];
 	}

@@ -59,7 +59,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
-	protected function getPage(): Page {
+	public function getPage(): Page {
 		if ($this->page != null) return $this->page;
 		$this->page = $this->selectPage();
 		if ($this->page != null) return $this->page;
@@ -73,7 +73,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		$found = null;
 		foreach ($this->pages as $p) {
 			$weight = $p->isActivePage();
-			if ($highest <= $weight) {
+			if ($highest < $weight) {
 				$highest = $weight;
 				$found = $p;
 			}
