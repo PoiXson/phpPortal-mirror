@@ -54,8 +54,11 @@ abstract class Page {
 
 	public function getTwigOptions(): array {
 		$debug = Debug::debug();
+		$cache = ($debug ? false : xPaths::get('twig-cache'));
+		if (empty($cache))
+			$cache = false;
 		return [
-			'cache' => ($debug ? false : xPaths::common().'/cache'),
+			'cache' => $cache,
 			'debug' => $debug,
 			'strict_variables' => true,
 		];
