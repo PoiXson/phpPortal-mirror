@@ -1,6 +1,12 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-14 - 0.4.8
+==================
+* fixed page matching
+* updated dependencies
+
+
 2022-09-13 - 0.4.7
 ==================
 * added $menus array for simple access
