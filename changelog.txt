@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-14 - 0.4.11
+===================
+* moving public-index.php loader from phpPortal to phpUtils
+
+
 2022-09-14 - 0.4.10
 ===================
 * fixed handling of twig cache path
