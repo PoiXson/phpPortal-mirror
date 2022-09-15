@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-15 - 0.4.12
+===================
+* updated dependencies
+
+
 2022-09-14 - 0.4.11
 ===================
 * moving public-index.php loader from phpPortal to phpUtils
