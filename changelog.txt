@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2022-09-30 - 0.4.14
+===================
+* more cleanup and fixes
+
+
 2022-09-15 - 0.4.12
 ===================
 * updated dependencies
