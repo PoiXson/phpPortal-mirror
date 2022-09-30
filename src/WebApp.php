@@ -34,7 +34,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
-	public function loadPages(): void {
+	protected function loadPages(): void {
 		$this->addPage( new \pxn\phpPortal\pages\page_404($this) );
 	}
 
