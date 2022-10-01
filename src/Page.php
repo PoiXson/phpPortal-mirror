@@ -8,11 +8,11 @@
  */
 namespace pxn\phpPortal;
 
-use \Twig\Environment;
-use \Twig\Loader\FilesystemLoader;
-
 use \pxn\phpUtils\Debug;
 use \pxn\phpUtils\xPaths;
+
+use \Twig\Environment;
+use \Twig\Loader\FilesystemLoader;
 
 
 abstract class Page {
@@ -49,6 +49,23 @@ abstract class Page {
 
 
 	public abstract function render(): void;
+
+
+
+	public function getTags(): array {
+		foreach ($this->menus as $grp_name => $group) {
+			if (!\is_array($group)) continue;
+			foreach ($group as $name => $menu) {
+				if (!\is_array($menu)) continue;
+				if (!isset($menu['active']))
+					$this->menus[$grp_name][$name]['active'] = false;
+			}
+		}
+		return [
+			'debug' => Debug::debug(),
+			'menus' => $this->app->menus,
+		];
+	}
 
 
 
