@@ -8,13 +8,13 @@
  */
 namespace pxn\phpPortal;
 
+use \Composer\Autoload\ClassLoader;
 use \pxn\phpUtils\utils\StringUtils;
 use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
-	protected ?\Composer\Autoload\ClassLoader $loader = null;
 
 //TODO: args not populated
 	public ?string $uri = null;
@@ -27,9 +27,8 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
-	public function __construct(?\Composer\Autoload\ClassLoader $loader=NULL) {
-		parent::__construct();
-		$this->loader = $loader;
+	public function __construct(?ClassLoader $loader=null) {
+		parent::__construct($loader);
 	}
 
 
