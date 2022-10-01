@@ -121,12 +121,9 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 		$content = \file_get_contents($file);
 		if ($content === false)
 			throw new \RuntimeException("Failed to load wiki file: $file");
-		$rendered_content = $converter->convertToHtml($content);
 		$twig = $this->getTwig();
-		$tags = [
-			'debug' => Debug::debug(),
-			'content' => $rendered_content,
-		];
+		$tags = $this->getTags();
+		$tags['content'] = $converter->convertToHtml($content);
 		echo $twig->render('wiki.twig', $tags);
 	}
 

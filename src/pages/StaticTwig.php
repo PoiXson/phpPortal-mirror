@@ -66,9 +66,7 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 		if ($f === false)
 			throw new \RuntimeException("Invalid page path: $file");
 		$twig = $this->getTwig();
-		$tags = [
-			'debug' => Debug::debug(),
-		];
+		$tags = $this->getTags();
 		echo $twig->render($f, $tags);
 	}
 
