@@ -77,8 +77,18 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 				$found = $p;
 			}
 		}
-		if ($found != null)
+		if ($found != null) {
+			$found_name = $found->getName();
+			foreach ($this->menus as $grp_name => $group) {
+				if (!\is_array($group)) continue;
+				foreach ($group as $name => $menu) {
+					if (!\is_array($menu)) continue;
+					if ($found_name == $name)
+						$this->menus[$grp_name][$name]['active'] = true;
+				}
+			}
 			return $found;
+		}
 		return $this->select404Page();
 	}
 	protected function select404Page(): Page {
