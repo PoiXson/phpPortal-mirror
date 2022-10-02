@@ -53,17 +53,17 @@ abstract class Page {
 
 
 	public function getTags(): array {
-		foreach ($this->menus as $grp_name => $group) {
+		foreach ($this->app->menus as $grp_name => $group) {
 			if (!\is_array($group)) continue;
 			foreach ($group as $name => $menu) {
 				if (!\is_array($menu)) continue;
 				if (!isset($menu['active']))
-					$this->menus[$grp_name][$name]['active'] = false;
+					$this->app->menus[$grp_name][$name]['active'] = false;
 			}
 		}
 		return [
 			'debug' => Debug::debug(),
-			'menus' => $this->app->menus,
+			'menus' => &$this->app->menus,
 		];
 	}
 
