@@ -80,9 +80,12 @@ abstract class Page {
 			'strict_variables' => true,
 		];
 	}
+	public function getTwigPath(): String {
+		return xPaths::get('html');
+	}
 	public function getTwigLoader(): FilesystemLoader {
 		if ($this->loader == null) {
-			$tpl_paths = xPaths::get('html');
+			$tpl_paths = $this->getTwigPath();
 			if (empty($tpl_paths))
 				throw new \RuntimeException('Template paths not found');
 			$this->loader = new FilesystemLoader($tpl_paths);
