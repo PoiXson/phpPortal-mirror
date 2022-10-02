@@ -42,7 +42,7 @@ abstract class Page {
 	public function is404Page(): bool {
 		return false;
 	}
-	public function isActivePage(): int {
+	public function getActiveWeight(): int {
 		return 0;
 	}
 

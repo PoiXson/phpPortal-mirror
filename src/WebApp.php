@@ -71,7 +71,11 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		$highest = -1;
 		$found = null;
 		foreach ($this->pages as $p) {
-			$weight = $p->isActivePage();
+			$weight = (
+				$p->isDefaultPage()
+				? Page::DEFAULT_PAGE_WEIGHT
+				: $p->getActiveWeight()
+			);
 			if ($highest < $weight) {
 				$highest = $weight;
 				$found = $p;
@@ -96,7 +100,11 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		$found = null;
 		foreach ($this->pages as $p) {
 			if (!$p->is404Page()) continue;
-			$weight = $p->isActivePage();
+			$weight = (
+				$p->isDefaultPage()
+				? Page::DEFAULT_PAGE_WEIGHT
+				: $p->getActiveWeight()
+			);
 			if ($highest <= $weight) {
 				$highest = $weight;
 				$found = $p;

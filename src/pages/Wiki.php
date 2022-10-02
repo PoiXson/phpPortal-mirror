@@ -63,7 +63,7 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 
 
-	public function isActivePage(): int {
+	public function getActiveWeight(): int {
 		$uri = $this->app->uri;
 		if (empty($uri)) {
 			// default
