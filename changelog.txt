@@ -1,6 +1,13 @@
 phpPortal - Website Utilities Library
 
 
+2022-10-02 - 0.4.16
+===================
+* added Page->getTags() and Page->getTwigPath() functions
+* renamed Page->isActivePage() function to getActiveWeight()
+* fixed selecting current menu item as active
+
+
 2022-10-01 - 0.4.15
 ===================
 * moved $loader variable from WebApp to xApp
