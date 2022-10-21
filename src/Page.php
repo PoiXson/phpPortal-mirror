@@ -43,7 +43,7 @@ abstract class Page {
 		return false;
 	}
 	public function getActiveWeight(): int {
-		$uri = $this->app->uri;
+		$uri = $this->app->getFirstArg();
 		if (empty($uri)) {
 			// default
 			if ($this->isDefaultPage())

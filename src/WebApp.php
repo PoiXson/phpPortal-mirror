@@ -66,6 +66,12 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
+	public function getFirstArg(): String {
+		return \reset($this->args);
+	}
+
+
+
 	public function getPage(): Page {
 		if ($this->page != null) return $this->page;
 		$this->page = $this->selectPage();
