@@ -48,7 +48,12 @@ abstract class Page {
 
 
 
-	public abstract function render(): void;
+	public function render(): void {
+		throw new \RuntimeException('This page doesn\'t have a render() function');
+	}
+	public function renderAPI(): void {
+		throw new \RuntimeException('This page doesn\'t have a renderAPI() function');
+	}
 
 
 

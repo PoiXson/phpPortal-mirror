@@ -9,6 +9,7 @@
 namespace pxn\phpPortal;
 
 use \Composer\Autoload\ClassLoader;
+use \pxn\phpUtils\utils\GeneralUtils;
 use \pxn\phpUtils\utils\StringUtils;
 use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
@@ -19,6 +20,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 //TODO: args not populated
 	public ?string $uri = null;
 	public array $args = [];
+	public bool $is_api = false;
 
 	public ?Page $page = null;
 	public array $pages = [];
@@ -29,6 +31,8 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	public function __construct(?ClassLoader $loader=null) {
 		parent::__construct($loader);
+		$is_api = GeneralUtils::GetVar('api', 'b');
+		$this->is_api = ($is_api === null ? false : $is_api);
 	}
 
 
@@ -53,7 +57,11 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		if ($page == null)
 			throw new \RuntimeException('Failed to find page!');
 		// render page
-		$page->render();
+		if ($this->is_api) {
+			$page->renderAPI();
+		} else {
+			$page->render();
+		}
 	}
 
 
