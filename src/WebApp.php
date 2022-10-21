@@ -9,6 +9,7 @@
 namespace pxn\phpPortal;
 
 use \Composer\Autoload\ClassLoader;
+
 use \pxn\phpUtils\utils\GeneralUtils;
 use \pxn\phpUtils\utils\StringUtils;
 use \pxn\phpUtils\exceptions\RequiredArgumentException;
@@ -85,11 +86,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		$highest = -1;
 		$found = null;
 		foreach ($this->pages as $p) {
-			$weight = (
-				$p->isDefaultPage()
-				? Page::DEFAULT_PAGE_WEIGHT
-				: $p->getActiveWeight()
-			);
+			$weight = $p->getActiveWeight();
 			if ($highest < $weight) {
 				$highest = $weight;
 				$found = $p;
