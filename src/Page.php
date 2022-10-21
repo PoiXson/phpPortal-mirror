@@ -43,6 +43,16 @@ abstract class Page {
 		return false;
 	}
 	public function getActiveWeight(): int {
+		$uri = $this->app->uri;
+		if (empty($uri)) {
+			// default
+			if ($this->isDefaultPage())
+				return self::DEFAULT_PAGE_WEIGHT;
+		} else {
+			// dash page
+			if ($uri == $this->getName())
+				return 95;
+		}
 		return 0;
 	}
 
