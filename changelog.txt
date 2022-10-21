@@ -1,6 +1,13 @@
 phpPortal - Website Utilities Library
 
 
+2022-10-21 - 0.4.17
+===================
+* cleaned up and finished handling of uri arguments and values
+* fixed page selecting
+* added $is_api variable
+
+
 2022-10-02 - 0.4.16
 ===================
 * added Page->getTags() and Page->getTwigPath() functions
