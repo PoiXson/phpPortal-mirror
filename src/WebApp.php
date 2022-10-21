@@ -16,10 +16,7 @@ use \pxn\phpUtils\exceptions\RequiredArgumentException;
 
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
-
-//TODO: args not populated
-	public ?string $uri = null;
-	public array $args = [];
+	public array $args;
 	public bool $is_api = false;
 
 	public ?Page $page = null;
@@ -31,8 +28,18 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	public function __construct(?ClassLoader $loader=null) {
 		parent::__construct($loader);
-		$is_api = GeneralUtils::GetVar('api', 'b');
-		$this->is_api = ($is_api === null ? false : $is_api);
+		$this->args = GeneralUtils::ParseVarsURI($this);
+		foreach ($this->args as $key=>$val) {
+			switch ($val) {
+				case 'api':
+					$this->is_api = true;
+					unset($this->args[$key]);
+					break;
+				default: break;
+			}
+		}
+		if (GeneralUtils::GetVar('api', 'b') === true)
+			$this->is_api = true;
 	}
 
 
@@ -44,13 +51,6 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 	public function run(): void {
-		if (empty($this->uri)) {
-			$this->uri = (
-				isset($_SERVER['REQUEST_URI'])
-				? $_SERVER['REQUEST_URI'] : ''
-			);
-		}
-		$this->uri = StringUtils::trim($this->uri, '/');
 		// load page
 		$this->loadPages();
 		$page = $this->getPage();
