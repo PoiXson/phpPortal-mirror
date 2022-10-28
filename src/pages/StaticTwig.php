@@ -20,22 +20,6 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 
 
 
-	public function getActiveWeight(): int {
-		$uri = $this->app->uri;
-		if (empty($uri)) {
-			// default
-			if ($this->isDefaultPage())
-				return self::DEFAULT_PAGE_WEIGHT;
-		} else {
-			// page name
-			if ($uri == $this->page_file)
-				return 95;
-		}
-		return 0;
-	}
-
-
-
 	public function getFile(): string {
 		if (empty($this->page_file)) {
 			$this->page_file = $this->getName();

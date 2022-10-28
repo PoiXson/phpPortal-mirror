@@ -63,22 +63,6 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 
 
-	public function getActiveWeight(): int {
-		$uri = $this->app->uri;
-		if (empty($uri)) {
-			// default
-			if ($this->isDefaultPage())
-				return self::DEFAULT_PAGE_WEIGHT;
-		} else {
-			// wiki name
-			if ($uri == $this->getWikiName())
-				return 95;
-		}
-		return 0;
-	}
-
-
-
 	public function getWikiName(): string {
 		return (
 			empty($this->wiki_name)
