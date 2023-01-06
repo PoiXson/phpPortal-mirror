@@ -73,8 +73,11 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 	public function getFile(): string {
 		if (empty($this->wiki_file)) {
+			$args = $this->app->args;
+			if (isset($args[0]))
+				unset($args[0]);
 			// content file
-			$file = \implode('/', $this->app->args);
+			$file = \implode('/', $args);
 			if (empty($file))
 				$file = $this->getDefaultFile();
 			$file = \implode('/', [
