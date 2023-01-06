@@ -68,6 +68,8 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 	public function getFirstArg(): String {
+		if (empty($this->args))
+			return '';
 		return \reset($this->args);
 	}
 
