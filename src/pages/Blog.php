@@ -22,13 +22,13 @@ abstract class Blog extends \pxn\phpPortal\Page {
 
 
 
-	public function render(): void {
+	public function render(): string {
 		$converter = Wiki::getMarkdownConverter();
 		$twig = $this->getTwig();
 		$tags = [
 			'debug' => Debug::debug(),
 		];
-		echo $twig->render('blog.twig', $tags);
+		return $twig->render('blog.twig', $tags);
 	}
 
 

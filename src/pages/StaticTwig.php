@@ -44,14 +44,14 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 
 
 
-	public function render(): void {
+	public function render(): string {
 		$file = $this->getFile();
 		$f = PathUtils::TrimPath($file, xPaths::get('html'));
 		if ($f === false)
 			throw new \RuntimeException("Invalid page path: $file");
 		$twig = $this->getTwig();
 		$tags = $this->getTags();
-		echo $twig->render($f, $tags);
+		return $twig->render($f, $tags);
 	}
 
 

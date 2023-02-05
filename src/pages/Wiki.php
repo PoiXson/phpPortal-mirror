@@ -102,7 +102,7 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 
 
-	public function render(): void {
+	public function render(): string {
 		$converter = self::getMarkdownConverter();
 		$file = $this->getFile();
 		$content = \file_get_contents($file);
@@ -111,7 +111,7 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 		$twig = $this->getTwig();
 		$tags = $this->getTags();
 		$tags['content'] = $converter->convertToHtml($content);
-		echo $twig->render('wiki.twig', $tags);
+		return $twig->render('wiki.twig', $tags);
 	}
 
 

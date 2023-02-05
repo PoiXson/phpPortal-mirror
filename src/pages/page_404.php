@@ -25,17 +25,18 @@ class page_404 extends \pxn\phpPortal\Page {
 
 
 
-	public function render(): void {
+	public function render(): string {
 		if (!\headers_sent())
 			\header("HTTP/1.0 404 Not Found");
-		echo "<p>404 - page not found!</p>\n";
+		$output = "<p>404 - page not found!</p>\n";
 		if (!empty($this->app->args)) {
 			if (count($this->app->args) == 1) {
-				echo \reset($this->app->args)."\n";
+				$output .= \reset($this->app->args)."\n";
 			} else {
-				echo "<pre>\n".print_r($this->app->args, true)."</pre>\n";
+				$output .= "<pre>\n".print_r($this->app->args, true)."</pre>\n";
 			}
 		}
+		return $output;
 	}
 
 

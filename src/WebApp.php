@@ -13,6 +13,7 @@ use \Composer\Autoload\ClassLoader;
 use \pxn\phpUtils\utils\GeneralUtils;
 use \pxn\phpUtils\utils\StringUtils;
 use \pxn\phpUtils\exceptions\RequiredArgumentException;
+use \pxn\phpUtils\Debug;
 
 
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
@@ -58,11 +59,16 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		if ($page == null)
 			throw new \RuntimeException('Failed to find page!');
 		// render page
+		$output = null;
 		if ($this->is_api) {
-			$page->renderAPI();
+			$json = $page->renderAPI();
+			$flags = (Debug::debug() ? \JSON_PRETTY_PRINT : 0);
+			$output = \json_encode($json, $flags);
 		} else {
-			$page->render();
+			$output = $page->render();
 		}
+		if ($output !== null && !empty($output))
+			echo $output;
 	}
 
 
