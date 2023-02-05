@@ -1,6 +1,13 @@
 phpPortal - Website Utilities Library
 
 
+2023-02-05 - 0.4.20
+===================
+* added PageAPI abstract class
+* changed Page->render() functions to return string page contents
+* updated dependencies
+
+
 2023-01-06 - 0.4.19
 ===================
 * fixed wiki page paths
