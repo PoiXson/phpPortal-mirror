@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2023-03-06 - 0.4.21
+===================
+* updated dependencies
+
+
 2023-02-05 - 0.4.20
 ===================
 * added PageAPI abstract class
