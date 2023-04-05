@@ -10,7 +10,6 @@ namespace pxn\phpPortal\pages;
 
 use \pxn\phpUtils\xPaths;
 use \pxn\phpUtils\utils\PathUtils;
-use \pxn\phpUtils\Debug;
 
 
 abstract class StaticTwig extends \pxn\phpPortal\Page {
@@ -21,9 +20,8 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 
 
 	public function getFile(): string {
-		if (empty($this->page_file)) {
+		if (empty($this->page_file))
 			$this->page_file = $this->getName();
-		}
 		if (empty($this->page_file))
 			throw new \RuntimeException('Unknown page file');
 		if (empty($this->tpl_file)) {
