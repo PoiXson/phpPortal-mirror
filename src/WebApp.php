@@ -31,16 +31,18 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 	public function __construct(?ClassLoader $loader=null) {
 		parent::__construct($loader);
 		$this->args = GeneralUtils::ParseVarsURI($this);
-		if (\count($this->args) > 0
-		&& $this->args[0] == "index.php") {
-			unset($this->args[0]);
-			$this->args = \array_merge($this->args);
+		if (\count($this->args) > 0) {
+			if ($this->args[0] == 'index.php') {
+				unset($this->args[0]);
+				$this->args = \array_merge($this->args);
+			}
 		}
-		if (\count($this->args) > 0
-		&& $this->args[0] == 'api') {
-			$this->is_api = true;
-			unset($this->args[0]);
-			$this->args = \array_merge($this->args);
+		if (\count($this->args) > 0) {
+			if ($this->args[0] == 'api') {
+				$this->is_api = true;
+				unset($this->args[0]);
+				$this->args = \array_merge($this->args);
+			}
 		}
 		if (GeneralUtils::GetVar('api', 'b') === true)
 			$this->is_api = true;
