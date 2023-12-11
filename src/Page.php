@@ -49,9 +49,30 @@ abstract class Page {
 			if ($this->isDefaultPage())
 				return self::DEFAULT_PAGE_WEIGHT;
 		} else {
-			// dash page
-			if ($uri == $this->getName())
-				return 95;
+			$name = $this->getName();
+			if (\mb_strpos($name, '/') === false) {
+				if ($uri == $name)
+					return 90;
+			} else {
+				$parts = \explode('/', $name);
+				$count = \count($parts);
+				if ($count > 0 && $count <= \count($this->app->args)) {
+					$match = true;
+					for ($i=0; $i<$count; $i++) {
+						if ($parts[$i] != $this->app->args[$i]) {
+							$match = false;
+							break;
+						}
+					}
+					if ($match) {
+						for ($i=0; $i<$count; $i++) {
+							unset($this->app->args[$i]);
+						}
+						$this->app->args = \array_merge($this->app->args);
+						return 95;
+					}
+				}
+			}
 		}
 		return 0;
 	}
