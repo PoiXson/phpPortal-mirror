@@ -58,15 +58,22 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 
-	protected function loadPages(): void {
+	protected function load_pages(): void {
 		$this->addPage( new \pxn\phpPortal\pages\page_404($this) );
+	}
+
+	public function addPage(Page $page): void {
+		if ($page == null) throw new RequiredArgumentException('page');
+		$name = $page->getName();
+		if (empty($name)) $this->pages[]      = $page;
+		else              $this->pages[$name] = $page;
 	}
 
 
 
 	public function run(): void {
 		// load page
-		$this->loadPages();
+		$this->load_pages();
 		$page = $this->getPage();
 		if ($page == null)
 			throw new \RuntimeException('Failed to find page!');
@@ -141,13 +148,6 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 				$found = $p;
 			}
 		}
-	}
-
-
-
-	public function addPage(Page $page): void {
-		if ($page == null) throw new RequiredArgumentException('page');
-		$this->pages[] = $page;
 	}
 
 
