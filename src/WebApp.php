@@ -18,7 +18,7 @@ use \pxn\phpUtils\Debug;
 
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
-	public array $args;
+	public array $args = [];
 	public bool $is_api = false;
 
 	public ?Page $page = null;
@@ -30,7 +30,15 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	public function __construct(?ClassLoader $loader=null) {
 		parent::__construct($loader);
-		$this->args = GeneralUtils::ParseVarsURI($this);
+		$this->parseURI();
+	}
+
+
+
+	protected function parseURI(?string $uri=null): void {
+		if (empty($uri)) $uri = @$_SERVER['REQUEST_URI'];
+		if (empty($uri)) $uri = '';
+		$this->args = GeneralUtils::ParseVarsURI($uri);
 		if (\count($this->args) > 0) {
 			if ($this->args[0] == 'index.php') {
 				unset($this->args[0]);
