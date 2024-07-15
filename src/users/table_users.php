@@ -19,9 +19,9 @@ class table_users extends \pxn\pxdb\dbTableSchema {
 		$this->fields = [
 			(new dbField('user_id',  'increment'   )),
 			(new dbField('username', 'varchar', 16 ))
-				->setUnique(TRUE),
+				->setUnique(true),
 			(new dbField('email',    'varchar', 255))
-				->setNullable(TRUE),
+				->setNullable(true),
 			(new dbField('password', 'varchar', 255))
 		];
 	}

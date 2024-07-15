@@ -16,7 +16,7 @@ use \pxn\phpUtils\San;
 
 trait UserManager {
 
-	protected $user = NULL;
+	protected $user = null;
 
 
 

@@ -24,14 +24,13 @@ class ConfigPortal {
 	const SITE_TITLE      = DefinesPortal::KEY_CFG_SITE_TITLE;
 	const FAV_ICON        = DefinesPortal::KEY_CFG_FAV_ICON;
 
-	protected static $cfg = NULL;
+	protected static $cfg = null;
 
 
 
 	public static function init() {
-		if (self::$cfg != NULL) {
-			return FALSE;
-		}
+		if (self::$cfg != null)
+			return false;
 		self::$cfg = Config::get(DefinesPortal::KEY_CONFIG_GROUP_PORTAL);
 
 		// page name
@@ -47,90 +46,62 @@ class ConfigPortal {
 		// fav icon
 		self::$cfg->setValidHandler(self::FAV_ICON, 'string');
 
-		return TRUE;
+		return true;
 	}
 
 
 
 	// page name
 	public static function getPageName() {
-		$pageName = self::$cfg->getString(
-			self::PAGE_NAME
-		);
+		$pageName = self::$cfg->getString(self::PAGE_NAME);
 		return self::sanPageName($pageName);
 	}
 	public static function setPageName($pageName) {
 		$currentValue = self::$cfg->peakValue(self::PAGE_NAME);
-		if ($currentValue != NULL) {
+		if ($currentValue != null) {
 			fail("Unable to set page to: $pageName  Already set to: $currentValue",
 				Defines::EXIT_CODE_USAGE_ERROR);
 		}
-		self::$cfg->setValue(
-			self::PAGE_NAME,
-			$pageName
-		);
+		self::$cfg->setValue(self::PAGE_NAME, $pageName);
 	}
 	public static function setDefaultPage($value) {
-		self::$cfg->setDefault(
-			self::PAGE_NAME,
-			$value
-		);
+		self::$cfg->setDefault(self::PAGE_NAME, $value);
 	}
 	public static function setPageRef(&$value) {
-		self::$cfg->setRef(
-			self::PAGE_NAME,
-			$value
-		);
+		self::$cfg->setRef(self::PAGE_NAME, $value);
 	}
 	public static function sanPageName($pageName) {
-		return San::AlphaNum(
-			$pageName
-		);
+		return San::AlphaNum($pageName);
 	}
 
 
 
 	// failed page
 	public static function getFailedPage() {
-		return self::$cfg->getString(
-			self::FAILED_PAGE
-		);
+		return self::$cfg->getString(self::FAILED_PAGE);
 	}
 	public static function setFailedPage($page) {
-		self::$cfg->setValue(
-			self::FAILED_PAGE,
-			$page
-		);
+		self::$cfg->setValue(self::FAILED_PAGE, $page);
 	}
 
 
 
 	// site title
 	public static function getSiteTitle() {
-		return self::$cfg->getString(
-			self::SITE_TITLE
-		);
+		return self::$cfg->getString(self::SITE_TITLE);
 	}
 	public static function setSiteTitle($title) {
-		self::$cfg->setValue(
-			self::SITE_TITLE,
-			$title
-		);
+		self::$cfg->setValue(self::SITE_TITLE, $title);
 	}
 
 
 
 	// fav icon
 	public static function getFavIcon() {
-		return self::$cfg->getString(
-			self::FAV_ICON
-		);
+		return self::$cfg->getString(self::FAV_ICON);
 	}
 	public static function setFavIcon($favicon) {
-		self::$cfg->setValue(
-			self::FAV_ICON,
-			$favicon
-		);
+		self::$cfg->setValue(self::FAV_ICON, $favicon);
 	}
 
 

@@ -22,7 +22,7 @@ class page_login extends \pxn\phpPortal\Page {
 			$username = GeneralUtils::getVar('username', 's', 'p');
 			$password = GeneralUtils::getVar('password', 's', 'p');
 			$result = \pam_auth($username, $password, $err);
-			if ($result === TRUE) {
+			if ($result === true) {
 				$_SESSION['username'] = $username;
 				$this->app->getRender()->forwardTo('/');
 			} else {
