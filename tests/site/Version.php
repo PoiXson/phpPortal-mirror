@@ -1,5 +1,5 @@
 <?php declare(strict_types=1);
-namespace pxn\phpPortal\tests;
+namespace pxn\phpPortal\tests\site;
 final class Version {
 
 

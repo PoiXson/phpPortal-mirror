@@ -5,19 +5,24 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpPortal\tests\pages;
+ */
+namespace pxn\phpPortal\tests\site\pages;
 
 
 class page_about extends \pxn\phpPortal\Page {
 
 
 
-	public function render(): void {
-		echo 'About Page';
+	public function getName(): string {
+		return 'about';
+	}
+
+
+
+	public function render(): string {
+		return 'About Page';
 	}
 
 
 
 }
-*/

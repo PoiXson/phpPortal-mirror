@@ -5,13 +5,13 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpPortal\tests;
+ */
+namespace pxn\phpPortal\tests\site;
 
-use \pxn\phpPortal\WebApp;
+use \pxn\phpUtils\utils\GeneralUtils;
 
 
-class TestApp extends WebApp {
+class Website extends \pxn\phpPortal\WebApp {
 
 	public bool $has_checked_run_state = false;
 
@@ -23,21 +23,32 @@ class TestApp extends WebApp {
 
 
 
+	public function updateURI(string $uri): void {
+		$this->page   = null;
+		$this->is_api = false;
+		$this->pages  = [];
+		$this->args   = [];
+		$this->parseURI($uri);
+	}
+
+
+
 	protected function check_run_mode(): void {
+		parent::check_run_mode();
 		$this->has_checked_run_state = true;
 	}
 
 
 
-	public function run(): void {
-	}
-
-
-
 	protected function load_pages(): void {
+		parent::load_pages();
+		$this->addPage( new \pxn\phpPortal\tests\site\pages\page_home(  $this) );
+		$this->addPage( new \pxn\phpPortal\tests\site\pages\page_about( $this) );
+		$this->addPage( new \pxn\phpPortal\tests\site\pages\page_cars(  $this) );
+		$this->addPage( new \pxn\phpPortal\tests\site\pages\page_hammer($this) );
+		$this->addPage( new \pxn\phpPortal\tests\site\pages\page_trucks($this) );
 	}
 
 
 
 }
-*/

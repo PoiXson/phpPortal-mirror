@@ -5,19 +5,24 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpPortal\tests\pages;
+ */
+namespace pxn\phpPortal\tests\site\pages;
 
 
 class page_cars extends \pxn\phpPortal\Page {
 
 
 
-	public function render(): void {
-		echo 'Cars Page';
+	public function getName(): string {
+		return 'cars';
+	}
+
+
+
+	public function render(): string {
+		return 'Cars Page';
 	}
 
 
 
 }
-*/
