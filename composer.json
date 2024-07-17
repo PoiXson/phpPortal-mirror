@@ -35,10 +35,16 @@
 	"require": {
 		"pxn/phputils": "*",
 		"pxn/webresources": "*",
-		"league/commonmark": "*",
 		"twig/twig": "*",
 		"twig/markdown-extra": "*",
+		"league/commonmark": "*",
 		"pxn/composerlocaldev": "*"
+	},
+	"suggest": {
+		"pxdb": "*",
+		"pragmarx/google2fa": "*",
+		"pragmarx/google2fa-qrcode": "*",
+		"bacon/bacon-qr-code": "*"
 	},
 	"require-dev": {
 		"filp/whoops": "*",
