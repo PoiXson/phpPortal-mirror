@@ -13,7 +13,7 @@ class page_cars extends \pxn\phpPortal\Page {
 
 
 
-	public function getName(): string {
+	public function getPageName(): string {
 		return 'cars';
 	}
 

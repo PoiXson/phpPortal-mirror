@@ -13,7 +13,7 @@ class page_404 extends \pxn\phpPortal\Page {
 
 
 
-	public function getName(): string {
+	public function getPageName(): string {
 		return '404';
 	}
 

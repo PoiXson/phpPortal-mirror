@@ -64,7 +64,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 	public function addPage(Page $page): void {
 		if ($page == null) throw new RequiredArgumentException('page');
-		$name = $page->getName();
+		$name = $page->getPageName();
 		if (empty($name)) $this->pages[]      = $page;
 		else              $this->pages[$name] = $page;
 	}
@@ -120,7 +120,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 			}
 		}
 		if ($found != null) {
-			$found_name = $found->getName();
+			$found_name = $found->getPageName();
 			foreach ($this->menus as $grp_name => $group) {
 				if (!\is_array($group)) continue;
 				foreach ($group as $name => $menu) {

@@ -32,7 +32,7 @@ abstract class Page {
 
 
 
-	public abstract function getName(): string;
+	public abstract function getPageName(): string;
 
 
 
@@ -49,7 +49,7 @@ abstract class Page {
 			if ($this->isDefaultPage())
 				return self::DEFAULT_PAGE_WEIGHT;
 		} else {
-			$name = $this->getName();
+			$name = $this->getPageName();
 			if (\mb_strpos($name, '/') === false) {
 				if ($uri == $name)
 					return 90;

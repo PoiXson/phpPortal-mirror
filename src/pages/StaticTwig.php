@@ -21,7 +21,7 @@ abstract class StaticTwig extends \pxn\phpPortal\Page {
 
 	public function getFile(): string {
 		if (empty($this->page_file))
-			$this->page_file = $this->getName();
+			$this->page_file = $this->getPageName();
 		if (empty($this->page_file))
 			throw new \RuntimeException('Unknown page file');
 		if (empty($this->tpl_file)) {

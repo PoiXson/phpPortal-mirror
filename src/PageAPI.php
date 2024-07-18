@@ -13,7 +13,7 @@ abstract class PageAPI extends Page {
 
 
 
-	public function getName(): string {
+	public function getPageName(): string {
 		return 'api';
 	}
 
