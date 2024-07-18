@@ -64,11 +64,7 @@ abstract class Wiki extends \pxn\phpPortal\Page {
 
 
 	public function getWikiName(): string {
-		return (
-			empty($this->wiki_name)
-			? $this->getName()
-			: $this->wiki_name
-		);
+		return (empty($this->wiki_name) ? $this->getPageName() : $this->wiki_name);
 	}
 
 	public function getFile(): string {

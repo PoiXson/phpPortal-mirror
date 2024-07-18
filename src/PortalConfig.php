@@ -58,10 +58,8 @@ class ConfigPortal {
 	}
 	public static function setPageName($pageName) {
 		$currentValue = self::$cfg->peakValue(self::PAGE_NAME);
-		if ($currentValue != null) {
-			fail("Unable to set page to: $pageName  Already set to: $currentValue",
-				Defines::EXIT_CODE_USAGE_ERROR);
-		}
+		if ($currentValue != null)
+			throw new \Exception("Unable to set page to: $pageName  Already set to: $currentValue");
 		self::$cfg->setValue(self::PAGE_NAME, $pageName);
 	}
 	public static function setDefaultPage($value) {
