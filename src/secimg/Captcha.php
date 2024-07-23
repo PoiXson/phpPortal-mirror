@@ -43,6 +43,21 @@ class Captcha {
 
 
 
+	public function getPhrase(): string {
+		if (empty($this->phrase)) {
+			$phrase = '';
+			$letters = 'abcdefghijklmnopqrstuvwxyz';
+			for ($i=0; $i<6; $i++) {
+				$rnd = \rand(0, \mb_strlen($letters));
+				$phrase .= \mb_substr($letters, $rnd, 1);
+			}
+			$this->phrase = $phrase;
+		}
+		return $this->phrase;
+	}
+
+
+
 	public function build(): \GdImage {
 		$img = null;
 		// background from image
@@ -65,21 +80,14 @@ class Captcha {
 				$this->draw_line($img, 5);
 		}
 		// text
-		if (empty($this->phrase)) {
-			$this->phrase = '';
-			$letters = 'abcdefghijklmnopqrstuvwxyz';
-			for ($i=0; $i<6; $i++) {
-				$rnd = \rand(0, \mb_strlen($letters));
-				$this->phrase .= \mb_substr($letters, $rnd, 1);
-			}
-		}
+		$phrase = $this->getPhrase();
 		if (empty($this->font))
 			$this->font = $this->font_path.'/captcha-'.\rand(1, $this->font_count).'.ttf';
 		if (!\is_file($this->font))
 			throw new \Exception('Captcha font not found: '.$this->font);
-		$len = \mb_strlen($this->phrase);
+		$len = \mb_strlen($phrase);
 		$size = ((int)\round($this->width / $len)) - \rand(0, 8) + 4;
-		$box = \imagettfbbox($size, 0, $this->font, $this->phrase);
+		$box = \imagettfbbox($size, 0, $this->font, $phrase);
 		$text_width  = ($box[2] - $box[0]) + $len;
 		$text_height =  $box[1] - $box[7];
 		$x = (int) \round( ($this->width  - $text_width ) / 2.0 );
@@ -94,7 +102,7 @@ class Captcha {
 		}
 		$col = \imagecolorallocate($img, $this->color_text[0], $this->color_text[1], $this->color_text[2]);
 		for ($i=0; $i<$len; $i++) {
-			$chr = \mb_substr($this->phrase, $i, 1);
+			$chr = \mb_substr($phrase, $i, 1);
 			$box = \imagettfbbox($size, 0, $this->font, $chr);
 			$w = $box[2] - $box[0];
 			$angle  = \rand(0-$this->angle_max,  $this->angle_max );
