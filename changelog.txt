@@ -1,6 +1,15 @@
 phpPortal - Website Utilities Library
 
 
+2024-07-24 - 0.4.23
+===================
+* added captcha and 2fa support
+* renamed Page->getPageName() function
+* added Page->getPageTitle() function
+* cleanup and fixes and improvements
+* updated dependencies
+
+
 2023-03-06 - 0.4.21
 ===================
 * updated dependencies
