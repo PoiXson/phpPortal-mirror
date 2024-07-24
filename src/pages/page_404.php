@@ -16,6 +16,9 @@ class page_404 extends \pxn\phpPortal\Page {
 	public function getPageName(): string {
 		return '404';
 	}
+	public function getPageTitle(): string {
+		return '404';
+	}
 
 
 

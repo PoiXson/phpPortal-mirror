@@ -33,6 +33,7 @@ abstract class Page {
 
 
 	public abstract function getPageName(): string;
+	public abstract function getPageTitle(): string;
 
 
 
