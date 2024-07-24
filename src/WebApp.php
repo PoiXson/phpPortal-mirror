@@ -42,19 +42,20 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		if (empty($uri)) $uri = '';
 		$this->args = GeneralUtils::ParseVarsURI($uri);
 		if (\count($this->args) > 0) {
-			if ($this->args[0] == 'index.php') {
-				unset($this->args[0]);
-				$this->args = \array_merge($this->args);
+			switch ($this->args[0]) {
+				case 'index.php':
+					unset($this->args[0]);
+					$this->args = \array_merge($this->args);
+					break;
+				case 'api':
+					$this->is_api = true;
+					unset($this->args[0]);
+					$this->args = \array_merge($this->args);
+					break;
+				default: break;
 			}
 		}
-		if (\count($this->args) > 0) {
-			if ($this->args[0] == 'api') {
-				$this->is_api = true;
-				unset($this->args[0]);
-				$this->args = \array_merge($this->args);
-			}
-		}
-		if (GeneralUtils::GetVar('api', 'b') === true)
+		if (\GetVar(name: 'api', type: 'b', src: 'gp') === true)
 			$this->is_api = true;
 	}
 
