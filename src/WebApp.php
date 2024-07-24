@@ -90,6 +90,10 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		}
 		if ($output !== null && !empty($output))
 			echo $output;
+		$this->doExit();
+	}
+	public function doExit(): void {
+		\session_write_close();
 	}
 
 
