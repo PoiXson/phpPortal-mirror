@@ -12,6 +12,7 @@ use \Composer\Autoload\ClassLoader;
 
 use \pxn\phpUtils\utils\GeneralUtils;
 use \pxn\phpUtils\utils\StringUtils;
+use \pxn\phpUtils\utils\SystemUtils;
 use \pxn\phpUtils\exceptions\RequiredArgumentException;
 use \pxn\phpUtils\Debug;
 
@@ -29,6 +30,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
 
 	public function __construct(?ClassLoader $loader=null) {
+		$this->assert_is_web();
 		parent::__construct($loader);
 		$this->parseURI();
 	}
@@ -148,6 +150,13 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 				$found = $p;
 			}
 		}
+	}
+
+
+
+	public function assert_is_web(): void {
+		if (SystemUtils::IsShell())
+			throw new \RuntimeException('This script can only run as a website');
 	}
 
 
