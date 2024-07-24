@@ -8,6 +8,7 @@
  */
 namespace pxn\phpPortal\tests;
 
+use \pxn\phpUtils\utils\SystemUtils;
 use \pxn\phpPortal\tests\site\Website;
 
 
@@ -20,18 +21,24 @@ class test_WebApp extends \PHPUnit\Framework\TestCase {
 
 	/**
 	 * @covers ::__construct
-	 * @covers ::getName
+	 * @covers ::getAppName
 	 * @covers ::getNamespace
 	 * @covers ::getVersion
-	 * @covers ::check_run_mode
 	 */
 	public function test_WebApp() {
+		// fake IsWeb()
+		{
+			$reflect = new \ReflectionClass(SystemUtils::class);
+			$prop = $reflect->getproperty('isCLI');
+			$prop->setAccessible(true);
+			$prop->setValue(false);
+			$this->assertTrue(SystemUtils::IsWeb());
+		}
 		$website = new Website();
 		$this->assertNotNull($website);
-		$this->assertEquals(expected: 'Website',                     actual: $website->getName());
+		$this->assertEquals(expected: 'Website',                     actual: $website->getAppName());
 		$this->assertEquals(expected: "pxn\\phpPortal\\tests\\site", actual: $website->getNamespace());
 		$this->assertEquals(expected: 'z.y.x',                       actual: $website->getVersion());
-		$this->assertTrue($website->has_checked_run_state);
 		\ob_start();
 		// /
 		$website->run();

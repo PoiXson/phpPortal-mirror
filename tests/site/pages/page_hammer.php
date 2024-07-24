@@ -16,6 +16,9 @@ class page_hammer extends \pxn\phpPortal\Page {
 	public function getPageName(): string {
 		return 'hammer';
 	}
+	public function getPageTitle(): string {
+		return 'Hammer';
+	}
 
 
 

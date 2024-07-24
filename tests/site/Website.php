@@ -13,8 +13,6 @@ use \pxn\phpUtils\utils\GeneralUtils;
 
 class Website extends \pxn\phpPortal\WebApp {
 
-	public bool $has_checked_run_state = false;
-
 
 
 	public function __construct() {
@@ -29,13 +27,6 @@ class Website extends \pxn\phpPortal\WebApp {
 		$this->pages  = [];
 		$this->args   = [];
 		$this->parseURI($uri);
-	}
-
-
-
-	protected function check_run_mode(): void {
-		parent::check_run_mode();
-		$this->has_checked_run_state = true;
 	}
 
 

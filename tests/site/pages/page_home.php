@@ -9,21 +9,25 @@
 namespace pxn\phpPortal\tests\site\pages;
 
 
-class page_about extends \pxn\phpPortal\Page {
+class page_home extends \pxn\phpPortal\Page {
 
 
 
 	public function getPageName(): string {
-		return 'about';
+		return 'home';
 	}
 	public function getPageTitle(): string {
-		return 'About';
+		return 'Home';
+	}
+
+	public function isDefaultPage(): bool {
+		return true;
 	}
 
 
 
 	public function render(): string {
-		return 'About Page';
+		return 'Home Page';
 	}
 
 
