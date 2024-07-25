@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2024-07-24 - 0.4.24
+===================
+* updated dependencies
+
+
 2024-07-24 - 0.4.23
 ===================
 * added captcha and 2fa support
