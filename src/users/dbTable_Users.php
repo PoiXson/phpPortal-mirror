@@ -5,28 +5,43 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
-namespace pxn\phpPortal\schemas;
+ */
+namespace pxn\phpPortal\users;
 
-use \pxn\pxdb\dbField;
-
-
-class table_users extends \pxn\pxdb\dbTableSchema {
+use \pxn\pxdb\dbFieldFactory;
+use \pxn\pxdb\dbFieldType;
 
 
+class dbTable_Users extends \pxn\pxdb\dbTable {
 
-	public function initFields() {
-		$this->fields = [
-			(new dbField('user_id',  'increment'   )),
-			(new dbField('username', 'varchar', 16 ))
-				->setUnique(true),
-			(new dbField('email',    'varchar', 255))
-				->setNullable(true),
-			(new dbField('password', 'varchar', 255))
-		];
+
+
+	public function __construct() {
+		parent::__construct('users');
+	}
+
+
+
+	protected function initFields(): void {
+		$this->addField((new dbFieldFactory())
+			->name('username')
+			->type(dbFieldType::TYPE_STR)
+			->size(32)
+			->unique()
+			->primary()
+		);
+		$this->addField((new dbFieldFactory())
+			->name('password')
+			->type(dbFieldType::TYPE_STR)
+			->size(255)
+		);
+		$this->addField((new dbFieldFactory())
+			->name('email')
+			->type(dbFieldType::TYPE_STR)
+			->size(255)
+		);
 	}
 
 
 
 }
-*/
