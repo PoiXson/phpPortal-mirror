@@ -36,9 +36,16 @@ class dbTable_Users extends \pxn\pxdb\dbTable {
 			->size(255)
 		);
 		$this->addField((new dbFieldFactory())
+			->name('secret')
+			->type(dbFieldType::TYPE_STR)
+			->size(32)
+			->defval('')
+		);
+		$this->addField((new dbFieldFactory())
 			->name('email')
 			->type(dbFieldType::TYPE_STR)
 			->size(255)
+			->defval('')
 		);
 	}
 

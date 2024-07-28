@@ -8,35 +8,42 @@
  */
 namespace pxn\phpPortal\users;
 
-use \pxn\pxdb\dbPool;
-use \pxn\pxdb\dbConn;
 use \pxn\phpUtils\Debug;
 
+use \pxn\phpPortal\WebApp;
 
-trait UserManager {
-
-	protected ?string $user = null;
-
-	protected bool $useCaptcha = true;
-	protected bool $use2fa     = true;
+use \pxn\pxdb\dbPool;
+use \pxn\pxdb\dbConn;
 
 
+class UserManager {
 
-	protected function initUserManager(): void {
-		\session_name($this->getSessionName());
-		\session_start();
-//TODO: logging
-//\dd(\session_id());
-		$user = \GetVar('user', 's', 's');
-		if (!empty($user))
-			$this->user = $user;
+	public WebApp $app;
+	public dbPool $pool;
+
+	protected ?User $user = null;
+
+	protected bool $use_captcha = true;
+	protected bool $use_2fa     = true;
+
+
+
+	public function __construct(WebApp $app, dbPool|string $database) {
+		$app->initSession();
+		$this->app  = $app;
+		$this->pool = dbPool::GetPool($database);
+	}
+	public function init(): void {
+		$username = \GetVar(name: 'user', type: 's', src: 's');
+		if (!empty($username))
+			$this->user = new User(app: $this->app, username: $username);
 	}
 
 
 
-	public function doLogin(): bool|UserLoginResult {
-		$pool = $this->getUsersDB();
-		$db   = $pool->get();
+	public function doLogin(): UserLoginResult {
+		if ($this->user !== null) return UserLoginResult::LOGIN_OK;
+		$db = $this->pool->get();
 		if ($db == null) throw new \RuntimeException('Database not loaded');
 		try {
 			$capt = \GetVar(name: 'capt', type: 's', src: (Debug::debug()?'gp':'p'));
@@ -44,12 +51,12 @@ trait UserManager {
 			$pass = \GetVar(name: 'pass', type: 's', src: (Debug::debug()?'gp':'p'));
 			unset($_GET ['pass']);
 			unset($_POST['pass']);
-			$useCaptcha = $this->getEnableCaptcha();
-			if ($useCaptcha
-			&&  empty($capt)) return false;
-			if (empty($user)) return false;
-			if (empty($pass)) return false;
-			if ($useCaptcha) {
+			$use_captcha = $this->useCaptcha();
+			if ($use_captcha
+			&&  empty($capt)) return UserLoginResult::GUEST;
+			if (empty($user)) return UserLoginResult::GUEST;
+			if (empty($pass)) return UserLoginResult::GUEST;
+			if ($use_captcha) {
 				$capt_session = \GetVar('captcha', 's', 's');
 				unset($_SESSION['captcha']);
 				if ($capt_session !== $capt)
@@ -84,36 +91,58 @@ trait UserManager {
 			unset($pass);
 			unset($hash);
 			$_SESSION['user'] = $user;
-			return true;
+			return UserLoginResult::LOGIN_OK;
 		} finally {
 			$db->release();
 		}
-		return false;
 	}
 
+	public function doLogout(): void {
+		$_SESSION['user' ] = null; unset($_SESSION['user' ]);
+		$_SESSION['twofa'] = null; unset($_SESSION['twofa']);
+	}
 
-
-	public function getUsersDB(?string $dbName=null): dbPool {
-		return dbPool::GetPool($dbName);
+	public function do2FA(): UserLoginResult {
+		if ($this->user == null) throw new \RuntimeException('Cannot process 2fa, user object not created');
+		if ($this->user->isLoggedIn()) return UserLoginResult::LOGIN_OK;
+		$code = \GetVar(name: 'code', type: 'i', src: (Debug::debug()?'gp':'p'));
+		unset($_GET ['code']);
+		unset($_POST['code']);
+		if ($code > 0) {
+			if ($this->user->validate2fa($code)) {
+				$_SESSION['twofa'] = 1;
+				return UserLoginResult::LOGIN_OK;
+			} else {
+				unset($_SESSION['twofa']);
+				return UserLoginResult::INVALID_2FA;
+			}
+		}
+		return UserLoginResult::GUEST;
 	}
 
 
 
 	public function isLoggedIn(): bool {
-		return ($this->user !== null);
+		return ($this->user===null ? false : $this->user->isLoggedIn());
+	}
+
+	public function getUsername(): ?string {
+		return ($this->user===null ? null : $this->user->getUsername());
+	}
+	public function getEmail(): ?string {
+		return ($this->user===null ? null : $this->user->getEmail());
+	}
+	public function getSecret(): ?string {
+		return ($this->user===null ? null : $this->user->getSecret());
 	}
 
 
 
-	public function getSessionName(): ?string {
-		return null;
+	public function useCaptcha(): bool {
+		return $this->use_captcha;
 	}
-
-	public function getEnableCaptcha(): bool {
-		return $this->useCaptcha;
-	}
-	public function getEnable2FA(): bool {
-		return $this->use2fa;
+	public function use2FA(): bool {
+		return $this->use_2fa;
 	}
 
 

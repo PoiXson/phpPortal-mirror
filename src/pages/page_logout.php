@@ -25,7 +25,7 @@ class page_logout extends \pxn\phpPortal\Page {
 
 
 	public function render(): string {
-		\session_destroy();
+		$this->app->usermanager->doLogout();
 		$page_return = \GetVar('page_return', 's');
 		if (empty($page_return)) $page_return = '/';
 		WebUtils::ForwardTo($page_return);
