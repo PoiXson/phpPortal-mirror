@@ -91,7 +91,7 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 		} else {
 			$output = $page->render();
 		}
-		if ($output !== null && !empty($output))
+		if (!empty($output))
 			echo $output;
 		$this->doExit();
 	}
