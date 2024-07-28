@@ -1,6 +1,13 @@
 phpPortal - Website Utilities Library
 
 
+2024-07-28 - 0.4.25
+===================
+* finished UserManager classes
+* added WebApp->getArgs() and ->initSession() functions
+* updated dependencies
+
+
 2024-07-24 - 0.4.24
 ===================
 * updated dependencies
@@ -195,7 +202,7 @@ phpPortal - Website Utilities Library
 
 2020-01-09 - 0.2.1
 ==================
-* updated composer dependencies
+* updated dependencies
 
 
 2019-12-31 - 0.2.0
