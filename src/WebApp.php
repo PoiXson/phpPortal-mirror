@@ -19,6 +19,8 @@ use \pxn\phpUtils\Debug;
 
 abstract class WebApp extends \pxn\phpUtils\app\xApp {
 
+	protected bool $init_session = false;
+
 	public array $args = [];
 	public bool $is_api = false;
 
@@ -165,6 +167,18 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 	public function assert_is_web(): void {
 		if (SystemUtils::IsShell())
 			throw new \RuntimeException('This script can only run as a website');
+	}
+
+
+
+	public function initSession(): void {
+		if ($this->init_session) return;
+		$this->init_session = true;
+		\session_name($this->getSessionName());
+		\session_start();
+	}
+	public function getSessionName(): ?string {
+		return null;
 	}
 
 
