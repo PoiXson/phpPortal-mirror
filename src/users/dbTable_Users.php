@@ -24,14 +24,14 @@ class dbTable_Users extends \pxn\pxdb\dbTable {
 
 	protected function initFields(): void {
 		$this->addField((new dbFieldFactory())
-			->name('username')
+			->name('user')
 			->type(dbFieldType::TYPE_STR)
 			->size(32)
 			->unique()
 			->primary()
 		);
 		$this->addField((new dbFieldFactory())
-			->name('password')
+			->name('pass')
 			->type(dbFieldType::TYPE_STR)
 			->size(255)
 		);

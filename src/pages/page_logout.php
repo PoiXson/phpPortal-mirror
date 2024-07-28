@@ -5,33 +5,32 @@
  * @license AGPL-3
  * @author lorenzo at poixson.com
  * @link https://poixson.com/
- * /
+ */
 namespace pxn\phpPortal\pages;
+
+use \pxn\phpUtils\utils\WebUtils;
 
 
 class page_logout extends \pxn\phpPortal\Page {
 
 
 
-	public function __construct(\pxn\phpPortal\WebApp $app) {
-		parent::__construct($app);
-		\session_destroy();
-		$this->app->getRender()->forwardTo('http://127.0.0.1:9999/');
+	public function getPageName(): string {
+		return 'logout';
 	}
-
-
-
 	public function getPageTitle(): string {
 		return 'Logout';
 	}
 
 
 
-	public function getContents(): string {
-		throw new \RuntimeException('logout page doesn\'t have contents');
+	public function render(): string {
+		\session_destroy();
+		$page_return = \GetVar('page_return', 's');
+		if (empty($page_return)) $page_return = '/';
+		WebUtils::ForwardTo($page_return);
 	}
 
 
 
 }
-*/
