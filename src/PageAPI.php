@@ -16,6 +16,9 @@ abstract class PageAPI extends Page {
 	public function getPageName(): string {
 		return 'api';
 	}
+	public function getPageTitle(): string {
+		return null;
+	}
 
 
 
