@@ -104,6 +104,9 @@ abstract class WebApp extends \pxn\phpUtils\app\xApp {
 			return '';
 		return \reset($this->args);
 	}
+	public function getArgs(): array {
+		return $this->args;
+	}
 
 
 
