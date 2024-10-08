@@ -1,6 +1,11 @@
 phpPortal - Website Utilities Library
 
 
+2024-10-08 - 0.4.26
+===================
+* added missing PageAPI->getPageTitle() function
+
+
 2024-07-28 - 0.4.25
 ===================
 * finished UserManager classes
